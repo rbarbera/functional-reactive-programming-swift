@@ -1,4 +1,4 @@
-Aclaraciones.md
-Introducción.md
-Paradigmas de programación.md
-Conceptos Reactivos.md
+introduction.md
+clarifications.md
+paradigms.md
+concepts.md
