@@ -1,1 +1,4 @@
-chapter1.txt
+Aclaraciones.md
+Introducción.md
+Paradigmas de programación.md
+Conceptos Reactivos.md
