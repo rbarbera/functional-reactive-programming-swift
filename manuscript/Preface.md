@@ -1,17 +1,20 @@
-# Introducción
+# Preface
+Es probable que en estos momentos estés leyendo el libro porque seas desarrollador y desde hace tiempo sentías la curiosidad por **Reactive**. Yo la tenía hace tiempo pero cada vez que entraba a analizar este paradigma de programación no veía ventaja alguna que me motivara a cambiar la forma en la que ahora había estado programando.
 
-Hace unos meses que comencé a introducir conceptos reactivos en todos mis proyectos, por aquel entonces había escuchado sobre *Reactive* pero no sentía el impulso de probarlo. Pensaba bueno… también hay programación funcional, ¿no? tendrá sus ventajas en algunos ámbitos pero no veía la necesidad de usarlo.
-
-Al igual que muchos desarrolladores (yo incluido) estamos acostumbrados a una forma de desarrollar/programar llamada programación **imperativa** que como bien su nombre indica consiste en dar ordenes. Decimos al programa **qué** tiene que hacer y las condiciones de ejecución:
+La mayoría de de los desarrolladores estamos acostumbrados a programar de forma **imperativa**, que como bien su nombre indica consiste en dar órdenes. Decimos al programa **qué** tiene que hacer y las condiciones de ejecución:
 
 - Presenta una nueva vista
 - Descarga los datos de la API
-- Actualiza la vista con los modelos de la API
+- Actualiza la vista con los modelos que provienen de esta fuente de datos.
 
-Entre otras razones, programamos de esa forma porque el los frameworks y componentes nativos “animan” a programar de esa forma. ¿Por qué íbamos a 
+> **Programación Imperativa - Wikipedia**
+> La programación imperativa, en contraposición a la programación declarativa, es un paradigma de programación que describe la programación en términos del estado del programa y sentencias que cambian dicho estado. Los programas imperativos son un conjunto de instrucciones que le indican al computador cómo realizar una tarea.
+
+Entre otras **razones** programamos de esa forma porque los frameworks y la mayoría de recursos animan a hacerlo así, se trata de nuestra zona de confort. ¿Por qué si los recursos siguen un formato imperativo, las APIs de los frameworks de Cocoa también así como todos los totorales de internet, iba a cambiar mi forma de programar? 
 
 
-Nuestras aplicaciones se convierten en una serie de componentes con una estructura determinada, y que están listos para interactuar entre ellos. Cuando un evento tiene lugar ya hemos programado la interacción que tiene que producirse y los eventos que se desencadenan como consecuencia de esa acción. 
+
+
 
 La forma de programar está cambiando, en sus orígenes programábamos directamente con lenguajes de programación a más bajo nivel, programábamos directamente instrucciones que eran interpretadas por el sistema donde estas instrucciones eran ejecutadas. La evolución ha tendido hacia la abstracción, tratar de simplificar y facilitar la forma de expresarse al desarrollador pero sin perder por ello la potencia de trabajar a más bajo nivel. 
 

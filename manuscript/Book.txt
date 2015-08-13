@@ -1,6 +1,6 @@
 thanks.md
 quote.md
-introduction.md
+preface.md
 clarifications.md
 paradigms.md
 concepts.md
