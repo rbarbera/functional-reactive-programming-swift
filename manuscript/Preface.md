@@ -14,44 +14,38 @@ Entre otras **razones** programamos de esa forma porque los frameworks y la mayo
 
 *Para simplificar tu código y la lógica de tus aplicaciones.*
 
-Más adelante entraré en más detalles en las ventajas y desventajas pero cuando empiezas a disfrutar con reactive verás como las APIs de tus componentes se simplifican y trabajar con ellas se convertirá en un juego de manipulación de streams.
+Más adelante entraré en más detalles en las ventajas y desventajas pero cuando empiezas a disfrutar con reactive verás como las APIs de tus componentes se simplifican y trabajar con ellas te sentirás como un niño, pero jugando con streams.
 
 ## ¿Por qué en Swift?
+
 La razón de elegir Swift para este libro, aparte de porque mola *(y lo sabes)* se debe a varias razones:
-- **Fluent Interface:** Es decir, abandonamos la sintaxis de corchetes característica de *Objective-C* dónde de encadenar varias operaciones tendríamos algo un fragmento de corchetes imposible de analizar, y en su lugar en Swift concatenamos las operaciones con un simple punto. La principal ventaja de las APIs Fluent[^1] es que la concatenación de varias operaciones es mucho más legible. El concatenar varios operadores aplicados a una fuente de datos es algo típico en la programación reactiva, por ello la importancia de tener esta característica en el lenguaje. Si observamos el ejemplo  a continuación concatenamos varias operaciones usando operadores custom para obtener finalmente una *señal* resultado de aplicar varias operaciones a la señal original*
+- **Fluent Interface:** Es decir, abandonamos la sintaxis de corchetes característica de *Objective-C* dónde de encadenar varias operaciones tendríamos algo un fragmento de corchetes imposible de analizar, y en su lugar en Swift concatenamos las operaciones con un simple punto. La principal ventaja de las APIs Fluent[^1] es que la concatenación de varias operaciones es mucho más legible. El concatenar varios operadores aplicados a una fuente de datos es algo típico en la programación reactiva, por ello la importancia de tener esta característica en el lenguaje. Si observamos el ejemplo  a continuación concatenamos varias operaciones usando operadores custom para obtener finalmente una *señal* resultado de aplicar varias operaciones a la señal original\*
 
-~~~~~~~~
-searchTextField.rx_text
-    >- throttle(0.3, MainScheduler.sharedInstance)
-    >- distinctUntilChanged
-    >- map { query in
-        API.getSearchResults(query)
-            >- retry(3)
-            >- startWith([]) // clears results on new search term
-            >- catch([])
-    }
-    >- switchLatest
-~~~~~~~~
+\~\~\~\~\~\~\~\~
+searchTextField.rx\_text
+	>- throttle(0.3, MainScheduler.sharedInstance)
+	>- distinctUntilChanged
+	>- map { query in
+	    API.getSearchResults(query)
+	        >- retry(3)
+	        >- startWith([])
+	        >- catch([])
+	}
+	>- switchLatest
+\~\~\~\~\~\~\~\~
 
-- **Operadores custom:**
+- **Operadores custom:** Que complementan a la sintaxis Fluent anterior. En el ejemplo anterior se está usando el operador custom `>-` que la propia librería ha definido para mapear una señal en otra señal después de haberle aplicado una **función**. El uso de funciones tiene mucha importancia en la programación reactiva pues serán la forma de manipular los streams de datos.
 
-- **Seguridad de tipos:** 
+- **Generics y seguridad de tipos:** Con Objective-C era imposible specificar a la hora de definir un stream de datos cual iba a ser el formato de los datos que este stream iba a emitir. Se hacía uso de tipos genéricos NSArray, NSDictionary, NSObject, y las entidades consumidoras de esos datos acababan haciendo cast de los datos y validación *en tiempo de ejecución*. Gracias a Swift y a la introducción de generics, ahora es posible definir fuentes de eventos de un tipo determinado. Los consumidores conocen de antemano el tipo de los eventos introduciendo seguridad en tiempo de compilación.
 
+## Aprendiendo Reactive
 
+Me encanta aprender y transmitir los conocimientos adquiridos. De la misma forma que aprendemos de otros, otros podrán aprender de lo que nosotros enseñemos. En los recursos que puedas encontrar muestran ejemplos muy interesantes, pero que ves de forma muy idealizada y te preguntas si realmente acabarás teniendo un caso tan perfecto dentro de tu aplicación. Ese ese momento en el que o das un empujón y te adentras en estos conceptos, o abandonas. Yo lo hice, y ahora disfruto manipulando *señales* y *eventos*, y sobre todo más ahora cuando en Swift podemos definir nuestros propios operadores y tener seguridad en los tipos. Por ello me gustaría motivar de la misma forma a otros desarrolladores a que se animen y empiecen a usar *Reactive* en sus proyectos. 
+Quería  que este libro además fuera cercano para cualquier desarrollador de OSX/iOS por lo que ofreceré ejemplos de interacción no sólo con los Frameworks del sistema sino con conocidos Frameworks con los que trabajamos a diario *(Alamofire, Realm, UIKit)*. Si después de este libro consigo que empieces a introducir elementos reactivos en tu proyecto, espero que lo disfrutes y que transmitas esa ilusión a otros desarrolladores. Recuerda:
 
-
-
-
-La forma de programar está cambiando, en sus orígenes programábamos directamente con lenguajes de programación a más bajo nivel, programábamos directamente instrucciones que eran interpretadas por el sistema donde estas instrucciones eran ejecutadas. La evolución ha tendido hacia la abstracción, tratar de simplificar y facilitar la forma de expresarse al desarrollador pero sin perder por ello la potencia de trabajar a más bajo nivel. 
-
-
-## Motivación
-Me encanta aprender y transmitir los conocimientos adquiridos. De la misma forma que aprendemos de otros, otros podrán aprender de lo que nosotros enseñemos. Cuando empecé a dar mis primeros pasos en la *Reactive* es cierto que pensé en abandonar y seguir siendo feliz con lo que hasta ahora había estado haciendo ¿Por qué cambiar la forma de pensar de la noche a la mañana? Te muestran ejemplos muy interesantes, pero que ves de forma muy idealizada y te preguntas si realmente acabarás teniendo un caso tan perfecto dentro de tu aplicación. Ese ese momento en el que o das un empujón y te adentras en estos conceptos, o abandonas. Yo lo hice, y ahora disfruto manipulando *señales* y *eventos*, y sobre todo más ahora cuando en Swift podemos definir nuestros propios operadores y tener seguridad en los tipos. Por ello me gustaría motivar de la misma forma a otros desarrolladores a que se animen y empiecen a usar *Reactive* en sus proyectos. 
-Quería  que este libro además fuera cercano para cualquier desarrollador de OSX/iOS por lo que ofreceré ejemplos de interacción no sólo con los Frameworks del sistema sino con conocidos Frameworks con los que trabajamos a diario *(Alamofire, Realm, UIKit)*. Si después de este libro consigo que empieces a introducir elementos reactivos en tu proyecto, espero que lo disfrutes y que transmitas esa ilusión a otros desarrolladores.
-
-## TODO
-Hacer una breve introducción al por qué del libro. 
-- ¿De donde he aprendido a manejar los conceptos reactivos?
+- Si los conceptos te empiezan a saturar deja el libro pausado, toma un poco el aire y conecta más tarde. Es importante que los conceptos los aprendas bien para no perderte en las partes más avanzadas del libro.
+- No te preocupes si al principio tienes problemas para asimilar los conceptos, no son fácilmente asimilables ya que requieren cambiar ligeramente la forma en la que pensamos respecto a las fuente de datos. Yo te ayudaré a que puedas entenderlo más fácilmente.
+- Si aún así crees que algo no queda claro o se podría explicar de otra forma más fácil de entender, no dudes en contactarme, ¡hagamos de este libro una referencia para otros muchos desarrolladores que tengan ilusión por aprender!
 
 [^1]:	API Fluent: [https://en.wikipedia.org/wiki/Fluent\_interface][1]
 
