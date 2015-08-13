@@ -5,8 +5,7 @@ También me gustaría agradecer a la grandísima comunidad que hay detrás del d
 
 Y ya por último agradecer a toda la comunidad detrás de **ReactiveCocoa**, **RXSwift** y otras librerías para trabajar de forma reactiva en Swift. Ellos han hecho posible que disfrutemos de la programación reactiva además con las potentes ventajas de Swift como lenguaje de programación.
 
-~~~~~~
+{lang=“swift”} 
 class MyPerro {
   let name: String = “guau”
 }
-~~~~~~
