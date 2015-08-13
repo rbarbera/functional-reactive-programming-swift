@@ -1,4 +1,4 @@
-# Aclaraciones
+# Notas
 Antes de adentrarnos en esta aventura de Reactive (qué será más interesante que cualquier película de Indiana Jones) recomiendo la lectura de estas aclaraciones:
 
 - El libro incluye una introducción a conceptos reactivos donde trataremos todos ellos desde un punto de vista *general*. Una vez conocidos estos conceptos el desarrollo de del resto del libro se basará en el framework **ReactiveCocoa**. Aunque la sintaxis difiera respecto a otros frameworks disponibles, el lector puede trasladar estos conceptos al framework que desee finalmente usar.

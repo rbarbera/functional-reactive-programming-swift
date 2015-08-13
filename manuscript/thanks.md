@@ -6,7 +6,7 @@ También me gustaría agradecer a la grandísima comunidad que hay detrás del d
 
 Por su parte agradecer a toda la comunidad detrás de **ReactiveCocoa**, **RXSwift** y otras librerías para trabajar de forma reactiva en Swift. Ellos han hecho posible que disfrutemos de la programación reactiva además con las potentes ventajas de Swift como lenguaje de programación.
 
-Y por por último a ti, lector, por haberte animado a conocer más sobre esta forma de programar y especialmente por haberlo hecho con este libro. Espero que lo disfrute, y todavía más importante, que empieces a añadir código reactivo a tus proyectos *(que seguramente lo estén deseando).*
+Y por por último a ti, lector, por haberte animado a conocer más sobre esta forma de programar y especialmente por haberlo hecho con este libro. Espero que lo disfrute, y todavía más importante, que empieces a añadir código reactivo a tus proyectos *(que seguramente lo están deseando).*
 
 ~~~~~~
 print(“Vamos con Reactive!”)
