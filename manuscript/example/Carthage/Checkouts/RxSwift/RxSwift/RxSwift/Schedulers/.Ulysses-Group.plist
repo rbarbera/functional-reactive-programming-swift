@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>createMarkedFile</key>
+	<false/>
+	<key>sheetClusters</key>
+	<array>
+		<array>
+			<string>ConcurrentDispatchQueueScheduler.swift</string>
+		</array>
+		<array>
+			<string>DispatchQueueSchedulerPriority.swift</string>
+		</array>
+		<array>
+			<string>MainScheduler.swift</string>
+		</array>
+		<array>
+			<string>OperationQueueScheduler.swift</string>
+		</array>
+		<array>
+			<string>RecursiveScheduler.swift</string>
+		</array>
+		<array>
+			<string>Scheduler+Extensions.swift</string>
+		</array>
+		<array>
+			<string>SchedulerServices+Emulation.swift</string>
+		</array>
+		<array>
+			<string>SerialDispatchQueueScheduler.swift</string>
+		</array>
+	</array>
+</dict>
+</plist>

@@ -1,4 +1,9 @@
+thanks.md
+quote.md
 introduction.md
 clarifications.md
 paradigms.md
 concepts.md
+components.md
+testing.md
+design.md

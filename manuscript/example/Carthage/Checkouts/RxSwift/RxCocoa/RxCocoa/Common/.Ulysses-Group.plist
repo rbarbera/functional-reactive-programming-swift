@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>childOrder</key>
+	<array>
+		<string>Observables</string>
+		<string>Proxies</string>
+	</array>
+	<key>createMarkedFile</key>
+	<false/>
+	<key>sheetClusters</key>
+	<array>
+		<array>
+			<string>_RX.h</string>
+		</array>
+		<array>
+			<string>_RX.m</string>
+		</array>
+		<array>
+			<string>_RXDelegateProxy.h</string>
+		</array>
+		<array>
+			<string>_RXDelegateProxy.m</string>
+		</array>
+		<array>
+			<string>_RXKVOObserver.h</string>
+		</array>
+		<array>
+			<string>_RXKVOObserver.m</string>
+		</array>
+		<array>
+			<string>_RXSwizzling.h</string>
+		</array>
+		<array>
+			<string>_RXSwizzling.m</string>
+		</array>
+		<array>
+			<string>CLLocationManager+Rx.swift</string>
+		</array>
+		<array>
+			<string>DelegateProxy.swift</string>
+		</array>
+		<array>
+			<string>DelegateProxyType.swift</string>
+		</array>
+		<array>
+			<string>Logging.swift</string>
+		</array>
+		<array>
+			<string>RxCocoa.swift</string>
+		</array>
+		<array>
+			<string>RxTarget.swift</string>
+		</array>
+	</array>
+</dict>
+</plist>

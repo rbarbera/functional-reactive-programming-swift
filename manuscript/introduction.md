@@ -1,6 +1,6 @@
 # Introducción
 
-Hace unos meses que comencé a introducir conceptos reactivos en todos mis proyectos, por aquel entonces había escuchado sobre *Reactive* pero no sentía el impulso de probarlo. Por aquél entonces era un bueno… también hay programación funcional, ¿no? tendrá sus ventajas en algunos ámbitos pero no veía la necesidad de usarlo.
+Hace unos meses que comencé a introducir conceptos reactivos en todos mis proyectos, por aquel entonces había escuchado sobre *Reactive* pero no sentía el impulso de probarlo. Pensaba bueno… también hay programación funcional, ¿no? tendrá sus ventajas en algunos ámbitos pero no veía la necesidad de usarlo.
 
 Al igual que muchos desarrolladores (yo incluido) estamos acostumbrados a una forma de desarrollar/programar llamada programación **imperativa** que como bien su nombre indica consiste en dar ordenes. Decimos al programa **qué** tiene que hacer y las condiciones de ejecución:
 
@@ -8,7 +8,12 @@ Al igual que muchos desarrolladores (yo incluido) estamos acostumbrados a una fo
 - Descarga los datos de la API
 - Actualiza la vista con los modelos de la API
 
+Entre otras razones, programamos de esa forma porque el los frameworks y componentes nativos “animan” a programar de esa forma. ¿Por qué íbamos a 
+
+
 Nuestras aplicaciones se convierten en una serie de componentes con una estructura determinada, y que están listos para interactuar entre ellos. Cuando un evento tiene lugar ya hemos programado la interacción que tiene que producirse y los eventos que se desencadenan como consecuencia de esa acción. 
+
+La forma de programar está cambiando, en sus orígenes programábamos directamente con lenguajes de programación a más bajo nivel, programábamos directamente instrucciones que eran interpretadas por el sistema donde estas instrucciones eran ejecutadas. La evolución ha tendido hacia la abstracción, tratar de simplificar y facilitar la forma de expresarse al desarrollador pero sin perder por ello la potencia de trabajar a más bajo nivel. 
 
 
 ## Motivación

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>createMarkedFile</key>
+	<false/>
+	<key>sheetClusters</key>
+	<array>
+		<array>
+			<string>AnonymousObserver.swift</string>
+		</array>
+		<array>
+			<string>AutoDetachObserver.swift</string>
+		</array>
+		<array>
+			<string>DoneObserver.swift</string>
+		</array>
+		<array>
+			<string>NopObserver.swift</string>
+		</array>
+		<array>
+			<string>ObserverBase.swift</string>
+		</array>
+		<array>
+			<string>SafeObserver.swift</string>
+		</array>
+		<array>
+			<string>ScheduledObserver.swift</string>
+		</array>
+		<array>
+			<string>TailRecursiveSink.swift</string>
+		</array>
+	</array>
+</dict>
+</plist>

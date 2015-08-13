@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>createMarkedFile</key>
+	<false/>
+	<key>sheetClusters</key>
+	<array>
+		<array>
+			<string>RxActionSheetDelegateProxy.swift</string>
+		</array>
+		<array>
+			<string>RxAlertViewDelegateProxy.swift</string>
+		</array>
+		<array>
+			<string>RxCollectionViewDataSourceProxy.swift</string>
+		</array>
+		<array>
+			<string>RxCollectionViewDelegateProxy.swift</string>
+		</array>
+		<array>
+			<string>RxScrollViewDelegateProxy.swift</string>
+		</array>
+		<array>
+			<string>RxSearchBarDelegateProxy.swift</string>
+		</array>
+		<array>
+			<string>RxTableViewDataSourceProxy.swift</string>
+		</array>
+		<array>
+			<string>RxTableViewDelegateProxy.swift</string>
+		</array>
+		<array>
+			<string>RxTextViewDelegateProxy.swift</string>
+		</array>
+	</array>
+</dict>
+</plist>

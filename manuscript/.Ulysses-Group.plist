@@ -4,7 +4,9 @@
 <dict>
 	<key>childOrder</key>
 	<array>
+		<string>resources</string>
 		<string>images</string>
+		<string>example</string>
 	</array>
 	<key>createMarkedFile</key>
 	<false/>
@@ -14,16 +16,34 @@
 			<string>Book.txt</string>
 		</array>
 		<array>
-			<string>Aclaraciones.md</string>
+			<string>thanks.md</string>
 		</array>
 		<array>
-			<string>Introducción.md</string>
+			<string>quote.md</string>
 		</array>
 		<array>
-			<string>Paradigmas de programación.md</string>
+			<string>clarifications.md</string>
 		</array>
 		<array>
-			<string>Conceptos Reactivos.md</string>
+			<string>introduction.md</string>
+		</array>
+		<array>
+			<string>paradigms.md</string>
+		</array>
+		<array>
+			<string>concepts.md</string>
+		</array>
+		<array>
+			<string>reactivecocoa.md</string>
+		</array>
+		<array>
+			<string>testing.md</string>
+		</array>
+		<array>
+			<string>design.md</string>
+		</array>
+		<array>
+			<string>references.md</string>
 		</array>
 	</array>
 </dict>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>childOrder</key>
+	<array>
+		<string>APIWrappers</string>
+		<string>CoreData</string>
+		<string>GitHubSignup</string>
+		<string>Introduction</string>
+		<string>PartialUpdates</string>
+		<string>TableView</string>
+		<string>WikipediaImageSearch</string>
+	</array>
+	<key>createMarkedFile</key>
+	<false/>
+	<key>sheetClusters</key>
+	<array>
+		<array>
+			<string>Dependencies.swift</string>
+		</array>
+	</array>
+</dict>
+</plist>

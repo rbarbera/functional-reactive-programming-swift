@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>createMarkedFile</key>
+	<false/>
+	<key>sheetClusters</key>
+	<array>
+		<array>
+			<string>KVOObservableTests.swift</string>
+		</array>
+		<array>
+			<string>NSNotificationCenterTests.swift</string>
+		</array>
+		<array>
+			<string>NSObject+RxTests.swift</string>
+		</array>
+		<array>
+			<string>RxCocoaTests.swift</string>
+		</array>
+		<array>
+			<string>UI+RxTests.swift</string>
+		</array>
+		<array>
+			<string>UIControl+RxTests.swift</string>
+		</array>
+	</array>
+</dict>
+</plist>

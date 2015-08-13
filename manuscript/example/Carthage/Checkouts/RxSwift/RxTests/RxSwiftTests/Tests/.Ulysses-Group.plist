@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>createMarkedFile</key>
+	<false/>
+	<key>sheetClusters</key>
+	<array>
+		<array>
+			<string>AnonymousObservable+Test.swift</string>
+		</array>
+		<array>
+			<string>AssumptionsTest.swift</string>
+		</array>
+		<array>
+			<string>BehaviorSubjectTest.swift</string>
+		</array>
+		<array>
+			<string>ConcurrencyTest.swift</string>
+		</array>
+		<array>
+			<string>DelegateProxyTest.swift</string>
+		</array>
+		<array>
+			<string>DisposableTest.swift</string>
+		</array>
+		<array>
+			<string>Observable+AggregateTest.swift</string>
+		</array>
+		<array>
+			<string>Observable+BindingTest.swift</string>
+		</array>
+		<array>
+			<string>Observable+BlockingTest.swift</string>
+		</array>
+		<array>
+			<string>Observable+ConcurrencyTest.swift</string>
+		</array>
+		<array>
+			<string>Observable+MultipleTest+CombineLatest.swift</string>
+		</array>
+		<array>
+			<string>Observable+MultipleTest+Zip.swift</string>
+		</array>
+		<array>
+			<string>Observable+MultipleTest.swift</string>
+		</array>
+		<array>
+			<string>Observable+SingleTest.swift</string>
+		</array>
+		<array>
+			<string>Observable+StandardSequenceOperatorsTest.swift</string>
+		</array>
+		<array>
+			<string>Observable+TimeTest.swift</string>
+		</array>
+		<array>
+			<string>QueueTests.swift</string>
+		</array>
+		<array>
+			<string>VariableTest.swift</string>
+		</array>
+	</array>
+</dict>
+</plist>

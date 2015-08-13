@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>createMarkedFile</key>
+	<false/>
+	<key>sheetClusters</key>
+	<array>
+		<array>
+			<string>AnonymousDisposable.swift</string>
+		</array>
+		<array>
+			<string>BinaryDisposable.swift</string>
+		</array>
+		<array>
+			<string>BooleanDisposable.swift</string>
+		</array>
+		<array>
+			<string>CompositeDisposable.swift</string>
+		</array>
+		<array>
+			<string>DisposeBag.swift</string>
+		</array>
+		<array>
+			<string>DisposeBase.swift</string>
+		</array>
+		<array>
+			<string>NAryDisposable.swift</string>
+		</array>
+		<array>
+			<string>NopDisposable.swift</string>
+		</array>
+		<array>
+			<string>ScheduledDisposable.swift</string>
+		</array>
+		<array>
+			<string>ScopedDispose.swift</string>
+		</array>
+		<array>
+			<string>SerialDisposable.swift</string>
+		</array>
+		<array>
+			<string>SingleAssignmentDisposable.swift</string>
+		</array>
+		<array>
+			<string>StableCompositeDisposable.swift</string>
+		</array>
+		<array>
+			<string>TernaryDisposable.swift</string>
+		</array>
+	</array>
+</dict>
+</plist>

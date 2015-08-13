@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>createMarkedFile</key>
+	<false/>
+	<key>sheetClusters</key>
+	<array>
+		<array>
+			<string>ColdObservable.swift</string>
+		</array>
+		<array>
+			<string>ConnectableObservable.swift</string>
+		</array>
+		<array>
+			<string>HotObservable.swift</string>
+		</array>
+		<array>
+			<string>MockObserver.swift</string>
+		</array>
+		<array>
+			<string>MySubject.swift</string>
+		</array>
+		<array>
+			<string>Observable.Extensions.swift</string>
+		</array>
+		<array>
+			<string>PrimitiveHotObservable.swift</string>
+		</array>
+		<array>
+			<string>PrimitiveMockObserver.swift</string>
+		</array>
+		<array>
+			<string>TestObservable.swift</string>
+		</array>
+		<array>
+			<string>TestObserver.swift</string>
+		</array>
+	</array>
+</dict>
+</plist>
