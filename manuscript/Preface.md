@@ -12,6 +12,30 @@ La mayoría de de los desarrolladores estamos acostumbrados a programar de forma
 
 Entre otras **razones** programamos de esa forma porque los frameworks y la mayoría de recursos animan a hacerlo así, se trata de nuestra zona de confort. ¿Por qué si los recursos siguen un formato imperativo, las APIs de los frameworks de Cocoa también así como todos los totorales de internet, iba a cambiar mi forma de programar? 
 
+*Para simplificar tu código y la lógica de tus aplicaciones.*
+
+Más adelante entraré en más detalles en las ventajas y desventajas pero cuando empiezas a disfrutar con reactive verás como las APIs de tus componentes se simplifican y trabajar con ellas se convertirá en un juego de manipulación de streams.
+
+## ¿Por qué en Swift?
+La razón de elegir Swift para este libro, aparte de porque mola *(y lo sabes)* se debe a varias razones:
+- **Fluent Interface:** Es decir, abandonamos la sintaxis de corchetes característica de *Objective-C* dónde de encadenar varias operaciones tendríamos algo un fragmento de corchetes imposible de analizar, y en su lugar en Swift concatenamos las operaciones con un simple punto. La principal ventaja de las APIs Fluent[^1] es que la concatenación de varias operaciones es mucho más legible. El concatenar varios operadores aplicados a una fuente de datos es algo típico en la programación reactiva, por ello la importancia de tener esta característica en el lenguaje. Si observamos el ejemplo  a continuación concatenamos varias operaciones usando operadores custom para obtener finalmente una *señal* resultado de aplicar varias operaciones a la señal original*
+
+~~~~~~~~
+searchTextField.rx_text
+    >- throttle(0.3, MainScheduler.sharedInstance)
+    >- distinctUntilChanged
+    >- map { query in
+        API.getSearchResults(query)
+            >- retry(3)
+            >- startWith([]) // clears results on new search term
+            >- catch([])
+    }
+    >- switchLatest
+~~~~~~~~
+
+- **Seguridad de tipos:** 
+
+
 
 
 
@@ -26,3 +50,7 @@ Quería  que este libro además fuera cercano para cualquier desarrollador de OS
 ## TODO
 Hacer una breve introducción al por qué del libro. 
 - ¿De donde he aprendido a manejar los conceptos reactivos?
+
+[^1]:	API Fluent: [https://en.wikipedia.org/wiki/Fluent\_interface][1]
+
+[1]:	https://en.wikipedia.org/wiki/Fluent_interface

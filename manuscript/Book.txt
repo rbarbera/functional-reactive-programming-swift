@@ -1,7 +1,9 @@
+frontmatter.md
 thanks.md
 quote.md
 preface.md
 clarifications.md
+mainmatter.md
 paradigms.md
 concepts.md
 components.md

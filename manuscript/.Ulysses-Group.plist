@@ -15,6 +15,9 @@
 			<string>Book.txt</string>
 		</array>
 		<array>
+			<string>frontmatter.md</string>
+		</array>
+		<array>
 			<string>thanks.md</string>
 		</array>
 		<array>
@@ -22,6 +25,9 @@
 		</array>
 		<array>
 			<string>Preface.md</string>
+		</array>
+		<array>
+			<string>mainmatter.md</string>
 		</array>
 		<array>
 			<string>clarifications.md</string>
