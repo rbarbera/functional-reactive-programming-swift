@@ -1,3 +1,0 @@
-#git "git@github.com:kzaher/RxSwift.git" "latest-carthage/rxswift"
-git "git@github.com:kzaher/RxSwift.git" "latest-carthage/rxcocoa"
-#github "ReactiveCocoa/ReactiveCocoa"
