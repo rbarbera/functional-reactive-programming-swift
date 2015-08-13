@@ -33,6 +33,8 @@ searchTextField.rx_text
     >- switchLatest
 ~~~~~~~~
 
+- **Operadores custom:**
+
 - **Seguridad de tipos:** 
 
 
