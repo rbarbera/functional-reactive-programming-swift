@@ -64,9 +64,11 @@ Fue ya en el verano de 2014 cuando entré a formar parte en el equipo de desarro
 - Primeros pasos en Android *(todavía recuerdo lo angustioso que era dejar Objective-C para desarrollar en Java y esperar a que Gradle decidiera compilar el proyecto)*
 
 Un año más tarde me uní al proyecto **8fit**[^2] pasando a ser responsable Lead del equipo Mobile de la empresa. El proyecto estaba empezando y tenía un largo camino por delante no solo en el desarrollo para iOS sino también en Android. Durante el tiempo que llevo en 8fit he tenido la libertad de experimentar y de seguir probando:
+
 - Desde las primeras versiones de **Swift** hemos ido añadiendo nuevos componentes a la aplicación escritos totalmente en Swift. De hecho hemos traído la filosofía de Swift al proyecto y cualquier nuevo componente deberá estar forzadamente escrito y testado en Swift.
 - Desarrollamos una aplicación para **Apple Watch**
 - Interacción de web con implementaciones nativas y diseño de migración hacia un approach de features completamente nativo.
+
 Además tener la posición de Lead me ha permitido crecer en el ámbito organizativo y aprender técnicas y trucos para coordinar, gestionar, motivar y alinear a un grupo humano con las necesidades de un proyecto.
 
 Mi primer contacto con Reactive vino sin embargo con un proyecto que llevo desarrollando durante unos meses en mi tiempo libre con algunos compañeros del gremio, e trata de **GitDo**[^3].  

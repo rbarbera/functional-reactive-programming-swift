@@ -1,4 +1,5 @@
 # Introducción a la programación reactiva
+
 ## ¿Qué es?
 Puede que antes hayas escuchado sobre la programación Reactiva, incluso puede que hayas visto algunos ejemplos anteriormente. Según **Wikipedia**
 
@@ -20,6 +21,7 @@ A través de estos streams recibimos eventos que en algunos casos utilizaremos d
 
 > Un operador aplicado sobre un stream o señal de eventos es una función que dada una señal de entrada retorna una señal de salida manipulando los eventos recibidos por la señal fuente.
 
+![Ejemplo que muestra como los eventos de un stream pueden ser mapeados y convertidos en otro tipo de eventos][image-1]
 
 
 ## ¿Por qué?
@@ -43,3 +45,5 @@ A través de estos streams recibimos eventos que en algunos casos utilizaremos d
 - ¿De donde viene?
 - Otras plataformas?
 - 
+
+[image-1]:	images/map_operator.png "Operador de mapeo"
