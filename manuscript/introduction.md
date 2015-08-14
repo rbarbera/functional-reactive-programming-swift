@@ -49,8 +49,8 @@ objectToObserve.addObserver(self, forKeyPath: "myDate", options: .New, context: 
 Uno de los primeros patrones que aprendes cuando das tus primeros pasos en el desarrollo para iOS/OSX ya que la mayoría de componentes de los frameworks de Apple lo implementan. *UITableViewDelegate, UITableViewDataSource, …* son algunos ejemplos. El principal problema que presenta este patrón es que sólo puede haber un delegado registrado. Si estamos ante un escenario más complejo donde con una entidad suscrita no es suficiente el patrón requiere de algunas modificaciones para que pueda soportar múltiples delegados.
 
 ~~~~~~
-func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -\> UITableViewCell {
-
+func tableView(tableView: UITableView, 
+  cellForRowAtIndexPath indexPath: NSIndexPath) -\> UITableViewCell {
 return UITableViewCell()
 
 }
@@ -62,7 +62,9 @@ Cuando es complejo aproximarnos al componente fuente del evento para *subscribir
 Las librerías reactivas disponibles actualmente ofrecen extensiones para pasar de esos patrones al formato reactivo. Desde generar señales para notificaciones enviadas al NSNotificationCenter, como para detectar los taps de un UIButton.
 
 ~~~~~~
-NSNotificationCenter.defaultCenter().addObserver(self, selector: "contextWillSave:", name: NSManagedObjectContextWillSaveNotification, object: self)
+NSNotificationCenter
+  .defaultCenter()
+  .addObserver(self, selector: "contextWillSave:", name: NSManagedObjectContextWillSaveNotification, object: self)
 ~~~~~~
 
 ## Ventajas
@@ -86,19 +88,20 @@ NSURLSession.sharedSession().rac_dataWithRequest(URLRequest)
 println("Network error occurred: \(error)")
 return SignalProducer.empty
 }
-~~~~~
+~~~~~~
 - **Simplificación de estados:** Debido al hecho de que la información se modela en un stream unidireccional. El número de estados que puedan introducirse se reduce simplificando la lógica de nuestro código
 
 ## Desventajas
+//TODO
 - Acoplamiento con el framework
 - Retain
 
 ## Frameworks para Swift
-Actualmente en Swift existen varias opciones para trabajar con Reactive, las dos más populares **RXSwift** y **ReactiveCocoa**. La tabla inferior muestra una comparativa de frameworks disponibles *(extraída del [repositorio][1] de RXSwift)*
+Actualmente en Swift existen varias opciones para trabajar con Reactive, las dos más populares **RXSwift** y **ReactiveCocoa**. La tabla inferior muestra una comparativa de frameworks disponibles (extraída del [repositorio][1] de RXSwift)
 
 |                                                           | Rx[Swift]() |      ReactiveCocoa     | Bolts | PromiseKit |
 |:---------------------------------------------------------:|:---------:|:----------------------:|:-----:|:----------:|
-| Language                                                  |   swift   |       objc/swift       |  objc | objc/swift |
+| Lenguaje                                                  |   Swift   |       Objc/Swift       |  Objc | Objc/Swift |
 | Basic Concept                                             |  Sequence | Signal SignalProducer  |  Task |   Promise  |
 | Cancellation                                              |     •     |            •           |   •   |      •     |
 | Async operations                                          |     •     |            •           |   •   |      •     |
@@ -117,7 +120,7 @@ Actualmente en Swift existen varias opciones para trabajar con Reactive, las dos
 
 ## Otras plataformas
 
-[1]:	https://github.com/ReactiveX/RxSwift/blob/master/README.md
+[1]:	https://github.com/ReactiveX/RxSwift/blob/master/README.md "RXSwift README file"
 
 
 [image-1]:	images/simple_operators.png "Operadores"
