@@ -87,6 +87,9 @@ Quería  que este libro además fuera cercano para cualquier desarrollador de OS
 - No te preocupes si al principio tienes problemas para asimilar los conceptos, no son fácilmente asimilables ya que requieren cambiar ligeramente la forma en la que pensamos respecto a las fuente de datos. Yo te ayudaré a que puedas entenderlo más fácilmente.
 - Si aún así crees que algo no queda claro o se podría explicar de otra forma más fácil de entender, no dudes en contactarme, ¡hagamos de este libro una referencia para otros muchos desarrolladores que tengan ilusión por aprender!
 
+
+**Reactiving in Swift!**
+
 [^1]:	API Fluent: [https://en.wikipedia.org/wiki/Fluent\_interface][1]
 
 [^2]:	http://8fit.com

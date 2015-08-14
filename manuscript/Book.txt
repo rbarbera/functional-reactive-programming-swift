@@ -2,10 +2,10 @@ frontmatter.md
 thanks.md
 quote.md
 preface.md
-notas.md
+notes.md
 mainmatter.md
-paradigms.md
+introduction.md
 concepts.md
-components.md
+
 testing.md
 design.md
