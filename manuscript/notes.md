@@ -1,6 +1,7 @@
 # Notas
 - Hay numerosas librerías que facilitan trabajar con Reactive en Swift. Aunque inicialmente el libro iba a ser enfocado en  **ReativeCocoa** finalmente incluirá ejemplos tanto usando **ReactiveCocoa** como también **RXSwift**.
 - Los conceptos explicados en el libro con los frameworks anteriores son aplicables en otros lenguajes de programación. Una vez entiendes el concepto la diferencia reside en la convención de nombres usada y en el lenguaje como tal.
+- Es difícil entender programación reactiva sin conceptos funcionales, es decir, **Programación Reactiva Funciona (FRP)**. Este libro abordará también la programación reactiva con conceptos funcionales.
 - Aunque puedes encontrar la mayoría de conceptos disponibles en internet. La **técnica** utilizada en este libro se basa en:
 	- **Ejemplos especialmente diseñados** en la mayoría de capítulos del libro.
 	- **Conexiones con casos reales de uso** que demuestren el sentido de usar Reactive en situaciones reales con las cuales nos encontramos a diario los desarrolladores.
