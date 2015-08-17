@@ -122,13 +122,13 @@ Para integrar ReactiveCocoa en tus proyectos lo puedes hacer de varias formas. L
 Se trata de la forma de integración por defecto. Si todavía no conoces Carthage te recomiendo echar un vistazo a su [documentación][2] donde explican como instalarlo en tu sistema. Una vez lo tengas:
 
 1. Edita o crea el fichero **Cartfile** y añade la siguiente linea: `github "ReactiveCocoa/ReactiveCocoa"`
-2. Después ejecuta el comando `carthage update`
+2. Después ejecuta el comando: `carthage update`
 3. Sigue los pasos de la documentación de Carthage para añadir el framework generado al proyecto. 
 
 **Cocoapods**
 ReactiveCocoa no ofrece soporte directo para CocoaPods pero existen `.podspec` no oficiales para integrarlo en tus proyectos usando Cocoapods, [enlace][3]. Estos `.podspec` están ya incluidos en la lista de CocoaPods con lo cual podemos definirlos directamente en nuestro **Podfile** para ello:
 
-1. Edita o crea el fichero Podfile. Si no has usado Cocoapods anteriormente, en este [enlace][4] tienes más información sobre la estructura del fichero Podfile.
+1. Edita o crea el fichero **Podfile**. Si no has usado Cocoapods anteriormente, en este [enlace][4] tienes más información sobre la estructura del fichero Podfile.
 2. Añade la linea que especifica el pod de ReactiveCocoa `pod "ReactiveCocoa"`
 3. Ejecuta el comando `pod install` para integrar ReactiveCocoa
 4. Recuerda abrir el proyecto usando el fichero `.xcworkspace`
@@ -141,8 +141,40 @@ import ReactiveCocoa
 ~~~~~~
 
 ### Añadir RXSwift en tus proyectos
+La integración de RxSwift en tus proyectos es similar a la de ReactiveCocoa pudiendo usar también Carthage o CocoaPods
 
-## Otras plataformas
+**Carthage**
+
+1. Edita el fichero **Cartfile** y añade las siguientes líneas
+
+~~~~~~
+git "git@github.com:kzaher/RxSwift.git" "latest-carthage/rxswift"
+git "git@github.com:kzaher/RxSwift.git" "latest-carthage/rxcocoa"
+~~~~~~
+
+2. Ejecuta el comando: `carthage update`
+3. Sigue los pasos de la documentación de Carthage para añadir el framework generado al proyecto. 
+
+**Cocoapods**
+
+1. Edita el fichero **Podfile** y añade las siguientes líneas
+
+~~~~~
+# Podfile
+use_frameworks!
+
+pod 'RxSwift'
+pod 'RxCocoa'
+~~~~~~
+
+2. A continuación ejecuta el comando `pod install`
+3. Abre el proyecto usando el fichero con extensión `.xcworkspace`
+
+Ya tienes RxSwift en tu proyecto. Para usarlo desde Swift recuerda hacer el import del framework en cualquier fichero Swift donde vayas hacer uso del framework.
+
+~~~~~~
+import RxSwift
+~~~~~~
 
 [1]:	https://github.com/ReactiveX/RxSwift "Fichero README del repositorio de RXSwift"
 [2]:	https://github.com/Carthage/Carthage "Documentación de Carthage"
