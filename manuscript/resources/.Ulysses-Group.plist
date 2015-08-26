@@ -7,9 +7,6 @@
 	<key>sheetClusters</key>
 	<array>
 		<array>
-			<string>functional_reactive_programming.md</string>
-		</array>
-		<array>
 			<string>others.md</string>
 		</array>
 		<array>

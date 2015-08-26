@@ -45,24 +45,24 @@ objectToObserve.addObserver(self, forKeyPath: "myDate", options: .New, context: 
 ### Delegados
 Uno de los primeros patrones que aprendes cuando das tus primeros pasos en el desarrollo para iOS/OSX ya que la mayoría de componentes de los frameworks de Apple lo implementan. *UITableViewDelegate, UITableViewDataSource, …* son algunos ejemplos. El principal problema que presenta este patrón es que sólo puede haber un delegado registrado. Si estamos ante un escenario más complejo donde con una entidad suscrita no es suficiente el patrón requiere de algunas modificaciones para que pueda soportar múltiples delegados.
 
-~~
+\~\~
 func tableView(tableView: UITableView, 
   cellForRowAtIndexPath indexPath: NSIndexPath) -\> UITableViewCell {
 return UITableViewCell()
 
 }
-~~
+\~\~
 
 ### Notificaciones
 Cuando es complejo aproximarnos al componente fuente del evento para *subscribirnos* se usa el patrón que consiste en el envío de notificaciones. ¿Conoces NSNotificationCenter? CoreData lo utiliza por ejemplo para notificar cuando un contexto va a ejecutar una operación de guardado. El problema que tiene este patrón es que toda la información enviada se retorna en un diccionario, *UserInfo*, y el observador tiene que conocer previamente la estructura de este diccionario para poder interpretarlo. No hay por lo tanto seguridad ni en la estructura ni en los tipos enviados.
 
 Las librerías reactivas disponibles actualmente ofrecen extensiones para pasar de esos patrones al formato reactivo. Desde generar señales para notificaciones enviadas al NSNotificationCenter, como para detectar los taps de un UIButton.
 
-~~
+\~\~
 NSNotificationCenter
   .defaultCenter()
   .addObserver(self, selector: "contextWillSave:", name: NSManagedObjectContextWillSaveNotification, object: self)
-~~~~~~
+\~\~\~\~\~\~
 
 ## Ventajas
 La programación reactiva tiene grandes ventajas usada en esos ámbitos donde es bastante directo aplicar el sentido de stream. Como bien comentaba al comienzo, todo puede ser modelado como un stream, y podrías de hecho tener un proyecto completamente reactivo pero bajo mi punto de vista, acabarías teniendo una compleja lógica de generación de streams que acabará dificultando la lectura del código.
@@ -78,14 +78,14 @@ Después de unos meses usando ReactiveCocoa en mis proyectos, especialmente en l
 - **Fácil composición y reusabilidad:** Los streams pueden ser combinados de infinitas formas *(gracias a los operadores que los propios frameworks facilitan)*. Además podemos generar los nuestros propios de forma que podamos obtener streams de eventos a partir de una combinación de otros muchos.
 - **Gestión de errores:** Por defecto los frameworks reactivos dan la opción de reintentar la operación fuente del stream en el caso de fallo. Por ejemplo, si un stream recibe la respuesta de una petición web y queremos que está se reintente en el caso de fallo podemos usar el operador y la petición se volverá a ejecutar:
 
-~~
+\~\~
 NSURLSession.sharedSession().rac\_dataWithRequest(URLRequest)
 |\> retry(2)
 |\> catch { error in
 println("Network error occurred: \(error)")
 return SignalProducer.empty
 }
-~~
+\~\~
 - **Simplificación de estados:** Debido al hecho de que la información se modela en un stream unidireccional. El número de estados que puedan introducirse se reduce simplificando la lógica de nuestro código
 
 ## Desventajas
@@ -111,7 +111,7 @@ Por esa razón es muy importante cuando definamos el comportamiento de esas fuen
 Actualmente en Swift existen varias opciones para trabajar con Reactive, las dos más populares **RxSwift** y **ReactiveCocoa**. 
 RXSwift ofrece en su repositorio una interesante [tabla][1] comparativa para entender las diferencias con entre RxSwift y otros frameworks *(algunos de ellos no usan directamente el paradigma reactivo)*
 
-Ambos ofrecen los componentes básicos para trabajar con Reactive, y en el caso de RxSwift algunas ventajas y funcionalidades que no están presentes en ReactiveCocoa. Además la nomenclatura y los custom operators varían de uno a otro. 
+Ambos ofrecen los componentes básicos para trabajar con Reactive, y en el caso de RxSwift algunas ventajas y funcionalidad que no están presentes en ReactiveCocoa. Además la nomenclatura y los custom operators varían de uno a otro. 
 
 Mi recomendación es elegir uno de ellos y familiarizarte con él.  Hasta ahora no he encontrado nada bloqueante en ReactiveCocoa que me haya forzado a migrar todas mis implementaciones reactivas a RxSwift.
 
@@ -136,45 +136,9 @@ ReactiveCocoa no ofrece soporte directo para CocoaPods pero existen `.podspec` n
 
 Ya tienes ReactiveCocoa en tu proyecto. Para usarlo desde Swift recuerda hacer el import del framework en cualquier fichero Swift donde vayas hacer uso del framework.
 
-~~~~~~
+\~\~\~\~\~\~
 import ReactiveCocoa
-~~~~~~
-
-### Añadir RXSwift en tus proyectos
-La integración de RxSwift en tus proyectos es similar a la de ReactiveCocoa pudiendo usar también Carthage o CocoaPods
-
-**Carthage**
-
-1. Edita el fichero **Cartfile** y añade las siguientes líneas
-
-~~~~~~
-git "git@github.com:kzaher/RxSwift.git" "latest-carthage/rxswift"
-git "git@github.com:kzaher/RxSwift.git" "latest-carthage/rxcocoa"
-~~~~~~
-
-2. Ejecuta el comando: `carthage update`
-3. Sigue los pasos de la documentación de Carthage para añadir el framework generado al proyecto. 
-
-**Cocoapods**
-
-1. Edita el fichero **Podfile** y añade las siguientes líneas
-
-~~~~~
-# Podfile
-use_frameworks!
-
-pod 'RxSwift'
-pod 'RxCocoa'
-~~~~~~
-
-2. A continuación ejecuta el comando `pod install`
-3. Abre el proyecto usando el fichero con extensión `.xcworkspace`
-
-Ya tienes RxSwift en tu proyecto. Para usarlo desde Swift recuerda hacer el import del framework en cualquier fichero Swift donde vayas hacer uso del framework.
-
-~~~~~~
-import RxSwift
-~~~~~~
+\~\~\~\~\~\~
 
 [1]:	https://github.com/ReactiveX/RxSwift "Fichero README del repositorio de RXSwift"
 [2]:	https://github.com/Carthage/Carthage "Documentación de Carthage"
