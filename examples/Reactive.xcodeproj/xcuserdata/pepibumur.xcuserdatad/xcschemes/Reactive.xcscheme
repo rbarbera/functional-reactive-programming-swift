@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3D810A561B8D94D100BC1FFC"
-               BuildableName = "Reactive.framework"
+               BlueprintIdentifier = "3D36A0401B8E2288002E5BD5"
+               BuildableName = "Reactive.app"
                BlueprintName = "Reactive"
                ReferencedContainer = "container:Reactive.xcodeproj">
             </BuildableReference>
@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3D810A601B8D94D200BC1FFC"
+               BlueprintIdentifier = "3D36A0541B8E2288002E5BD5"
                BuildableName = "ReactiveTests.xctest"
                BlueprintName = "ReactiveTests"
                ReferencedContainer = "container:Reactive.xcodeproj">
@@ -42,8 +42,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3D810A561B8D94D100BC1FFC"
-            BuildableName = "Reactive.framework"
+            BlueprintIdentifier = "3D36A0401B8E2288002E5BD5"
+            BuildableName = "Reactive.app"
             BlueprintName = "Reactive"
             ReferencedContainer = "container:Reactive.xcodeproj">
          </BuildableReference>
@@ -61,15 +61,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3D810A561B8D94D100BC1FFC"
-            BuildableName = "Reactive.framework"
+            BlueprintIdentifier = "3D36A0401B8E2288002E5BD5"
+            BuildableName = "Reactive.app"
             BlueprintName = "Reactive"
             ReferencedContainer = "container:Reactive.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -79,15 +80,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3D810A561B8D94D100BC1FFC"
-            BuildableName = "Reactive.framework"
+            BlueprintIdentifier = "3D36A0401B8E2288002E5BD5"
+            BuildableName = "Reactive.app"
             BlueprintName = "Reactive"
             ReferencedContainer = "container:Reactive.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

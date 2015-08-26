@@ -22,7 +22,7 @@ La razón de elegir Swift para este libro, aparte de porque mola *(y lo sabes)* 
 - **Fluent Interface:** Es decir, abandonamos la sintaxis de corchetes característica de *Objective-C* dónde de encadenar varias operaciones tendríamos algo un fragmento de corchetes imposible de analizar, y en su lugar en Swift concatenamos las operaciones con un simple punto. La principal ventaja de las APIs Fluent[^1] es que la concatenación de varias operaciones es mucho más legible. El concatenar varios operadores aplicados a una fuente de datos es algo típico en la programación reactiva, por ello la importancia de tener esta característica en el lenguaje. Si observamos el ejemplo  a continuación concatenamos varias operaciones usando operadores custom para obtener finalmente una *señal* resultado de aplicar varias operaciones a la señal original\*
 
 ~~~~~~
-searchTextField.rx\_text
+searchTextField.rx_text
 	>- throttle(0.3, MainScheduler.sharedInstance)
 	>- distinctUntilChanged
 	>- map { query in
