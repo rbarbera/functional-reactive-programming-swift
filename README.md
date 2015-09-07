@@ -1,5 +1,5 @@
-# Programación Reactiva en Swift
-Libro que introduce a la programación reactiva en Swift con ejemplos prácticos de aplicación
+# Functional Reactive Programming in Swift
+Book that introduces the Functional Reactive Programming in Swift with some useful application examples.
 
 ### How to provide feedback
 
