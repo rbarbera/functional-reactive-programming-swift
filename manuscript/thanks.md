@@ -1,15 +1,15 @@
-# Agradecimientos
+# Thanks
 
-Me gustaría agradecer en primer lugar a *Isaac Roldán*, compañero desde la universidad, posterior compañero de trabajo, y ahora compañero de aventuras en nuevos e interesantes proyectos. Juntos hemos aprendido un montón de conceptos, librerías, y hemos lanzado alguna que otra aplicación juntos. Espero con este libro animarlo a que empiece a probar la programación Reactiva.
+I would like to firs say thanks to *Isaac Roldán*, friend since we met at the University and later workmate at Redbooth. Now working together on new interesting projects. Together we've learnt a lot of concepts, libraries, we've developed a lot of apps and become better developers. I hope this book helps him to absorb all the reactive concepts.
 
-También me gustaría agradecer a la grandísima comunidad que hay detrás del desarrollo en iOS/OSX y en especial a herramientas como **Cocoapods [^1]** y **Carthage[^2]** que hacen que nuestro día a día gestionando dependencias no se traduzcan en tremendos dolores de cabeza. Gracias a todas esas personas que de forma desinteresada trabajan en la plataforma y que han permitido tener una fuente de componentes reusables que sin ellos hubiera sido imposible.
+I would like to also thank the big community behind the iOS/OSX development specially to tools like **Cocoapods [^1]** and **Carthage[^2]** that make our daily work easier and fluent. Thanks to all these developer that unselfishly work in the platform and have allowed a big source of reusable components that without them it would have been almost impossible.
 
-Por su parte agradecer a toda la comunidad detrás de **ReactiveCocoa**, **RXSwift** y otras librerías para trabajar de forma reactiva en Swift. Ellos han hecho posible que disfrutemos de la programación reactiva además con las potentes ventajas de Swift como lenguaje de programación.
+The community behind **ReactiveCocoa** and **RXSwift** also deserve a big thanks because they made possible the use of Reactive concepts with Swift. They designed both libraries with the advantages that Swift offers as a language *(generics, type safety, type inferece, funcional concepts)*.
 
-Y por por último a ti, lector, por haberte animado a conocer más sobre esta forma de programar y especialmente por haberlo hecho con este libro. Espero que lo disfrute, y todavía más importante, que empieces a añadir código reactivo a tus proyectos *(que seguramente lo están deseando).*
+And lastly, I would like to thank you for choosing this book to dive into the functional reactive programming. I hope you enjoy it and even more important, that you start adding reactive code in your projects *(I'm pretty sure you're looking forward to doing it)*
 
 ~~~~~~
-print(“Vamos con Reactive!”)
+print(“Let's be reactive!”)
 ~~~~~~
 
 [^1]:	CocoaPods is built with Ruby and is installable with the default Ruby available on OS X. We recommend you do this. [https://cocoapods.org/][1]
