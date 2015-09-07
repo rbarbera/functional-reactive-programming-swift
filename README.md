@@ -1,4 +1,4 @@
-# programacion-reactiva-swift-book
+# Programación Reactiva en Swift
 Libro que introduce a la programación reactiva en Swift con ejemplos prácticos de aplicación
 
 ### Reviewers
