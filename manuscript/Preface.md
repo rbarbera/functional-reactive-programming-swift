@@ -37,24 +37,24 @@ let searchResults = searchStrings
 
 - **Custom operators:** That make even more interesting the chaining of operations. In the example above the operator `|>` is used to apply a **function** to the input stream and return another stream with the events mapped using the function. As you can see functions have a remarkable importance in Reactive because they'll manipulate data sent through the streams.
 
-- **Generics and type safety:**
+- **Generics and type safety:** With Objective-C it was impossible to specify the data type when you defined the stream of data. We used foundation types, NSArray, NSDictionary, NSObject, and the observer entities had to cast the data validating it in *execution time*. Thanks to Swift and the introduction of generics it's possible now to define that the stream source is a source of data, type X, and consequently the data sent is of type X. The types are tracked by the compiler thus your implementations are more robust.
 
 
-- **Generics y seguridad de tipos:** Con Objective-C era imposible specificar a la hora de definir un stream de datos cual iba a ser el formato de los datos que este stream iba a emitir. Se hacía uso de tipos genéricos NSArray, NSDictionary, NSObject, y las entidades consumidoras de esos datos acababan haciendo cast de los datos y validación *en tiempo de ejecución*. Gracias a Swift y a la introducción de generics, ahora es posible definir fuentes de eventos de un tipo determinado. Los consumidores conocen de antemano el tipo de los eventos introduciendo seguridad en tiempo de compilación.
+## A book, an adventure
 
-## Un libro, una aventura
-No me gusta hablar de mí, pero creo necesario un poco de contexto para entender las razones que me llevaron a este punto.
-Mi nombre es Pedro Piñera Buendía, en la mayoría de redes sociales me puedes encontrar como *@pepibumur*. Aunque soy Graduado en Tecnologías y Servicios de Telecomunicación *(es decir, Teleco)*, mi actividad profesional la he desarrollado principalmente como desarrollador móvil.
+I don't like talking about me, but I think a bit of context is needed to understand the reasons that drive me to this point.
 
-En 2010 cuando comenzaba la Universidad en Valencia, me hice con mi primer Macbook Pro, fue por aquél entonces cuando di mis primeros pasos con la programación. No se trataba ni de Objective-C, sino de **C**. El profesor de la asignatura de primero insistía en la importancia de enseñar C como lenguaje de programación para alumnos que no hayan hecho programación antes en su vida. Se negaba totalmente a enseñar Java, y a introducir la programación orientada a objetos sin tener claros los conceptos bases de programación, tipos, funciones, operadores básicos…
+My name is Pedro Piñera Buendía, in most of social networks you'll find me as **@pepibumur**. Although I'm graduated in *Telecommunication Technologies and Services* (aka Teleco), I've developed my professional activity around the software development, in particular, mobile software development, and more precisely, iOS.
 
-> Recuerdo a compañeros sudando para acabar una práctica con los conceptos más básicos de C ¿Qué hubiera pasado si el profesor hubiese introducido programación orientada a objetos?
+In 2010 when I started the University in Valencia I got my first Macbook Pro. By that time I gave my first steps in programming. It wasn't Objective-C, but **C**. I remember the teacher insisting on the importance of teaching C as a programming language since most of the students didn't have any programming knowledge. He refused teaching Java or even introducing OOP without having a perfect idea of the basic programming concepts like types, functions, basic operators...
 
-Aparte de C también trabajábamos con otros dos lenguajes de programación, **Matlab** para prácticamente casi todas las asignaturas de la carrera y **Java** que lo usábamos para pequeñas aplicaciones que replicaban servicios telepáticos tales como “implementación de un servidor web”, “implementación de un servidor de DNS”, …
+> I remember my class mates suffering to finish some tasks with the most basic concepts in C. I wonder what would have happened if the teacher had introduced OOP...
 
-Por aquél entonces Java me parecía muy feo, no entendía el por qué de esa sintaxis tan compleja, algunos elementos los usaba sin ni siquiera entender el por qué.
+Apart from C we also worked with other languages like **Matlab** for almost all the degree subjects and **Java** that we used for small apps that implemented telematic services like "implementing a web server", "implementing a DNS server", ... I remember hating Java as a language and I have to say I keep doing it.
 
-Unos meses más tarde descargué **XCode** y con la ayuda de algunos tutoriales en internet, empecé a hacer pruebas con Objective-C. Fue con este lenguaje con el que me fui introduciendo en la **Programación Orientada a Objetos** y en los patrones de diseños de Apple. Recuerdo leer qué era el patrón *Delegate* y tener que releerlo varias veces para conseguir entenderlo. También recuerdo gestionar el *reference counting* manualmente sin ni siquiera tener claro del todo de qué se trataba. Empecé a aprender el lenguaje como si estuviera explorando una selva, a base de experimentar, probar, fallar, y recurrir a un montón de recursos disponibles online *(también me hice con algunos libros que todavía conservo)*.
+Some months later I downloaded **XCode** and with the help of some tutorials on Internet I started with some tests in Objective-C. My first lessons around OOP were with Objective-C. I learnt the typical Apple architectural patterns. I remember the first time I read about the *Delegate* pattern and having to read it multiple times until I was able to understand what it exactly was. I also remember having to manage the *reference counting* manually before ARC was introduced. I started learning the language like if I was exploring a jungle, experimenting, trying, failing and exploring all the resources around internet *(I also bought some books and Stackoverflow became my best friend)*
+
+In these first years with Objective-C I developed  some apps that are still available on the App Store but whose code can be very close to a spaguetti dish.
 
 De estos primeros años con Objective-C salieron algunas apps que todavía están disponibles en la App Store y cuyo código puede ser lo más parecido a un plato de espaguetis. Durante los siguientes años fui lanzando varias aplicaciones, cada una más completa que la anterior, pero sin enfocarme en temas tan importante en proyectos de software como **arquitectura, patrones, organización del código, escalabilidad, …**
 
