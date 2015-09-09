@@ -20,7 +20,7 @@ Later in this book I'll give more details about the advantages and disadvantages
 
 The reason behind choosing Swift *(besides being a cool language, and you know it)* it's mainly because:
 
-- **Fluent Interface**: We don't have brackets anymore, `[self setBrackets:NO]`. Back in time, with Objective-C, if we wanted to chain different operations we ended up with an unreadable code full of brackets. Some libraries had to turn to defined macros in order to simplify their API. Rather, with Swift we can chain operations with a simple dot and consequently fluent interfaces [^1] are much more readable. The concatenation of operators applied to stream data is something frequently done in Reactive, and so the importance of having this feature in the language. If we take a look to the example below we can see how different operations are chained using custom operators to finally get a *stream* result of applying these operations to the source stream:
+- **Fluent Interface**: We don't have brackets anymore, `[self setBrackets:NO]`. Back in time, with Objective-C, if we wanted to chain different operations we ended up with an unreadable code full of brackets. Some libraries had to turn to defined macros in order to simplify their API. Rather, with Swift we can chain operations with a simple dot and consequently [fluent interfaces](https://en.wikipedia.org/wiki/Fluent\_interface) are much more readable. The concatenation of operators applied to stream data is something frequently done in Reactive, and so the importance of having this feature in the language. If we take a look to the example below we can see how different operations are chained using custom operators to finally get a *stream* result of applying these operations to the source stream:
 
 ~~~~~~
 let searchResults = searchStrings
@@ -56,7 +56,7 @@ Some months later I downloaded **XCode** and with the help of some tutorials on 
 
 In these first years with Objective-C I developed  some apps that are still available on the App Store but whose code can be very close to a spaguetti dish. The following years I released different apps, each one more complex than the previous one, but without focusing too much on such important points in software projects as *architecture, patterns, code organization, scalability, reusability, ...*
 
-> If you feel curious about some of my developed apps during that period you can take a look to [my profile on the App Store][2] or if you prefer it, you can also check my [Github profile][3] where I've also Open Source libraries which I have worked before in.
+> If you feel curious about some of my developed apps during that period you can take a look to [my profile on the App Store](	https://itunes.apple.com/es/artist/pedro-pinera-buendia/id454075497) or if you prefer it, you can also check my [Github profile](https://github.com/pepibumur) where I've also Open Source libraries which I have worked before in.
 
 It was in 2014 when I joined the **Redbooth** iOS team, startup from Barcelona whose main product was a management product for companies. It was during my year at that company where I grew a lot as a developer. I learnt things like:
 
@@ -66,42 +66,34 @@ It was in 2014 when I joined the **Redbooth** iOS team, startup from Barcelona w
 - Git & Github *(I know, I fell in love a bit late, but I can't live without it now)*
 - First steps with Android *(I still remember what agonizing was leaving Objective-C to develop in Java and wait for Gradle to get the project compiled, it was the perfect time to prepare a coffee)*
 
-One year later I joined the project **8fit**[^2] being in that case the Mobile Lead Developer responsible of both iOS and Android projects. The project was starting and I had a long road ahead, not only in the development side but also in teams leadership. During that time I have had the freedom of experiment and get the product close to the recent SDK improvements:
+One year later I joined the project [**8fit**](http://8fit.com) being in that case the Mobile Lead Developer responsible of both iOS and Android projects. The project was starting and I had a long road ahead, not only in the development side but also in teams leadership. During that time I have had the freedom of experiment and get the product close to the recent SDK improvements:
 
+- Since the first version of **Swift** we've been introducing new components to the app 100% writen in Swift. In fact, we've as a rule in the company to use Swift for future components and test them using Swift.
+- Developed an app for **Apple Watch**
+- Interaction with web doing native implementations, designing the migration to a pure native approach *(as Facebook did a long time ago starting with a web product)*
 
-//TODO
+Moreover having the leader position has allowed me to grow from the organizative perspective and learn a lot of skills and tricks to coordinate, manage, motivate and align human teams with the project needs.
 
-- Desde las primeras versiones de **Swift** hemos ido añadiendo nuevos componentes a la aplicación escritos totalmente en Swift. De hecho hemos traído la filosofía de Swift al proyecto y cualquier nuevo componente deberá estar forzadamente escrito y testado en Swift.
-- Desarrollamos una aplicación para **Apple Watch**
-- Interacción de web con implementaciones nativas y diseño de migración hacia un approach de features completamente nativo.
+After that year I've recently joined [**SoundCloud**](https://soundcloud.com) as iOS Engineer motivated by the company culture, the incredible iOS team the company has and the oportunity to grow as a developer in a company that actively support open communities. I couldn't be more excited when I was told that they were using for their app core architecture.
 
-Además tener la posición de Lead me ha permitido crecer en el ámbito organizativo y aprender técnicas y trucos para coordinar, gestionar, motivar y alinear a un grupo humano con las necesidades de un proyecto.
+-----
 
-Mi primer contacto con Reactive vino sin embargo con un proyecto que llevo desarrollando durante unos meses en mi tiempo libre con algunos compañeros del gremio, e trata de **GitDo**[^3].  
+I gave my first steps with Reactive in a project that I'm developing in my spare time with some friends, [**GitDo**](http://gitdo.io).
 
-> Gitdo es una aplicación para iOS/OSX que facilita la gestión de issues de Github gracias a un nuevo formato basado en gestión de tareas y a la integración nativa con las plataformas móviles y de escritorio. [Enlace][4]
+> Gitdo is an application for iOS/OSX that makes easier the Github issues management thanks to a new format based on tasks management, powered notifications,  and native integration with desktop & mobile platforms. [Link](http://gitdo.io)
 
-Fue en el desarrollo del **Core** de esta aplicación donde implementé toda la fuente de datos y lógica de negocios de forma reactiva, y fue entonces cuando descubrí las ventajas de la programación Reactiva, especialmente en su uso con Swift. Desde entonces he ido trasladando Reactive a otros proyectos, incluido 8fit y promoviendo el concepto de Reactive en el que muchos desarrolladores tienen miedo a adentrarse.
+It was developing the **Core** of this application where I implemented the data and business logic layers using Reactive, and it was there when I figured out the advantages of Reactive Programming, espacially within Swift. Since then I've been applying these concepts to other projects, included 8fit and shared all my experiences, pitfalls and learnings with a lot of developers that don't dare using it.
 
-Mi gran ilusión en estos momentos es poner en marcha este proyecto y viajar por el mundo desarrollando y manteniendo la aplicación que ayude entre otros a desarrolladores como tú que quieran centrar toda la gestión de sus proyectos en Github. Con tu compra del libro ayudarás al desarrollo de esta aplicación, que esperamos tener disponible en breve. Muchas gracias por todo y espero que disfrutes del libro así como yo lo he hecho escribiéndolo.
+My dream currently is launch this project and travel around the world developing and maintining the app that helps other developers as you to centralize the software projects management in Github. With your purchase you'll help to the development of this application, that I hope it's available soon. Thanks for everything and I hope that you enjoy with the book as much as I did writing it for you.
 
+## Teaching Reactive
 
-## Enseñando Reactive
+I enjoy learning and sharing my acquired knowledges. The same way we learn from others, others will be able to learn from us. Lot of the examples around internet show very interesting use cases but too ideal for you. You end up wondering if you'll find such a perfect case in your app. That's the moment when you can go further or stop there. I did it and now I enjoy combining **signals** and **events** , especially now with Swift. I would like to pass on my motivation to more developers and that they/you start using **Reactive** in the projects.
 
-Disfruto aprendiendo y transmitiendo los conocimientos adquiridos. De la misma forma que aprendemos de otros, otros podrán aprender de lo que nosotros enseñemos. En los recursos que puedas encontrar muestran ejemplos muy interesantes, pero que ves de forma muy idealizada y te preguntas si realmente acabarás teniendo un caso tan perfecto dentro de tu aplicación. Ese ese momento en el que o das un empujón y te adentras en estos conceptos, o abandonas. Yo lo hice, y ahora disfruto manipulando *señales* y *eventos*, y sobre todo más ahora cuando en Swift podemos definir nuestros propios operadores y tener seguridad en los tipos. Por ello me gustaría motivar de la misma forma a otros desarrolladores a que se animen y empiecen a usar *Reactive* en sus proyectos.
-Quería  que este libro además fuera cercano para cualquier desarrollador de OSX/iOS por lo que ofreceré ejemplos de interacción no sólo con los Frameworks del sistema sino con conocidos Frameworks con los que trabajamos a diario *(Alamofire, Realm, UIKit)*. Si después de este libro consigo que empieces a introducir elementos reactivos en tu proyecto, espero que lo disfrutes y que transmitas esa ilusión a otros desarrolladores. Recuerda:
+I would like this book to be close to any iOS/OSX developer so I'll offer examples with interaction not only with system Frameworks bug with well known frameworks with which we work almost daily *(Realm, Alamofire, ...)*. If after reading the book I drive you to enjoy and start using Reactive in your projects I hope you enjoy it and broadcast that knowledge to more developers, they will thank you. Remember:
 
-- Si los conceptos te empiezan a saturar deja el libro pausado, toma un poco el aire y conecta más tarde. Es importante que los conceptos los aprendas bien para no perderte en las partes más avanzadas del libro.
-- No te preocupes si al principio tienes problemas para asimilar los conceptos, no son fácilmente asimilables ya que requieren cambiar ligeramente la forma en la que pensamos respecto a las fuente de datos. Yo te ayudaré a que puedas entenderlo más fácilmente.
-- Si aún así crees que algo no queda claro o se podría explicar de otra forma más fácil de entender, no dudes en contactarme, ¡hagamos de este libro una referencia para otros muchos desarrolladores que tengan ilusión por aprender!
-
+- If so many concepts make you feel stressed, put the book aside and take a breath. Restart your reading later. It's very important that you consolidate the first concepts in order to not getting lost with the most avanced sections in the book.
+- Don't worry if in the first sections you've problems to absorb the concepts explained, they are not easy to since they require changing lightly the way we thing respect to where the data comes from and how we combine it. I'll help you to make it easier.
+- If even so, it's not clear enough for you or you think it could be explained on a different way easier to understand, do not hesitate to contact me. Let's make this book a reference for developers looking forward to starting with Reactive!
 
 **Reactiving in Swift!**
-
-[^1]:	Fluent Interface: [https://en.wikipedia.org/wiki/Fluent\_interface][1]
-[^2]:	http://8fit.com
-[^3]:	http://gitdo.io
-[1]:	https://en.wikipedia.org/wiki/Fluent_interface
-[2]:	https://itunes.apple.com/es/artist/pedro-pinera-buendia/id454075497
-[3]:	https://github.com/pepibumur "Github pepibumur"
-[4]:	http://gitdo.io
