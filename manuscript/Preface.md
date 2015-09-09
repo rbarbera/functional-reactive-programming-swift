@@ -74,7 +74,7 @@ One year later I joined the project [**8fit**](http://8fit.com) being in that ca
 
 Moreover having the leader position has allowed me to grow from the organizative perspective and learn a lot of skills and tricks to coordinate, manage, motivate and align human teams with the project needs.
 
-After that year I've recently joined [**SoundCloud**](https://soundcloud.com) as iOS Engineer motivated by the company culture, the incredible iOS team the company has and the oportunity to grow as a developer in a company that actively support open communities. I couldn't be more excited when I was told that they were using for their app core architecture.
+After that year I've recently joined [**SoundCloud**](https://soundcloud.com) as iOS Engineer motivated by the company culture, the incredible iOS team the company has and the oportunity to grow as a developer in a company that actively support open communities. I couldn't be more excited when I was told that they were using Reactive Programming for the architecture of their app core.
 
 -----
 

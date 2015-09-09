@@ -8,13 +8,13 @@ The community behind **ReactiveCocoa** and **RXSwift** also deserve a big thanks
 
 And lastly, I would like to thank you for choosing this book to dive into the functional reactive programming. I hope you enjoy it and even more important, that you start adding reactive code in your projects *(I'm pretty sure you're looking forward to doing it)*
 
+//TODO - Thanks reviewers
+
 ~~~~~~
 print(“Let's be reactive!”)
 ~~~~~~
 
 [^1]:	CocoaPods is built with Ruby and is installable with the default Ruby available on OS X. We recommend you do this. [https://cocoapods.org/][1]
-
 [^2]:	Carthage is intended to be the simplest way to add frameworks to your Cocoa application. [https://github.com/Carthage/Carthage][2]
-
 [1]:	https://cocoapods.org/
 [2]:	https://github.com/Carthage/Carthage
