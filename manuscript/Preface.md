@@ -54,20 +54,22 @@ Apart from C we also worked with other languages like **Matlab** for almost all 
 
 Some months later I downloaded **XCode** and with the help of some tutorials on Internet I started with some tests in Objective-C. My first lessons around OOP were with Objective-C. I learnt the typical Apple architectural patterns. I remember the first time I read about the *Delegate* pattern and having to read it multiple times until I was able to understand what it exactly was. I also remember having to manage the *reference counting* manually before ARC was introduced. I started learning the language like if I was exploring a jungle, experimenting, trying, failing and exploring all the resources around internet *(I also bought some books and Stackoverflow became my best friend)*
 
-In these first years with Objective-C I developed  some apps that are still available on the App Store but whose code can be very close to a spaguetti dish.
+In these first years with Objective-C I developed  some apps that are still available on the App Store but whose code can be very close to a spaguetti dish. The following years I released different apps, each one more complex than the previous one, but without focusing too much on such important points in software projects as *architecture, patterns, code organization, scalability, reusability, ...*
 
-De estos primeros años con Objective-C salieron algunas apps que todavía están disponibles en la App Store y cuyo código puede ser lo más parecido a un plato de espaguetis. Durante los siguientes años fui lanzando varias aplicaciones, cada una más completa que la anterior, pero sin enfocarme en temas tan importante en proyectos de software como **arquitectura, patrones, organización del código, escalabilidad, …**
+> If you feel curious about some of my developed apps during that period you can take a look to [my profile on the App Store][2] or if you prefer it, you can also check my [Github profile][3] where I've also Open Source libraries which I have worked before in.
 
-> Si tienes curiosidad por algunas de las aplicaciones desarrolladas y lanzadas durante este periodo puedes echar un vistazo mi [perfil en la  App Store][2] o si lo prefieres, en mi [perfil de Github][3] donde además distribuyo como librerías Open Source distintos frameworks en los que he trabajado.
+It was in 2014 when I joined the **Redbooth** iOS team, startup from Barcelona whose main product was a management product for companies. It was during my year at that company where I grew a lot as a developer. I learnt things like:
 
-Fue ya en el verano de 2014 cuando entré a formar parte en el equipo de desarrollo de **Redbooth**, startup de Barcelona cuyo producto era una herramienta de gestión de tareas para empresas. A Redbooth entramos tanto mi compañero, *Isaac Roldán*, como yo, y fue durante el año que estuve trabajando en esta empresa donde considero que crecí enormemente como desarrollador. Aprendí aspectos tales como:
-- Trabajo en equipo
-- Organización de proyectos y metodologías ágiles
-- Importancia de la arquitectura y el estilo del código.
-- Git & Github *(lo sé, me enamoré un poco tarde, pero ahora no puedo vivir sin él)*
-- Primeros pasos en Android *(todavía recuerdo lo angustioso que era dejar Objective-C para desarrollar en Java y esperar a que Gradle decidiera compilar el proyecto)*
+- Work in teams.
+- Project organization and Agile methodologies.
+- Importance of architectures and code style.
+- Git & Github *(I know, I fell in love a bit late, but I can't live without it now)*
+- First steps with Android *(I still remember what agonizing was leaving Objective-C to develop in Java and wait for Gradle to get the project compiled, it was the perfect time to prepare a coffee)*
 
-Un año más tarde me uní al proyecto **8fit**[^2] pasando a ser responsable Lead del equipo Mobile de la empresa. El proyecto estaba empezando y tenía un largo camino por delante no solo en el desarrollo para iOS sino también en Android. Durante el tiempo que llevo en 8fit he tenido la libertad de experimentar y de seguir probando:
+One year later I joined the project **8fit**[^2] being in that case the Mobile Lead Developer responsible of both iOS and Android projects. The project was starting and I had a long road ahead, not only in the development side but also in teams leadership. During that time I have had the freedom of experiment and get the product close to the recent SDK improvements:
+
+
+//TODO
 
 - Desde las primeras versiones de **Swift** hemos ido añadiendo nuevos componentes a la aplicación escritos totalmente en Swift. De hecho hemos traído la filosofía de Swift al proyecto y cualquier nuevo componente deberá estar forzadamente escrito y testado en Swift.
 - Desarrollamos una aplicación para **Apple Watch**
