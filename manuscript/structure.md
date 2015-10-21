@@ -1,0 +1,69 @@
+## BOOK Structure
+- Thanks [DONE]
+- Quote [DONE]
+- Preface [DONE]
+- Notes [DONE - MIGHT BE UPDATED]
+- Introduction [PENDING TO TRANSLATE]
+- ReactiveCocoa
+  - Concepts [WIP]
+    Notes:
+      - Each concept will include some examples of use
+      - Mention the original reference (repository)
+    - Events
+    - Signal
+    - SignalProducer
+    - Pipe
+    - Buffer
+    - Observer
+    - Actions
+    - Properties
+    - Disposables
+    - Schedulers
+  - Operators:
+    Notes:
+      - Mention how the source signals are disposed when the combined signal is disposed
+      - Mention Red libary that add extra operators and mention these operators.
+    - Observation
+    - Composition
+      - Lift
+      - Pipe
+    - Transforming
+      - Mapping
+      - Filtering
+      - Aggregating
+    - Combining
+      - Latest values
+      - Zipping
+    - Flattening
+      - Concatenating
+      - Merging
+      - Switching to the latest
+    - Handling errors
+      - Catching Errors
+      - Mapping Errors
+      - Retrying
+- Design
+  - Principles
+  - Data layer
+    - Remote
+      - HTTP
+    - Local persistence
+      - Keychain
+      - NSUserDefaults
+      - CoreData
+      - Realm
+  - Presentation layer
+    - IBActions
+    - MVVM
+  - Cocoa patterns
+   - Delegate
+   - Completion closures
+  - Best practices
+  - Pitfalls
+  - Retain cycles
+  - Signal & view lifecycles
+  - Objects retainment (in producers)
+  - Threading
+- Advanced
+  - Custom operators
+  - Testing

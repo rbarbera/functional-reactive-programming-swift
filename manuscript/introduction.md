@@ -28,7 +28,7 @@ El resultado de estas señales son eventos que han de ser **consumidos**. La sub
 - **Observando**: Podemos directamente observar la señal, para ello especificamos en un *closure* las acciones a ejecutar en función del tipo de evento que se reciba.
 - **Bindeando**: La otra opción disponible es hacer binding de los  eventos que provienen del stream con un objeto o el atributo de un objeto determinado.
 
-Por ejemplo, si tenemos un stream que envía colecciones de tareas para ser mostradas en una tabla y tenemos una colección que mantiene una referencia a la última colección retornada, podemos bindear una señal que retorna esas colecciones con esta colección de forma que esta siempre esté actualizada cuando la señal a la que está bindeado envíe nuevas colecciones. También es muy común hacer binding con elementos de UI. Por ejemplo, actualizar el estado de enabled de un botón en función de la validación de unos campos de texto. 
+Por ejemplo, si tenemos un stream que envía colecciones de tareas para ser mostradas en una tabla y tenemos una colección que mantiene una referencia a la última colección retornada, podemos bindear una señal que retorna esas colecciones con esta colección de forma que esta siempre esté actualizada cuando la señal a la que está bindeado envíe nuevas colecciones. También es muy común hacer binding con elementos de UI. Por ejemplo, actualizar el estado de enabled de un botón en función de la validación de unos campos de texto.
 
 > Recuerda, en Reactive vamos a tener tres componentes principales **Streams (observables), Operadores y Bindings**. Más adelante veremos cada uno de ellos en detalle así como las operaciones que podemos realizar con ellos.
 
@@ -46,7 +46,7 @@ objectToObserve.addObserver(self, forKeyPath: "myDate", options: .New, context: 
 Uno de los primeros patrones que aprendes cuando das tus primeros pasos en el desarrollo para iOS/OSX ya que la mayoría de componentes de los frameworks de Apple lo implementan. *UITableViewDelegate, UITableViewDataSource, …* son algunos ejemplos. El principal problema que presenta este patrón es que sólo puede haber un delegado registrado. Si estamos ante un escenario más complejo donde con una entidad suscrita no es suficiente el patrón requiere de algunas modificaciones para que pueda soportar múltiples delegados.
 
 ~~~~~~
-func tableView(tableView: UITableView, 
+func tableView(tableView: UITableView,
   cellForRowAtIndexPath indexPath: NSIndexPath) -\> UITableViewCell {
 return UITableViewCell()
 
@@ -90,7 +90,7 @@ return SignalProducer.empty
 - **Simplificación de estados:** Debido al hecho de que la información se modela en un stream unidireccional. El número de estados que puedan introducirse se reduce simplificando la lógica de nuestro código
 
 ## Desventajas
-La principal desventaja que presenta la programación reactiva es el **acoplamiento** que provoca el hecho de depender de un framework para realizar implementaciones reactivas. Al no ser soportado de forma nativa los conceptos reactivos el desarrollador tiene que recurrir a frameworks existentes. Si usas Reactive en toda la aplicación toda la aplicación dependerá de este framework, desde elementos de UI hasta elementos relativos a la fuente de datos. 
+La principal desventaja que presenta la programación reactiva es el **acoplamiento** que provoca el hecho de depender de un framework para realizar implementaciones reactivas. Al no ser soportado de forma nativa los conceptos reactivos el desarrollador tiene que recurrir a frameworks existentes. Si usas Reactive en toda la aplicación toda la aplicación dependerá de este framework, desde elementos de UI hasta elementos relativos a la fuente de datos.
 
 Por ello es muy importante que elijas muy bien la librería reactiva con la que deseas trabajar, que tenga una buena comunidad y sea activa. Aunque pueda parecer un problema bastante importante que exista ese acoplamiento si pensamos un poco ya tenemos ese acoplamiento con otros muchos frameworks que estamos usando en nuestras apps.
 
@@ -98,7 +98,7 @@ Por ello es muy importante que elijas muy bien la librería reactiva con la que 
 
 El acoplamiento es inherente en nuestros proyectos, por eso lo importante en estos casos es asegurar que nos estamos acoplando a una librería **estable, testeada y con bastante soporte**.
 
-Un problema que puede a parecer al usar Reactive y si se no se diseñan correctamente los componentes es que tengamos problemas con elementos retenidos en memoria. El hecho de que en Reactive los eventos son consumidos obliga a tener definido un **closure** que especifica qué eventos se envían por el stream. 
+Un problema que puede a parecer al usar Reactive y si se no se diseñan correctamente los componentes es que tengamos problemas con elementos retenidos en memoria. El hecho de que en Reactive los eventos son consumidos obliga a tener definido un **closure** que especifica qué eventos se envían por el stream.
 
 Por esa razón es muy importante cuando definamos el comportamiento de esas fuentes de eventos:
 
@@ -109,10 +109,10 @@ Por esa razón es muy importante cuando definamos el comportamiento de esas fuen
 > Por ejemplo, podemos definir una fuente de eventos que ejecute una petición web cuando alguien se subscribe a esta fuente. El closure que define esa operación usa un cliente HTTP que tenemos definido a nivel de app como una instancia Singleton. Si lo retenemos en el closure y en algún punto intentáramos liberarlo, por el hecho de estar retenido en el closure el cliente no se liberaría. O incluso peor, si cambiáramos su estado fuera del closure, podríamos no contemplar el nuevo estado y actuaríamos suponiendo estados erróneos.
 
 ## Frameworks para Swift
-Actualmente en Swift existen varias opciones para trabajar con Reactive, las dos más populares **RxSwift** y **ReactiveCocoa**. 
+Actualmente en Swift existen varias opciones para trabajar con Reactive, las dos más populares **RxSwift** y **ReactiveCocoa**.
 RXSwift ofrece en su repositorio una interesante [tabla][1] comparativa para entender las diferencias con entre RxSwift y otros frameworks *(algunos de ellos no usan directamente el paradigma reactivo)*
 
-Ambos ofrecen los componentes básicos para trabajar con Reactive, y en el caso de RxSwift algunas ventajas y funcionalidad que no están presentes en ReactiveCocoa. Además la nomenclatura y los custom operators varían de uno a otro. 
+Ambos ofrecen los componentes básicos para trabajar con Reactive, y en el caso de RxSwift algunas ventajas y funcionalidad que no están presentes en ReactiveCocoa. Además la nomenclatura y los custom operators varían de uno a otro.
 
 Mi recomendación es elegir uno de ellos y familiarizarte con él.  Hasta ahora no he encontrado nada bloqueante en ReactiveCocoa que me haya forzado a migrar todas mis implementaciones reactivas a RxSwift.
 
@@ -124,7 +124,7 @@ Se trata de la forma de integración por defecto. Si todavía no conoces Carthag
 
 1. Edita o crea el fichero **Cartfile** y añade la siguiente linea: `github "ReactiveCocoa/ReactiveCocoa"`
 2. Después ejecuta el comando: `carthage update`
-3. Sigue los pasos de la documentación de Carthage para añadir el framework generado al proyecto. 
+3. Sigue los pasos de la documentación de Carthage para añadir el framework generado al proyecto.
 
 **Cocoapods**
 ReactiveCocoa no ofrece soporte directo para CocoaPods pero existen `.podspec` no oficiales para integrarlo en tus proyectos usando Cocoapods, [enlace][3]. Estos `.podspec` están ya incluidos en la lista de CocoaPods con lo cual podemos definirlos directamente en nuestro **Podfile** para ello:

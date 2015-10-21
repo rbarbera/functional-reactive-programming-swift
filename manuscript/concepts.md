@@ -18,9 +18,9 @@ Si piensas en las fuentes de datos con las que estamos acostumbrados a trabajar 
 
 ## Signal Producer
 
-Como su nombre indica, “producen señales”. Aunque después de escuchar esto igual nos hemos quedado igual, tranquilo. La forma más fácil de entender un SignalProducer es como una señal que sólo se ejecuta cuando se lo indicamos. Los productores de señales encapsulan acciones que son lanzadas cuando iniciamos al productor. 
+Como su nombre indica, “producen señales”. Aunque después de escuchar esto igual nos hemos quedado igual, tranquilo. La forma más fácil de entender un SignalProducer es como una señal que sólo se ejecuta cuando se lo indicamos. Los productores de señales encapsulan acciones que son lanzadas cuando iniciamos al productor.
 
-> Nota: Habrás percibido que los Signal y SignalProducers son genéricos y por lo tanto tienen asociados un tipo tanto de error como de data en el evento. Esto permite en cualquier paso del proceso de manipulación de los eventos, on incluso desde la posición de los subscriptores saber el tipo de información que se está enviando en cada momento. El uso de genéricos en estos componentes también asegura en tiempo de compilación que no estamos erróneamente mezclando tipos. 
+> Nota: Habrás percibido que los Signal y SignalProducers son genéricos y por lo tanto tienen asociados un tipo tanto de error como de data en el evento. Esto permite en cualquier paso del proceso de manipulación de los eventos, on incluso desde la posición de los subscriptores saber el tipo de información que se está enviando en cada momento. El uso de genéricos en estos componentes también asegura en tiempo de compilación que no estamos erróneamente mezclando tipos.
 
 De ahora en adelante por simplificación hablaré simplementen de señales ya que debido a la definición de señal los conceptos presentados son intercambiables. Aquellos que no lo sean, serán explicados en detalle.
 
@@ -29,7 +29,7 @@ Un evento representa la información que se envía a través de los Signals y de
 
 - **Next**: Es el evento encapsula los datos enviados a través de la señal. El evento Next contiene objetos del tipo que haya definido la señal (recordamos que es un tipo genérico).
 - **Error**: Como su nombre indica se trata de un evento que indica que algo sucedió en la operación. Los errores en ReactiveCocoa son structs del tipo `ErrorType`. Para aquellas señales que no envían errores se usa el tipo de error `NoError`. Más adelante veremos algunas situaciones en las que la señal puede no necesitar enviar errores.
-- **Completed**: Este evento indica que la señal se ha completado y que por lo tanto ya no se recibirán más eventos del tipo `Next`. 
+- **Completed**: Este evento indica que la señal se ha completado y que por lo tanto ya no se recibirán más eventos del tipo `Next`.
 - **Interrupted**: Si por alguna razón la señal es cancelada (es posible gracias al objeto *"Disposable"*) la señal es interrumpida y se notifica a los observers con el envío de este tipo de evento.
 
 
@@ -40,24 +40,7 @@ Un evento representa la información que se envía a través de los Signals y de
 
 # Disposable
 
-
-- Señales hot y cold
-- Explicar cada uno de los conceptos reactivos con algunos ejemplos.
-
-## Utils
-[http://rxmarbles.com/][1]
-
-## Reactive
-
-## RxSwift
-- Getting started: [https://github.com/ReactiveX/RxSwift/blob/master/Documentation/GettingStarted.md#sharing-subscription-refcount-and-variable-operator][2]
-- Diferencia entre Hot y Cold [https://github.com/ReactiveX/RxSwift/blob/master/Documentation/HotAndColdObservables.md][3]
-- API: [https://github.com/ReactiveX/RxSwift/blob/master/Documentation/API.md][4]
-- DesignRationale: [https://github.com/ReactiveX/RxSwift/blob/master/Documentation/DesignRationale.md][5]
-\- 
-
-[1]:	http://rxmarbles.com/
-[2]:	https://github.com/ReactiveX/RxSwift/blob/master/Documentation/GettingStarted.md#sharing-subscription-refcount-and-variable-operator
-[3]:	https://github.com/ReactiveX/RxSwift/blob/master/Documentation/HotAndColdObservables.md
-[4]:	https://github.com/ReactiveX/RxSwift/blob/master/Documentation/API.md
-[5]:	https://github.com/ReactiveX/RxSwift/blob/master/Documentation/DesignRationale.md
+////// DON'T FORGET
+- Mention the reference documentation: https://github.com/ReactiveCocoa/ReactiveCocoa/blob/master/Documentation/BasicOperators.md
+- Mention this util website: http://rxmarbles.com/
+- Give examples with each reactive concept.
