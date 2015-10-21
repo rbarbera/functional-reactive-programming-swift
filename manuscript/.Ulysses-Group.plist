@@ -50,6 +50,12 @@
 		<array>
 			<string>references.md</string>
 		</array>
+		<array>
+			<string>advanced.md</string>
+		</array>
+		<array>
+			<string>structure.md</string>
+		</array>
 	</array>
 </dict>
 </plist>

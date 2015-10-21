@@ -1,68 +1,67 @@
-# Introducción a la programación reactiva
+# Introduction to Reactive Programming
 
-## ¿Qué es?
-Puede que antes hayas escuchado sobre la programación Reactiva, incluso puede que hayas visto algunos ejemplos anteriormente. Según **Wikipedia**
+## What’s Reactive Programming (RP)?
+You might have heard before about RP, even you might have seen some examples. According to **Wikipedia**
 
 > In computing, reactive programming is a programming paradigm oriented around **data flows** and the propagation of change. This means that it should be possible to express static or dynamic data flows with ease in the programming languages used, and that the underlying execution model will automatically propagate changes through the data flow.
 > For example, in an imperative programming setting,  would mean that  is being assigned the result of  in the instant the expression is evaluated. Later, the values of  and  can be changed with no effect on the value of .
 > In reactive programming, the value of  would be automatically updated based on the new values.
 
-Entendemos la programación reactiva como una forma de trabajar en la cual la información se recibe, y actuamos conforme a ella. Se asocia ese fluir de información con el concepto de **stream**
-y cada información que se envía con **eventos** que se envían a través de ese stream.
-El conjunto de sucesos que tienen lugar en nuestra aplicación se convierten en **fuentes de eventos**, son elementos **observables** y cuando estos envían algún eventos, somos nosotros, responsables de manipular esos eventos, combinarlos, y decidir qué hacer con ellos. Ejemplos de streams pueden ser:
+We understand RP as a paradigm where the information/data/events flow in an “channel” and our program/logic reacts according to these events. These channels where the information flows through  are called **streams** and the information sent are **events**.
+All the events that take place in our app are now **events sources**, and these sources are **observables**. When they send event, we’re responsible to operate with them, combining, mapping, filter, or just simply, use them. Some examples of streams could be:
 
-1. Una petición web cuya fuente de datos sería el cliente de la API, y los eventos enviados, la respuesta del servidor.
-2. El tap de un usuario sobre un botón, siendo la fuente de datos el propio botón y los eventos las acciones que ejecuta el usuario sobre el propio botón.
-3. Las posiciones GPS del usuario que llegan desde el módulo GPS del dispositivo abstraído en un framework.
+1. A web request where the data source would be the API client, and the events sent, the responses from the server.
+2. The tap event on a button. The button itself would be the data source and the taps on the button would be the actions.
+3. GPS user positions received from CoreLocation.
 
-Habrás notado que prácticamente todo es modelaba como un stream de datos, estás en lo cierto. Los componentes que encuentras en el framework de Cocoa y en muchas librerías que puedas encontrar en internet no ofrecen este concepto en sus APIs. En su lugar encontrarás **extensiones** que añaden carácter reactivo a otros frameworks ya existentes. Podemos por tanto crear una API nativa para modelar interacciones del usuario con la app, de la app con fuentes de datos locales, y también ¿Por qué no? con fuentes de  datos remotos.
+You might have noticed that almost everything can be modelled as a stream of data, and you’re right. The components that you find in Cocoa framework and in most of libraries don’t offer public RP. Instead, you’ll find **extensions** that add the reactive behaviour to existing frameworks. We can then, create a native API to model user interactions with the app, the app with local data sources, and also, why not? with remote data sources.
 
-A través de estos streams recibimos eventos que en algunos casos utilizaremos directamente pero que en otros nos interesará manipular previa su utilización. Aparece entonces el concepto de **Functional Reactive Programming** en la programación reactiva a través de **operadores** qué son definidos como funciones.
+The events received from these streams will be mostly used directly and won’t require any manipulation before using them, but one of the main advantages of RP is the ease of applying operators to these events. These operators are defined as a functions that can be applied to the stream. The term functional appears, and joins the paradigm RP, **Functional Reactive Programming**. We couldn’t imagine RP without the use of functional concepts.
 
-> Un operador aplicado sobre un stream o señal de eventos es una función que dada una señal de entrada retorna una señal de salida manipulando los eventos recibidos por la señal fuente.
+> An operator applied to a  stream is a function that given an input stream it returns another stream manipulating the events received by the source stream.
 
 ![Ejemplo que muestra dos operadores, uno de mapeo donde los eventos de un stream son convertidos en otro tipo de eventos, y un operador de filtrado.][image-1]
 
-El resultado de estas señales son eventos que han de ser **consumidos**. La subscripción puede ser realizada de dos formas:
+When we *consume* these events we can do it in two ways:
+- **Observing**: We can directly observe the stream, and specify in a *closure* the actions to be executed depending on the type of event.
+- **Binding**: Connecting streams with existing object. Every time an event is received from the stream, it automatically updates the object *(or object property)*.
 
-- **Observando**: Podemos directamente observar la señal, para ello especificamos en un *closure* las acciones a ejecutar en función del tipo de evento que se reciba.
-- **Bindeando**: La otra opción disponible es hacer binding de los  eventos que provienen del stream con un objeto o el atributo de un objeto determinado.
+For example, if we have a stream that sends collections of tasks to be shown in a table, and we have a collection that keeps a reference to the last returned collection, we can bind the signal that returns these collections to the collection property. That way it always reflect the last state when the stream sends new collections. It’s also very common use binding for UI elements. For example, updating the state of enabled in a button using a function that validates some text streams.
 
-Por ejemplo, si tenemos un stream que envía colecciones de tareas para ser mostradas en una tabla y tenemos una colección que mantiene una referencia a la última colección retornada, podemos bindear una señal que retorna esas colecciones con esta colección de forma que esta siempre esté actualizada cuando la señal a la que está bindeado envíe nuevas colecciones. También es muy común hacer binding con elementos de UI. Por ejemplo, actualizar el estado de enabled de un botón en función de la validación de unos campos de texto.
+> Remember, in FRP we’re going to have three main components **Streams (observables), Operators and Bindings**. Later, we’ll see each of them with more details and the available operations. 
 
-> Recuerda, en Reactive vamos a tener tres componentes principales **Streams (observables), Operadores y Bindings**. Más adelante veremos cada uno de ellos en detalle así como las operaciones que podemos realizar con ellos.
-
-## Patrones de observación
-Cuando empecé a introducir los conceptos reactivos una de mis primeras inquietudes fue entender qué patrones similares había estado usando hasta ahora, que problemas presentaban, y de qué forma la programación reactiva ayudaba o facilitaba estos patrones. La mayoría de ellos los usas a diario:
+## Observation patters
+When I started with the reactive concepts one of my firsts concerns was understanding which similar patters I had been used so far, the problems they presented, and how FRP could help or make them easier. You probably use some of them daily:
 
 ### KVO
-Extensivamente usado en Cocoa. Permite observar el estado de las properties de un objeto determinado y reaccionar antes sus cambios. El mayor problema de KVO es que no es fácil de usar, su API está demasiado recargada y todavía no dispone de una interfaz basada en bloques (o closures en Swift)
+Extensively used in Cocoa. It allows observing the state of the properties of a given object, and react to the changes. The main problem with KVO is that it’s not easy to use, the API is overloaded and it doesn’t offer and API based on blocks (closures in Swift).
 
-~~~~~~
+\~\~\~\~\~\~
 objectToObserve.addObserver(self, forKeyPath: "myDate", options: .New, context: &myContext)
-~~~~~~
+\~\~\~\~\~\~
 
-### Delegados
+### Delegates
+
 Uno de los primeros patrones que aprendes cuando das tus primeros pasos en el desarrollo para iOS/OSX ya que la mayoría de componentes de los frameworks de Apple lo implementan. *UITableViewDelegate, UITableViewDataSource, …* son algunos ejemplos. El principal problema que presenta este patrón es que sólo puede haber un delegado registrado. Si estamos ante un escenario más complejo donde con una entidad suscrita no es suficiente el patrón requiere de algunas modificaciones para que pueda soportar múltiples delegados.
 
-~~~~~~
+\~\~\~\~\~\~
 func tableView(tableView: UITableView,
   cellForRowAtIndexPath indexPath: NSIndexPath) -\> UITableViewCell {
 return UITableViewCell()
 
 }
-~~~~~~
+\~\~\~\~\~\~
 
 ### Notificaciones
 Cuando es complejo aproximarnos al componente fuente del evento para *subscribirnos* se usa el patrón que consiste en el envío de notificaciones. ¿Conoces NSNotificationCenter? CoreData lo utiliza por ejemplo para notificar cuando un contexto va a ejecutar una operación de guardado. El problema que tiene este patrón es que toda la información enviada se retorna en un diccionario, *UserInfo*, y el observador tiene que conocer previamente la estructura de este diccionario para poder interpretarlo. No hay por lo tanto seguridad ni en la estructura ni en los tipos enviados.
 
 Las librerías reactivas disponibles actualmente ofrecen extensiones para pasar de esos patrones al formato reactivo. Desde generar señales para notificaciones enviadas al NSNotificationCenter, como para detectar los taps de un UIButton.
 
-~~~~~~
+\~\~\~\~\~\~
 NSNotificationCenter
   .defaultCenter()
   .addObserver(self, selector: "contextWillSave:", name: NSManagedObjectContextWillSaveNotification, object: self)
-~~~~~~
+\~\~\~\~\~\~
 
 ## Ventajas
 La programación reactiva tiene grandes ventajas usada en esos ámbitos donde es bastante directo aplicar el sentido de stream. Como bien comentaba al comienzo, todo puede ser modelado como un stream, y podrías de hecho tener un proyecto completamente reactivo pero bajo mi punto de vista, acabarías teniendo una compleja lógica de generación de streams que acabará dificultando la lectura del código.
@@ -78,14 +77,14 @@ Después de unos meses usando ReactiveCocoa en mis proyectos, especialmente en l
 - **Fácil composición y reusabilidad:** Los streams pueden ser combinados de infinitas formas *(gracias a los operadores que los propios frameworks facilitan)*. Además podemos generar los nuestros propios de forma que podamos obtener streams de eventos a partir de una combinación de otros muchos.
 - **Gestión de errores:** Por defecto los frameworks reactivos dan la opción de reintentar la operación fuente del stream en el caso de fallo. Por ejemplo, si un stream recibe la respuesta de una petición web y queremos que está se reintente en el caso de fallo podemos usar el operador y la petición se volverá a ejecutar:
 
-~~~~~~
-NSURLSession.sharedSession().rac_dataWithRequest(URLRequest)
-|> retry(2)
-|> catch { error in
+\~\~\~\~\~\~
+NSURLSession.sharedSession().rac\_dataWithRequest(URLRequest)
+|\> retry(2)
+|\> catch { error in
 println("Network error occurred: \(error)")
 return SignalProducer.empty
 }
-~~~~~~
+\~\~\~\~\~\~
 
 - **Simplificación de estados:** Debido al hecho de que la información se modela en un stream unidireccional. El número de estados que puedan introducirse se reduce simplificando la lógica de nuestro código
 
@@ -137,9 +136,9 @@ ReactiveCocoa no ofrece soporte directo para CocoaPods pero existen `.podspec` n
 
 Ya tienes ReactiveCocoa en tu proyecto. Para usarlo desde Swift recuerda hacer el import del framework en cualquier fichero Swift donde vayas hacer uso del framework.
 
-~~~~~~
+\~\~\~\~\~\~
 import ReactiveCocoa
-~~~~~~
+\~\~\~\~\~\~
 
 [1]:	https://github.com/ReactiveX/RxSwift "Fichero README del repositorio de RXSwift"
 [2]:	https://github.com/Carthage/Carthage "Documentación de Carthage"
