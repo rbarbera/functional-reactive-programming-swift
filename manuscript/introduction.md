@@ -46,7 +46,7 @@ This is one of the first patterns that you learn when you give your first steps 
 
 ~~~~~~~~
 func tableView(tableView: UITableView,
-  cellForRowAtIndexPath indexPath: NSIndexPath) -\> UITableViewCell {
+  cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 return UITableViewCell()
 
 }
