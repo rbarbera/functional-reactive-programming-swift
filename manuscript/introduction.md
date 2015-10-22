@@ -20,7 +20,7 @@ The events received from these streams will be mostly used directly and won’t 
 
 > An operator applied to a  stream is a function that given an input stream it returns another stream manipulating the events received by the source stream.
 
-![Ejemplo que muestra dos operadores, uno de mapeo donde los eventos de un stream son convertidos en otro tipo de eventos, y un operador de filtrado.][image-1]
+![Example of two operators, one for mapping events and the other one for filtering them][image-1]
 
 When we *consume* these events we can do it in two ways:
 - **Observing**: We can directly observe the stream, and specify in a *closure* the actions to be executed depending on the type of event.
@@ -42,7 +42,7 @@ objectToObserve.addObserver(self, forKeyPath: "myDate", options: .New, context: 
 
 ### Delegates
 
-Uno de los primeros patrones que aprendes cuando das tus primeros pasos en el desarrollo para iOS/OSX ya que la mayoría de componentes de los frameworks de Apple lo implementan. *UITableViewDelegate, UITableViewDataSource, …* son algunos ejemplos. El principal problema que presenta este patrón es que sólo puede haber un delegado registrado. Si estamos ante un escenario más complejo donde con una entidad suscrita no es suficiente el patrón requiere de algunas modificaciones para que pueda soportar múltiples delegados.
+This is one of the first patterns that you learn when you give your first steps in the iOS/OSX development since most of the Apple frameworks will stick to it. *UITableViewDelegate, UITableViewDataSource, UITextViewDelegate ...* are some examples. The main problem that this pattern presents is that there can only be a delegate registered. If we're working with a more complex scenario where only one entity is not enough, this pattern requires some modifications to support multiple delegates *(for example a proxy class)*.
 
 \~\~\~\~\~\~
 func tableView(tableView: UITableView,
@@ -52,10 +52,11 @@ return UITableViewCell()
 }
 \~\~\~\~\~\~
 
-### Notificaciones
-Cuando es complejo aproximarnos al componente fuente del evento para *subscribirnos* se usa el patrón que consiste en el envío de notificaciones. ¿Conoces NSNotificationCenter? CoreData lo utiliza por ejemplo para notificar cuando un contexto va a ejecutar una operación de guardado. El problema que tiene este patrón es que toda la información enviada se retorna en un diccionario, *UserInfo*, y el observador tiene que conocer previamente la estructura de este diccionario para poder interpretarlo. No hay por lo tanto seguridad ni en la estructura ni en los tipos enviados.
+### Notifications
 
-Las librerías reactivas disponibles actualmente ofrecen extensiones para pasar de esos patrones al formato reactivo. Desde generar señales para notificaciones enviadas al NSNotificationCenter, como para detectar los taps de un UIButton.
+When it's complex to get closer to the events source in order to *subscribe* to it we use the pattern that consists on sending notifications. Do you know NSNotificationCenter? CoreData uses it to notify when a conext is going to execute a saving operation. The problem with that pattern is that the information sent is returned using a dictionary, *UserInfo*, and the obesrver has to know previously the structure of that dictionary to parse it. Thus, there's no safety with the structure and types sent.
+
+Reactive libraries available nowadays offer extensions to move from these patterns to reactive approaches. Since generating signals from notifications sent to the NSNotificationCenter, to detecting taps on an UIButton.
 
 \~\~\~\~\~\~
 NSNotificationCenter
@@ -63,8 +64,12 @@ NSNotificationCenter
   .addObserver(self, selector: "contextWillSave:", name: NSManagedObjectContextWillSaveNotification, object: self)
 \~\~\~\~\~\~
 
-## Ventajas
-La programación reactiva tiene grandes ventajas usada en esos ámbitos donde es bastante directo aplicar el sentido de stream. Como bien comentaba al comienzo, todo puede ser modelado como un stream, y podrías de hecho tener un proyecto completamente reactivo pero bajo mi punto de vista, acabarías teniendo una compleja lógica de generación de streams que acabará dificultando la lectura del código.
+## Advantages
+
+The FRP has big advantages used in contexts where it's pretty straightforward modeling the flow of events as a stream. As I commented previously, everything can be modeled as an stream, and you can in fact have a project fully reactive, but from my point of view, you'll end up having a very complex logic for streams generation that will make more difficult the readability of your code.
+
+> 
+
 
 > Con la programación Reactiva sucede algo similar a la programación Funcional. Se trata de un paradigma de programación que ha tenido un gran impulso en el desarrollo de iOS/OSX con la llegada de Swift pero no es necesario agobiarse y sentir una presión inmensa por migrar proyectos hacia esos paradigmas. Usa estos en tus proyectos a medida que te vayas sintiendo cómodo y notes que tu proyecto te los pide en determinadas partes. ¡Eras feliz sin ellos!, ahora puedes serlo incluso más, pero con tranquilidad…
 
