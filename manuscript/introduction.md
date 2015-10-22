@@ -36,33 +36,33 @@ When I started with the reactive concepts one of my firsts concerns was understa
 ### KVO
 Extensively used in Cocoa. It allows observing the state of the properties of a given object, and react to the changes. The main problem with KVO is that it’s not easy to use, the API is overloaded and it doesn’t offer and API based on blocks (closures in Swift).
 
-\~\~\~\~\~\~
+~~~~~~~~
 objectToObserve.addObserver(self, forKeyPath: "myDate", options: .New, context: &myContext)
-\~\~\~\~\~\~
+~~~~~~~~
 
 ### Delegates
 
 This is one of the first patterns that you learn when you give your first steps in the iOS/OSX development since most of the Apple frameworks will stick to it. *UITableViewDelegate, UITableViewDataSource, UITextViewDelegate ...* are some examples. The main problem that this pattern presents is that there can only be a delegate registered. If we're working with a more complex scenario where only one entity is not enough, this pattern requires some modifications to support multiple delegates *(for example a proxy class)*.
 
-\~\~\~\~\~\~
+~~~~~~~~
 func tableView(tableView: UITableView,
   cellForRowAtIndexPath indexPath: NSIndexPath) -\> UITableViewCell {
 return UITableViewCell()
 
 }
-\~\~\~\~\~\~
+~~~~~~~~
 
 ### Notifications
 
 When it's complex to get closer to the events source in order to *subscribe* to it we use the pattern that consists on sending notifications. Do you know NSNotificationCenter? CoreData uses it to notify when a conext is going to execute a saving operation. The problem with that pattern is that the information sent is returned using a dictionary, *UserInfo*, and the obesrver has to know previously the structure of that dictionary to parse it. Thus, there's no safety with the structure and types sent.
 
-Reactive libraries available nowadays offer extensions to move from these patterns to reactive approaches. Since generating signals from notifications sent to the NSNotificationCenter, to detecting taps on an UIButton.
+Reactive libraries available nowadays offer extensions to move from these patterns to reactive approaches. From generating signals from notifications sent to the NSNotificationCenter, to detecting taps on an UIButton.
 
-\~\~\~\~\~\~
+~~~~~~~~
 NSNotificationCenter
   .defaultCenter()
   .addObserver(self, selector: "contextWillSave:", name: NSManagedObjectContextWillSaveNotification, object: self)
-\~\~\~\~\~\~
+~~~~~~~~
 
 ## Advantages
 
@@ -82,14 +82,14 @@ Después de unos meses usando ReactiveCocoa en mis proyectos, especialmente en l
 - **Fácil composición y reusabilidad:** Los streams pueden ser combinados de infinitas formas *(gracias a los operadores que los propios frameworks facilitan)*. Además podemos generar los nuestros propios de forma que podamos obtener streams de eventos a partir de una combinación de otros muchos.
 - **Gestión de errores:** Por defecto los frameworks reactivos dan la opción de reintentar la operación fuente del stream en el caso de fallo. Por ejemplo, si un stream recibe la respuesta de una petición web y queremos que está se reintente en el caso de fallo podemos usar el operador y la petición se volverá a ejecutar:
 
-\~\~\~\~\~\~
+~~~~~~~~
 NSURLSession.sharedSession().rac\_dataWithRequest(URLRequest)
 |\> retry(2)
 |\> catch { error in
 println("Network error occurred: \(error)")
 return SignalProducer.empty
 }
-\~\~\~\~\~\~
+~~~~~~~~
 
 - **Simplificación de estados:** Debido al hecho de que la información se modela en un stream unidireccional. El número de estados que puedan introducirse se reduce simplificando la lógica de nuestro código
 
@@ -141,9 +141,9 @@ ReactiveCocoa no ofrece soporte directo para CocoaPods pero existen `.podspec` n
 
 Ya tienes ReactiveCocoa en tu proyecto. Para usarlo desde Swift recuerda hacer el import del framework en cualquier fichero Swift donde vayas hacer uso del framework.
 
-\~\~\~\~\~\~
+~~~~~~~~
 import ReactiveCocoa
-\~\~\~\~\~\~
+~~~~~~~~
 
 [1]:	https://github.com/ReactiveX/RxSwift "Fichero README del repositorio de RXSwift"
 [2]:	https://github.com/Carthage/Carthage "Documentación de Carthage"
