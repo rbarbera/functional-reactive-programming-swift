@@ -1,11 +1,3 @@
-//
-//  ViewController.swift
-//  Reactive
-//
-//  Created by Pedro Piñera Buendía on 26/08/15.
-//  Copyright © 2015 ppinera. All rights reserved.
-//
-
 import UIKit
 
 class ViewController: UIViewController {

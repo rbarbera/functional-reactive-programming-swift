@@ -18,3 +18,7 @@ Here's the list of people that will contribute with the book reviewing it and pr
 - patoroco@gmail.com
 - danimartinprieto@gmail.com
 - r.lapuente@gmail.com
+
+
+## Notes
+- Use first person of the plural

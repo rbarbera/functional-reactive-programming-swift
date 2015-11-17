@@ -6,3 +6,4 @@ notes.md
 mainmatter.md
 introduction.md
 concepts.md
+operators.md

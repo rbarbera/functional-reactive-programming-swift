@@ -1,24 +1,4 @@
 ## BOOK Structure
-- Thanks [DONE]
-- Quote [DONE]
-- Preface [DONE]
-- Notes [DONE - MIGHT BE UPDATED]
-- Introduction [PENDING TO TRANSLATE]
-- ReactiveCocoa
-  - Concepts [WIP]
-    Notes:
-      - Each concept will include some examples of use
-      - Mention the original reference (repository)
-    - Events
-    - Signal
-    - SignalProducer
-    - Pipe
-    - Buffer
-    - Observer
-    - Actions
-    - Properties
-    - Disposables
-    - Schedulers
   - Operators:
     Notes:
       - Mention how the source signals are disposed when the combined signal is disposed
