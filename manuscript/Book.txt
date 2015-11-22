@@ -7,3 +7,5 @@ mainmatter.md
 introduction.md
 concepts.md
 operators.md
+design.md
+advanced.md

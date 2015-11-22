@@ -25,6 +25,8 @@
 		3DD409CD1BFA1B2600896E0F /* intro_signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD409CC1BFA1B2600896E0F /* intro_signal.swift */; };
 		3DD409CF1BFA1B5D00896E0F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD409CE1BFA1B5D00896E0F /* CoreLocation.framework */; };
 		3DD409D11BFA30A700896E0F /* intro_signal_producer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD409D01BFA30A700896E0F /* intro_signal_producer.swift */; };
+		3DF7F5CF1BFDE66600C9D9CD /* intro_actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF7F5CE1BFDE66600C9D9CD /* intro_actions.swift */; };
+		3DF7F5D11BFE0A3400C9D9CD /* design_delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF7F5D01BFE0A3400C9D9CD /* design_delegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +75,8 @@
 		3DD409CC1BFA1B2600896E0F /* intro_signal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = intro_signal.swift; sourceTree = "<group>"; };
 		3DD409CE1BFA1B5D00896E0F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3DD409D01BFA30A700896E0F /* intro_signal_producer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = intro_signal_producer.swift; sourceTree = "<group>"; };
+		3DF7F5CE1BFDE66600C9D9CD /* intro_actions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = intro_actions.swift; sourceTree = "<group>"; };
+		3DF7F5D01BFE0A3400C9D9CD /* design_delegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = design_delegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +150,8 @@
 				3DD409CC1BFA1B2600896E0F /* intro_signal.swift */,
 				3DD409D01BFA30A700896E0F /* intro_signal_producer.swift */,
 				3D060DFC1BFAAEB30001F969 /* intro_properties.swift */,
+				3DF7F5CE1BFDE66600C9D9CD /* intro_actions.swift */,
+				3DF7F5D01BFE0A3400C9D9CD /* design_delegate.swift */,
 			);
 			name = Examples;
 			sourceTree = "<group>";
@@ -281,8 +287,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DF7F5D11BFE0A3400C9D9CD /* design_delegate.swift in Sources */,
 				3D36A0471B8E2288002E5BD5 /* ViewController.swift in Sources */,
 				3D060DFD1BFAAEB30001F969 /* intro_properties.swift in Sources */,
+				3DF7F5CF1BFDE66600C9D9CD /* intro_actions.swift in Sources */,
 				3DD409CD1BFA1B2600896E0F /* intro_signal.swift in Sources */,
 				3DD409D11BFA30A700896E0F /* intro_signal_producer.swift in Sources */,
 				3D36A0451B8E2288002E5BD5 /* AppDelegate.swift in Sources */,
