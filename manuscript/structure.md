@@ -2,7 +2,7 @@
   - Operators:
     Notes:
       - Mention how the source signals are disposed when the combined signal is disposed
-      - Mention Red libary that add extra operators and mention these operators.
+      - Mention Red library that add extra operators and mention these operators.
     - Observation
     - Composition
       - Lift
@@ -23,10 +23,6 @@
       - Mapping Errors
       - Retrying
 - Design
-  - Principles
-  - Data layer
-    - Remote
-      - HTTP
     - Local persistence
       - Keychain
       - NSUserDefaults

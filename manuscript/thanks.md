@@ -2,7 +2,7 @@
 
 I would like to firs say thanks to *Isaac Roldán*, friend since we met at the University and later workmate at Redbooth. Now working together on new interesting projects. Together we've learnt a lot of concepts, libraries, we've developed a lot of apps and become better developers. I hope this book helps him to absorb all the reactive concepts.
 
-I would like to also thank the big community behind the iOS/OSX development specially to tools like **Cocoapods [^1]** and **Carthage[^2]** that make our daily work easier and fluent. Thanks to all these developer that unselfishly work in the platform and have allowed a big source of reusable components that without them it would have been almost impossible.
+I would like to also thank the big community behind the iOS/OSX development specially to tools like [Cocoapods](https://cocoapods.org) and [Carthage](https://github.com/Carthage/Carthage) that make our daily work easier and fluent. Thanks to all these developer that unselfishly work in the platform and have allowed a big source of reusable components that without them it would have been almost impossible.
 
 The community behind **ReactiveCocoa** and **RXSwift** also deserve a big thanks because they made possible the use of Reactive concepts with Swift. They designed both libraries with the advantages that Swift offers as a language *(generics, type safety, type inferece, funcional concepts)*.
 
@@ -13,8 +13,3 @@ And lastly, I would like to thank you for choosing this book to dive into the fu
 ~~~~~~
 print(“Let's be reactive!”)
 ~~~~~~
-
-[^1]:	CocoaPods is built with Ruby and is installable with the default Ruby available on OS X. We recommend you do this. [https://cocoapods.org/][1]
-[^2]:	Carthage is intended to be the simplest way to add frameworks to your Cocoa application. [https://github.com/Carthage/Carthage][2]
-[1]:	https://cocoapods.org/
-[2]:	https://github.com/Carthage/Carthage

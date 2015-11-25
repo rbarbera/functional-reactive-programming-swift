@@ -127,44 +127,70 @@ The first step is defining which variables we need to create a request:
   5. **Session:** In case we're accessing HTTP resources that require authentication we will need the user session. It's represented in the example below with a `Session` struct object. That session structure will depend on the authentication mechanism of the API you'r accessing to.
 
 ~~~~~~~~
+import Foundation
+import ReactiveCocoa
+
 enum Method: String {
   case POST, PUT, PATCH, DELETE, GET
 }
 
-enum HttpError: ErrorType {}
+enum HttpError: ErrorType {
+  case Default(NSError)
+}
 
 struct Session {
   let accessToken: String
   init(accessToken: String) {
-    self.accessToken = accessToken
+      self.accessToken = accessToken
   }
 }
 
-func request(baseURL: String)(path: String)(method: Method, parameters: [String: AnyObject])(session session: Session) -> SignalProducer<AnyObject, HttpError> {
+private func request(baseURL: String)(path: String)(method: Method, parameters: [String: AnyObject])(session: Session) -> SignalProducer<(NSData, NSURLResponse), HttpError> {
   return SignalProducer { (observer, disposable) in
 
+    let urlSession: NSURLSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
+    let request: NSMutableURLRequest = NSMutableURLRequest(URL: NSURL(string: baseURL)!.URLByAppendingPathComponent(path))
+    // TODO - Append parameters
+    request.allHTTPHeaderFields = ["Authorization": "Bearer \(session.accessToken)"]
+    request.HTTPMethod = method.rawValue
+    let task = urlSession.dataTaskWithRequest(request, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+      if let error = error {
+        observer.sendFailed(.Default(error))
+      }
+      else if let response = response, let data = data {
+        observer.sendNext((data, response))
+      }
+      observer.sendCompleted()
+    })
+    if disposable.disposed {
+      return
+    }
+    task.resume()
   }
 }
 
-// 1. Unauthenticated request for a given base url
-let githubRequest = request("https://api.github.com")
+private func github() {
+  // 1. Unauthenticated request for a given base url
+  let githubRequest = request("https://api.github.com")
 
-// 2. Unauthenticated request pointing to a given resource
-let userRequest = githubRequest("/user")
+  // 2. Unauthenticated request pointing to a given resource
+  let userRequest = githubRequest(path: "/user")
 
-// 3. Unauthenticated request getting a resource
-let showUserRequest = userRequest(.GET, parameters: [:])
+  // 3. Unauthenticated request getting a resource
+  let showUserRequest = userRequest(method: .GET, parameters: [:])
 
-// 4. Authenticated request getting a resource
-showUserRequest(session: mySession).startWithEvent { event in
-  switch event {
-    case .Next(let response):
-      print("Response: \(response)")
-    case .Failed(let error):
-      print("Failed: \(error)")
-    default:
-      break
-  }
+  // 4. Authenticated request getting a resource
+  let mySession: Session = Session(accessToken: "xxx")
+  showUserRequest(session: mySession).on(event: { event in
+      switch event {
+      case .Next(_):
+          print("Got response from the server")
+      case .Failed(_):
+          print("Something went wrong")
+      default:
+          break
+      }
+  }).start()
 }
 ~~~~~~~~
 
@@ -173,20 +199,142 @@ Let's analyze it:
 - **Method:** We define an enum that contains the REST method that we're using in the request. That way we introduce a value safety which is implicit in the enum itself.
 - **HttpError:** We're defining a custom error type for our requests. That way we've more flexibility to support more errors in the future.
 - **Session:** We define an struct that contains information about the user session. In the example presented the user access token.
-- **Request:** Request function is implemented **currying**, why? If we call that curry function passing the base URL then we have a request generator for a given base url. Does the `APIClient` singleton instance sound familiar to you? We could say that that request is the functional equivalent to your API clients.
+- **Request:** Request function is implemented **currying**, why? If we call that curry function passing the base URL then we have a request generator for a given base url. Does the `APIClient` singleton instance sound familiar to you? We could say that that request is the functional equivalent to your API clients. The function returns a `SignalProducer` that creates the request, and executes it when the `SignalProducer` is started.
+
+> Notice that the `SignalProducer` type next event type is a tuple of (NSData, NSURLResponse). We want to propagate the response back, that way the consumer can extract information about the HTTP response.
 
 ##### 2. JSON requests
 
-~~~~~~~~
+The `SignalProducer` created in the example above is a generic one that is valid for any kind of HTTP response. If we wanted to make it specific for JSON responses and return a `Foundation` object instead we can use the **map** operator of Reactive.
+
+First thing we do is defining our mapper that takes an `(NSData, NSURLResponse)` tuple as input parameter and converts it into an `AnyObject` that might represent a dictionary, `[String: AnyObject]` or an array `[AnyObject]`.
 
 ~~~~~~~~
+func mapToJSON(input: (NSData, NSURLResponse)) -> AnyObject? {
+  return try! NSJSONSerialization.JSONObjectWithData(input.0, options: NSJSONReadingOptions.AllowFragments)
+}
+~~~~~~~~
+
+Then we can use it with `map`:
+
+~~~~~~~~
+showUserRequest(session: mySession)
+  .map(mapToJSON)
+  .on(event: { event in
+      switch event {
+      case .Next(_):
+          print("Got response from the server")
+      case .Failed(_):
+          print("Something went wrong")
+      default:
+          break
+      }
+  }).start()
+~~~~~~~~
+
+Voila! we moved our generic Reactive Functional API Client to an API Client valid for JSON APIs.
 
 ##### 3. Plain objects mapping
 
-~~~~~~~~
+Depending on the response, we'll want to map it into a plain object that we can use from our code having its own attributes defined. As we did mapping the response into a `Foundation` object, we can again map that object into a defined `Foundation` or `Struct`. Let's say we have defined an `User` struct with the user data that the Github API returns:
+
+1. We define a protocol called `Mappable` that defines how the struct that conforms it can be mapped into a collection of itself or a single element.
+2. Using **protocol extensions** of Swift we give a default implementation for `collectionMapper()` that internally uses `singleMapper()`
+3. We define our `User` struct that conforms that protocol and consequently implement the `singleMapper()` method.
+
+> Note: `singleMapper()` implementation doesn't include the extraction of values from the dictionary. You can directly get them from the `Foundation` dictionary or use any of the existing libraries for that. I recommend you to use [SwiftyJSON](https://github.com/SwiftyJSON) or [Genome](https://github.com/Genome).
 
 ~~~~~~~~
+protocol Mappable {
+  static func singleMapper(object: AnyObject) -> Self?
+  static func collectionMapper(object: AnyObject) -> [Self]?
+}
 
+extension Mappable {
+  static func collectionMapper(object: AnyObject) -> [Self]? {
+    guard let array = object as? [AnyObject] else { return nil }
+    return array.map { singleMapper($0)! }
+  }
+}
+
+struct User: Mappable {
+
+  // MARK: - Attributes
+
+  let username: String
+  let email: String
+
+  // MARK: - Constructor
+
+  private init(username: String, email: String) {
+    self.username = username
+    self.email = email
+  }
+
+  // MARK: - Mappable
+
+  static func singleMapper(object: AnyObject) -> User? {
+    guard let dict = object as? [String: AnyObject] else { return nil }
+    // Extract the information from the dictionary
+    return Account(username: "xxxx", email: "xxx")
+  }
+}
+~~~~~~~~
+
+Now with the mapper defined we can use again the `map` operator of ReactiveCocoa to get a `SignalProducer` of `User` instead:
+
+1. After mapping into the JSON `Foundation` object *(that can return a nil value)* we use the operator `ignoreNil` of ReactiveCocoa to get a `SignalProducer` of **non-nil** `Foundation` values.
+2. Then we use the `map` operator again passing in this case the `User.singleMapper` function.
+
+~~~~~~~~
+showUserRequest(session: mySession)
+  .map(mapToJSON)
+  .ignoreNil()
+  .map(User.singleMapper)
+  .on(event: { event in
+    switch event {
+    case .Next(let user):
+      print("User with username: \(user?.username)")
+    case .Failed(_):
+      print("Something went wrong")
+    default:
+      break
+    }
+  }).start()
+~~~~~~~~
+
+##### Combining requests
+One of the main advantages of the use of Reactive Programming is the ease to combine multiple SignalProducers. When we interact with APIs resources we might need fetching resources after some others have been downloaded. For example, interacting with the Github API:
+
+- Download the user repositories when the user account has been downloaded.
+- Download the respository collaborators when the repositories have been downloaded.
+- Download the list of issues of a given repository when that has been downloaded.
+
+Without the Reactive approach we end up chaining multiple completion closures and with a lot of indentations levels, which is not clear in terms of readability. That an be simplified using our request generators seen before:
+
+**Download user repositories after user**
+Supposing that our `User` model has now a new attribute, `reposIds` that is an `Array<String>` we can implement a new request that using `userRequest` and `repoRequest` fetches the user repositories. To get them we use the operator `flatMap` that for every value sent in the source signal *(`User` object)* we return a `SignalValues` whose values are sent through the main stream. In this case we combine multiple `SignalProducer` that get each of these repositories and return it. The r
+~~~~~~~~
+private func userRequest() -> SignalProducer<User, HttpError>
+private func repoRequest(identifier: String) -> SignalProducer<Repository, HttpError>
+private func userRepos() -> SignalProducer<[Repository], HttpError> {
+  return userRequest()
+          .flatMap { (user) -> SignalProducer<[Repository], HttpError> in
+            return combineLatest(user.reposIds.map(repoRequest))
+          }
+}
+private func shortUserRequest() -> SignalProducer<[Repository], HttpError> {
+  return userRequest().flatMap { combineLatest($0.reposIds.map(repoRequest)) }
+}
+~~~~~~~~
+
+##### Summary
+- We use the `SignalProducer`constructor defining in the closure how the request is build and executed. When the producer is started the HTTP request is executed.
+- The constructor is defined using **currying** to have more flexibility building our own requests changing the *path* and *parameters*.
+- Thanks to the `map` operator we can:
+  - Get a `SignalProducer` whose responses are `Foundation` object instead of `NSData` values.
+  - Get a `SignalProducer` whose responses are plain structs that we can use from our code reading its attributes.
+- We've also seen the use of the ReactiveCocoa `ignoreNil` to ignore nil values returned after mapping into JSON.
 
 ### Local persistence
 #### Keychain

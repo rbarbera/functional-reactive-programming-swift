@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D0825161C04036B001B67FF /* design_http.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0825151C04036B001B67FF /* design_http.swift */; };
 		3D36A0451B8E2288002E5BD5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D36A0441B8E2288002E5BD5 /* AppDelegate.swift */; };
 		3D36A0471B8E2288002E5BD5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D36A0461B8E2288002E5BD5 /* ViewController.swift */; };
 		3D36A04A1B8E2288002E5BD5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D36A0481B8E2288002E5BD5 /* Main.storyboard */; };
@@ -57,6 +58,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3D0825151C04036B001B67FF /* design_http.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = design_http.swift; sourceTree = "<group>"; };
 		3D36A0411B8E2288002E5BD5 /* Reactive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reactive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D36A0441B8E2288002E5BD5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3D36A0461B8E2288002E5BD5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				3DF7F5D51C018E7100C9D9CD /* intro_properties.swift */,
 				3DF7F5D61C018E7100C9D9CD /* intro_signal.swift */,
 				3DF7F5D71C018E7100C9D9CD /* intro_signal_producer.swift */,
+				3D0825151C04036B001B67FF /* design_http.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 				3DF7F5DA1C018E7100C9D9CD /* intro_properties.swift in Sources */,
 				3D36A0451B8E2288002E5BD5 /* AppDelegate.swift in Sources */,
 				3DF7F5D91C018E7100C9D9CD /* intro_actions.swift in Sources */,
+				3D0825161C04036B001B67FF /* design_http.swift in Sources */,
 				3DF7F5DB1C018E7100C9D9CD /* intro_signal.swift in Sources */,
 				3DF7F5D81C018E7100C9D9CD /* design_delegate.swift in Sources */,
 			);
