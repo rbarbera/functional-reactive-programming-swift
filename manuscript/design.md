@@ -52,7 +52,9 @@ Once you get this point, you have the enough concepts to start thinking in React
 - **Use existing operators:** ReactiveCocoa operators have been perfectly designed and tested before being added to the framework. Before working on a new operators we should try to use any of the existing one or combine existing operators. The design of new operators might lead to problems with multi-thread access, signals retained in memory, disposables not properly combined...
 
 ## Cocoa patterns
+
 ### Completion closures
+
 When blocks where introduced back with Objective-C most of common framework started using this pattern notifying the completion of its operations. In Swift, blocks where renamed to closures adding some advantages like the option to specify the retainmend of external variables when the closure is defined. The migration of that pattern to Reactive is relatively easy.
 
 Let's say we have the method shown below:
@@ -106,8 +108,40 @@ save(myObjects).startWithCompleted {
 }
 ~~~~~~~~
 
+### Notifications
+//TODO
+Notifications enable registering multiple observers easily, but they are also untyped. Values need to be extracted from either userInfo or original target once they fire.
+
+They are just a notification mechanism, and initial value usually has to be acquired in some other way.
+
+That leads to this tedious pattern:
+
+### KVO
+//TODO
+KVO is a handy observing mechanism, but not without flaws. It's biggest flaw is confusing memory management.
+
+In case of observing a property on some object, the object has to outlive the KVO observer registration otherwise your system will crash with an exception.
+
+### Delegates
+//TODO
+Delegates can be used both as a hook for customizing behavior and as an observing mechanism.
+
+Each usage has it's drawbacks, but Rx can help remedy some of the problem with using delegates as a observing mechanism.
+
+Using delegates and optional methods to report changes can be problematic because there can be usually only one delegate registered, so there is no way to register multiple observers.
+
+Also, delegates usually don't fire initial value upon invoking delegate setter, so you'll also need to read that initial value in some other way. That is kind of tedious.
+
+RxCocoa not only provides wrappers for popular UIKit/Cocoa classes, but it also provides a generic mechanism called DelegateProxy that enables wrapping your own delegates and exposing them as observable sequences.
+
+This is real code taken from UISearchBar integration.
+
+It uses delegate as a notification mechanism to create an Observable<String> that immediately returns current search text upon subscription, and then emits changed search values.
+
 ## Data layer
+
 ### Remote
+
 #### HTTP
 
 Most of apps nowadays access internet to get data from or report data where HTTP/S is the protocol we used for that data interaction. The current *NSURLSession* kit that Apple offers in `Foundation` provides a blocks/closure based API. Some frameworks that are commonly used for web interaction like **Alamofire** or **AFNetorking** also offer block/closured based API but the community have extended it in order to provide a Reactive access to its features.
@@ -120,11 +154,12 @@ In this section we'll learn how to bring Reactive to our HTTP data interactions 
 
 ##### 1. Request generator
 The first step is defining which variables we need to create a request:
-  1. **Method:** GET/POST/PUT/PATCH/DELETE
-  2. **BaseURL:** Base url of our requests, we'll concatenate the path to that url.
-  3. **Path:** Path that points to the resource we want to access.
-  4. **Parameters:** Dictionary with parameters that has to be sent with the request.
-  5. **Session:** In case we're accessing HTTP resources that require authentication we will need the user session. It's represented in the example below with a `Session` struct object. That session structure will depend on the authentication mechanism of the API you'r accessing to.
+
+1. **Method:** GET/POST/PUT/PATCH/DELETE
+2. **BaseURL:** Base url of our requests, we'll concatenate the path to that url.
+3. **Path:** Path that points to the resource we want to access.
+4. **Parameters:** Dictionary with parameters that has to be sent with the request.
+5. **Session:** In case we're accessing HTTP resources that require authentication we will need the user session. It's represented in the example below with a `Session` struct object. That session structure will depend on the authentication mechanism of the API you'r accessing to.
 
 ~~~~~~~~
 import Foundation
@@ -242,7 +277,7 @@ Depending on the response, we'll want to map it into a plain object that we can 
 2. Using **protocol extensions** of Swift we give a default implementation for `collectionMapper()` that internally uses `singleMapper()`
 3. We define our `User` struct that conforms that protocol and consequently implement the `singleMapper()` method.
 
-> Note: `singleMapper()` implementation doesn't include the extraction of values from the dictionary. You can directly get them from the `Foundation` dictionary or use any of the existing libraries for that. I recommend you to use [SwiftyJSON](https://github.com/SwiftyJSON) or [Genome](https://github.com/Genome).
+> Note: `singleMapper()` implementation doesn't include the extraction of values from the dictionary. You can directly get them from the `Foundation` dictionary or use any of the existing libraries for that. I recommend you to use [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON) or [Genome](https://github.com/Genome).
 
 ~~~~~~~~
 protocol Mappable {
@@ -313,7 +348,8 @@ One of the main advantages of the use of Reactive Programming is the ease to com
 Without the Reactive approach we end up chaining multiple completion closures and with a lot of indentations levels, which is not clear in terms of readability. That an be simplified using our request generators seen before:
 
 **Download user repositories after user**
-Supposing that our `User` model has now a new attribute, `reposIds` that is an `Array<String>` we can implement a new request that using `userRequest` and `repoRequest` fetches the user repositories. To get them we use the operator `flatMap` that for every value sent in the source signal *(`User` object)* we return a `SignalValues` whose values are sent through the main stream. In this case we combine multiple `SignalProducer` that get each of these repositories and return it. The r
+Supposing that our `User` model has now a new attribute, `reposIds` that is an `Array<String>` we can implement a new request that using `userRequest` and `repoRequest` fetches the user repositories. To get them we use the operator `flatMap` that for every value sent in the source signal *(`User` object)* we return a `SignalValues` whose values are sent through the main stream. In this case we combine multiple `SignalProducer` that get each of these repositories and return it.
+
 ~~~~~~~~
 private func userRequest() -> SignalProducer<User, HttpError>
 private func repoRequest(identifier: String) -> SignalProducer<Repository, HttpError>
@@ -337,19 +373,29 @@ private func shortUserRequest() -> SignalProducer<[Repository], HttpError> {
 - We've also seen the use of the ReactiveCocoa `ignoreNil` to ignore nil values returned after mapping into JSON.
 
 ### Local persistence
+
 #### Keychain
+//TODO
+
 #### NSUserDefaults
+//TODO
+
 #### CoreData
+//TODO
+
 #### Realm
+//TODO
 
 ## Presentation layer
 ### IBActions
+//TODO
+
 ### MVVM
+//TODO
 
 
 
-
-## I DON'T KNOW
+## Include them?
 - Best practices
 - Pitfalls
 - Retain cycles

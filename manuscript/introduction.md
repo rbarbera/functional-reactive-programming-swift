@@ -70,12 +70,12 @@ The FRP has big advantages used in contexts where it's pretty straightforward mo
 
 > With Reactive programming happens something similar to Functional programming. It's a paradigm in programming that has been more widely used on the iOS/OSX development with the launch of Swift. There's no need to feel overwhelmed and feel a big pressure to migrate your projects towards these paradigms. Use these in your projects as you see you're comfortable with them and you feel that your project requires them in some components. You were happy without them! Now you can even be more, but with calm.
 
-After some months using ReactiveCocoa in my projects, especially in the data source (local & remote) I noticed a set of advantages:
+After some months using ReactiveCocoa in my projects, especially in the data source *(local & remote)* I noticed a set of advantages:
 
 - **Multiple observers:** A stream doesn't limit the number of observers. You can subscribe as much as you want and all of them will receive the events sent by the stream simultaneously. You can even specify *buffering* rules to send previous events to new observers and avoid repeating tasks that have already been executed.
 - **Security with types:** Thanks to the use of generics we can have validation with types at the compilation time and avoid having to deal with unknown types like *AnyObjects* or *NSObjects*.
 - **Ease combining events:** Received events through the streams can be mapped, filtered, reduced. thanks to  the use of functions defined we can apply as much operators as we want to these events.
-- **Observing in threads:** No matter where (thread) the operations are being executed, you can specify which thread you observe from. That way for example you can execute an asynchronous web request and observe it from the main thread. It's very useful from the presentation layer.
+- **Observing in threads:** No matter where *(thread)* the operations are being executed, you can specify which thread you observe from. That way for example you can execute an asynchronous web request and observe it from the main thread. It's very useful from the presentation layer.
 - **Easy composition and reusability:** The streams can be combined in many ways *(thanks to the operators that frameworks provide)*. Moreover we can create our own operators according to our needs. Frameworks recommend you trying to use the existing one because these have been perfectly designed keeping all the principles of the Reactive in mind.
 - **Error handling:** By default Reactive frameworks offer error handling operators. In case of failure operations are retried according to your specified rules. For example, if a stream receives a response from an HTTP request and we want that request to be retried in case of reciving an specific error we can use these operators and auto retry that request.
 
@@ -88,11 +88,11 @@ NSURLSession.sharedSession().rac_dataWithRequest(URLRequest)
 }
 ~~~~~~~~
 
-- **State simplify:** Due to the fact that data flow is modeled in an unidirectional way the number of states that can be involved in these operations is reduced making our code more stable and robust (less cases to keep in mind)
+- **State simplify:** Due to the fact that data flow is modeled in an unidirectional way the number of states that can be involved in these operations is reduced making our code more stable and robust *(less cases to be considered)*.
 
 ## Disadvantages
 
-The main disadvantage of Reactive programming is the **coupling** caused by the fact that you have to depend on a framework to bring Reactive components to your project. As it's not supported natively the developers have to APPEAL TO (REVIEW, recurrir) existing frameworks. If you use a framework, all your app will depend on that framework, from UI elements, to data components.
+The main disadvantage of Reactive programming is the **coupling** caused by the fact that you have to depend on a framework to bring Reactive components to your project. As it's not supported natively the developers have to make use of existing frameworks. If you use a framework, all your app will depend on that framework, from UI elements, to data components.
 
 Thus, it's very important that you choose properly the Reactive library that you're going to work with, factors like having a great community and that it's very active are very important. Although it might seem a very important problem the fact that you have that coupling, if we thinkg a little bit in other frameworks that you are probably using in your apps it's not so bad.
 
@@ -108,9 +108,9 @@ Thus, it's very important when we define the source of events:
 - Understand the importance of wether retaining them or not in the closure.
 - Keep in mind all the states of variables out of the closures scope and keep them in mind when you define the closure.
 
-> For example, we can define a source of events that executes a web request when someone observes that source. IN the closure that defines the operation we use an HTTP client that we have defined at the app level as a Singleton instance. If we retain that instance in the closure and we tried to free it out, due to the fact that it's retained in the closure it couldn't be freed up. Or even worse, if we change its state out of the closure, we might not have that case in mind and our operation would act like if the state was the previous one.
+> For example, we can define a source of events that executes a web request when someone observes that source. In the closure that defines the operation we use an HTTP client that we have defined at the app level as a Singleton instance. If we retain that instance in the closure and we tried to free it out, due to the fact that it's retained in the closure it couldn't be freed up. Or even worse, if we change its state out of the closure, we might not have that case in mind and our operation would act like if the state was the previous one.
 
-**Debugging** is not easy with Reactive programming. In imperative programming we can easily define breakpoints in different parts of our code and debug the execution thank to them. In this case we end up with reusable functions that are passed around, combined and structured. These functions don't anything about where they're called from, nor which Reactive stream they belong two. There're some tricks for this but we'll explain them later on.
+**Debugging** is not easy with Reactive programming. In imperative programming we can easily define breakpoints in different parts of our code and debug the execution thank to them. In this case we end up with reusable functions that are passed around, combined and structured. These functions don't anything about where they're called from, nor which Reactive stream they belong to. There're some tricks for this but we'll explain them later on.
 
 ## Frameworks for Swift
 We've currently multiple options to work with Reactive, the two most popular are **RxSwift** and **ReactiveCocoa**.
@@ -124,6 +124,7 @@ My recommendation is that you choose one and get familiar with it. So far I have
 In order to integrate ReactiveCocoa in your projects you can do it on several ways. The most recommended ones are using Carthage, or using CocoaPods.
 
 **Carthage**
+
 It's the default integration option. If you don't know about Carthage yet I recommend you to take a look to its [documentation](https://github.com/Carthage/Carthage) where they explain how to install it in your system. Once you have it:
 
 1. Edit or create a file called **Cartfile** and add the following line `github "ReactiveCocoa/ReactiveCocoa"`
@@ -131,9 +132,10 @@ It's the default integration option. If you don't know about Carthage yet I reco
 3. Follow the steps in the documentation to add the generated framework to your project.
 
 **Cocoapods**
-ReactiveCocoa doesn't offer direct support to CocoaPods but there are some unofficial [.podspec](https://github.com/CocoaPods/Specs/tree/master/Specs/ReactiveCocoa) moving around to use them with CocoaPods. These `.podspec` are inclucde in the list of CocoaPods so  you can use them directly in your **Podfile**:
 
-1. Edit or create the file **Podfile**. If you haven't used CocoaPods before, in this [link]() you'll find more information about the file structure.
+ReactiveCocoa doesn't offer direct support to CocoaPods but there are some unofficial [.podspec](https://github.com/CocoaPods/Specs/tree/master/Specs/ReactiveCocoa) moving around to use them with CocoaPods. These `.podspec` are include in the list of CocoaPods so  you can use them directly in your **Podfile**:
+
+1. Edit or create the file **Podfile**. If you haven't used CocoaPods before, in this [link](https://cocoapods.org) you'll find more information about the file structure.
 2. Add the line that specify the pod of ReactiveCocoa `pod ReactiveCocoa`
 3. Execute the command `pod install` to integrate ReactiveCocoa
 4. Remember opening the project using the file `.xcworkspace`

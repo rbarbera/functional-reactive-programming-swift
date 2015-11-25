@@ -15,7 +15,7 @@ If you think about data sources that we're used to work with daily the ones show
 
 Sounds interesting, right? Three examples above use the delegate pattern to propagate information about what happened to the delegate entity of these components. Later on we'll learn how to turn these patterns into Reactive, and you'll learn how to create a signal of push notifications, or a signal for GPS positions that you can use wherever you want in your app.
 
-In the example project you'll find the example `intro_signal.swift` where the GPS data source is modeled with Reactive. Don't worry if you don't know any of the concepts used there. What we do is create a `LocaiontManager` which is subclass of `CLLocationManager` and its delegate is itself. Internally we have two attributes, an *Observer* and a *Signal*. Signal allows us to observe events, and it's `internal` in order to have visibility in the target where this component is being used. We also have an observer that is like a Sink where we can send the events two. Events sent to this observer are forwarded to the signal observers:
+In the example project you'll find the example `intro_signal.swift` where the GPS data source is modeled with Reactive. Don't worry if you don't know any of the concepts used there. What we do is create a `LocaiontManager` which is subclass of `CLLocationManager` and its delegate is itself. Internally we have two attributes, an *Observer* and a *Signal*. Signal allows us to observe events, and it's `internal` in order to have visibility in the target where this component is being used. We also have an observer that is like a sink where we can send the events through. Events sent to this observer are forwarded to the signal observers:
 
 ~~~~~~~~
 import Foundation
@@ -71,12 +71,14 @@ Apart from sending data event, signal also support sending events that mean the 
 #### Creating a Signal
 
 1. **Defining its operation in a closure**: You can create a signal that executes an specific operation that you can define using a closure as shown in the following example:
+
   ~~~~~~~~
   let signal: Signal<Void, NoError> = Signal { (observer) -> Disposable? in
       // Your operation
       return nil
   }
   ~~~~~~~~
+
   Notice that signals are generic and we have to specify the data type and the error type:
     - **Data type:** It can be a reference/value type and also `Void`. You can use Foundation types but also more complex ones depending on your requirements.
     - **Error type:** You can wether specify the error type or use `NoError`. If you specify the error type it has to conform the Swift 2.0 protocol `ErrorType`.
@@ -90,7 +92,7 @@ Apart from sending data event, signal also support sending events that mean the 
   observer.sendFailed(.MyError)
   ~~~~~~~~
 
-  The closure returns a class object that conforms the **Disposable** protocol. A disposable is an reference object that allows the operation disposing whenever we need it. For example if you want to cancel an import operation because something unexpected happened.
+  The closure returns a class object that conforms the **Disposable** protocol. A disposable is a reference object that allows the operation disposing whenever we need it. For example if we want to cancel an import operation because something unexpected happened.
 
 2. **Using a pipe**: If our *operation* cannot be encapsulated so that we can define it when the signal is initialized we can use `pipe()`. With pipe we create an an *Observer* and a *Signal*. As in the previous example the observer behaves as a sink that forwards the events to the signal. Observers are typically kept as private in terms of visibility and only the observers are exposed. That way you create a private scope where you can control the signal from. The example presented in `intro_signal.swift` conforms that pattern.
 
@@ -102,18 +104,18 @@ From now I'll refer to **Signals** when I talk about producers or signals in gen
 
 #### Creating a Signal Producer
 
-SignalProducers can be initialized on several ways depending on your requirements. The available options are listed below:
+Producers can be initialized on several ways depending on your requirements. The available options are listed below:
 
-1. **Operation in a closure:** When you initialize the signal producer you specify in a closure which operation has to be executed. This closure has two input parameters, the `observable` and the `disposable` and doesn't return anything. As with signals events are sent through the observer but in this case the disposable is passed as a `CompositeDisposable`, we'll see this kind of disposable with more detail but to have an idea, this is a `Disposable` compound by multiple disposables so if you dispose that one you're also disposing all of them.
+  1. **Operation in a closure:** When you initialize the signal producer you specify in a closure which operation has to be executed. This closure has two input parameters, the `observable` and the `disposable` and doesn't return anything. As with signals events are sent through the observer but in this case the disposable is passed as a `CompositeDisposable`, we'll see this kind of disposable with more detail but to have an idea, this is a `Disposable` compound by multiple disposables so if you dispose that one you're also disposing all of them.
 
   ~~~~~~~~
-  private let operationProducer: SignalProducer<String, NoError> = SignalProducer { (observer, disposable) in
+  private let prod: SignalProducer<String, NoError> = SignalProducer { (observer, disposable) in
       observer.sendNext("Ey ya!")
       observer.sendCompleted()
   }
   ~~~~~~~~
 
-2. **Using a buffer:** Buffer is the equivalent `pipe` for signal producers. In this case the `buffer` commands create a `signal producer` and an `observer`. Events sent to that observer are forwarded to the observers of the signal producer and can be buffered if we specify it. That way for example, if we specify that the buffer size is 2, we send events A, B, C and after that we observe the subscriber, that observer will receive the events B, C because these are in the buffer.
+  2. **Using a buffer:** Buffer is the equivalent `pipe` for signal producers. In this case the `buffer` commands create a `signal producer` and an `observer`. Events sent to that observer are forwarded to the observers of the signal producer and can be buffered if we specify it. That way for example, if we specify that the buffer size is 2, we send events A, B, C and after that we observe the subscriber, that observer will receive the events B, C because these are in the buffer.
 
   ~~~~~~~~
   let _buffer = SignalProducer<String, NoError>.buffer(2)
@@ -125,32 +127,32 @@ SignalProducers can be initialized on several ways depending on your requirement
   bufferObserver.sendNext("yai!")
   ~~~~~~~~
 
-3. **Value signal producer:** It's a signal producer that is initialized with a value. When it's started it returns that value and completes:
+  3. **Value signal producer:** It's a signal producer that is initialized with a value. When it's started it returns that value and completes:
 
   ~~~~~~~~
   private let valueProducer: SignalProducer<String, NoError> = SignalProducer(value: "Ey ya!")
   ~~~~~~~~
 
-4. **Result signal producer:** This signal producer returns a `Result` object when it's started. A result object is a generic class that wraps a value and an error. ReactiveCocoa depends on a library called `Result` that adds this extra functionality. If you prefer specifying the producer returned value in this way, you can also do it:
+  4. **Result signal producer:** This signal producer returns a `Result` object when it's started. A result object is a generic class that wraps a value and an error. ReactiveCocoa depends on a library called `Result` that adds this extra functionality. If you prefer specifying the producer returned value in this way, you can also do it:
 
   ~~~~~~~~
   private let resultProducer: SignalProducer<String, NoError> = SignalProducer(result: Result(value: "Ey ya!"))
   ~~~~~~~~
 
-5. **Error signal producer:** In this case the producer returns an error when it's initialized.
+  5. **Error signal producer:** In this case the producer returns an error when it's initialized.
 
   ~~~~~~~~
   private enum Error: ErrorType { case Unknown }
   private let errorProducer: SignalProducer<String, Error> = SignalProducer(error: Error.Unknown)
   ~~~~~~~~
 
-6. **Empty signal producer:** This producer completes when it's started and doesn't return any value.
+  6. **Empty signal producer:** This producer completes when it's started and doesn't return any value.
 
   ~~~~~~~~
   private let emptyProducer: SignalProducer<String, NoError> = SignalProducer.empty
   ~~~~~~~~
 
-7. **Never producer:** You can also create a producer that never sends events.
+  7. **Never producer:** You can also create a producer that never sends events.
 
   ~~~~~~~~
   private let neverProducer: SignalProducer<String, NoError> = SignalProducer.never
@@ -206,6 +208,7 @@ public protocol PropertyType {
 ~~~~~~~~
 
 1. **AnyProperty**: A read-only property that allows observation of its changes. It can be initialized with a value or with another signal producer that updates the wrapped value internally.
+
   ~~~~~~~~
   private let anyPropertyProducer: AnyProperty<String> = AnyProperty(initialValue: "initial-value", producer: SignalProducer(value: "new-value"))
     private let anyPropertySignal: AnyProperty<String> = AnyProperty(initialValue: "initial-value", signal: Signal<String, NoError> { observer -> Disposable? in
@@ -213,12 +216,15 @@ public protocol PropertyType {
         return nil
     })
   ~~~~~~~~
+
 2. **ConstantProperty**: A kind of property that never changes and it's initialized with a value.
+
   ~~~~~~~~
   private let constantProperty: ConstantProperty<String> = ConstantProperty("value")
   ~~~~~~~~
 
 3. **MutableProperty**: Property that can mutate its `Value`. Instances of this class are thread-safe.
+
   ~~~~~~~~
   let name: MutableProperty<String> = MutableProperty<String>("")
   name.producer.startWithNext { newName in
@@ -226,6 +232,7 @@ public protocol PropertyType {
   }
   name.value = "Pedro"
   ~~~~~~~~
+
 4. **DynamicProperty**: Wraps a `dynamic` property, or one defined in Objective-C. It uses KVO instead. ReactiveCocoa recommends trying to use `MutableProperty` because it's generally better. You might find some cases where its strongly required by the API you're using *(e.g. NSOperation)*
 
 
@@ -296,7 +303,7 @@ You might have noticed that every time we observe a `Signal` or `SignalProducer`
 - **SignalProducer**: When a disposable is returned by a `SignalProducer` is called it will cancel the operation (e.g. background processing, network requests, etc.), clean up all temporary resources and will send an `Interrupted` event upon the particular `Signal` that was created.
 - **Signal**: In this case calling the disposable will prevent the observers from receiving future events from the signal but it won't have any effect on the operation *(e.g. it won't be cancelled or resources cleaned)*.
 
-`Disposable` itself is defined as a protocol in  ReactiveCocoa. That protocol has the structure shown below where *disposed* indicates wether the `Disposable` has been disposed or not and a function `dispose()` to dispose the `Disposable`
+`Disposable` itself is defined as a protocol in  ReactiveCocoa. That protocol has the structure shown below where *disposed* indicates wether the `Disposable` has been disposed or not and a function `dispose()` to dispose the action:
 
 ~~~~~~~~
 public protocol Disposable {
