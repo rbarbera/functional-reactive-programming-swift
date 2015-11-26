@@ -2,8 +2,6 @@ import Foundation
 import ReactiveCocoa
 
 
-
-
 // MARK: - Mapping to plain object
 
 protocol Mappable {
@@ -50,7 +48,7 @@ private func github() {
     let userRequest = githubRequest(path: "/user")
     
     // 3. Unauthenticated request getting a resource
-    let showUserRequest = userRequest(method: .GET, parameters: [:])
+    let showUserRequest = userRequest(method: .GET, parameters: [:], encoding: ParameterEncoding.URL)
     
     // 4. Authenticated request getting a resource
     let mySession: Reactive.HTTP.Session = Reactive.HTTP.Session(accessToken: "token", refreshToken: "refresh")

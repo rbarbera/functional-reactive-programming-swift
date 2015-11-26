@@ -35,13 +35,13 @@ public extension Reactive {
         
         // MARK: - FRP Interface
         
-        static public func request(baseURL: String)(path: String)(method: Method, parameters: [String: AnyObject])(session: Session) -> SignalProducer<(NSData, NSURLResponse), HttpError> {
+        static public func request(baseURL: String)(path: String)(method: Method, parameters: [String: AnyObject], encoding: ParameterEncoding)(session: Session) -> SignalProducer<(NSData, NSURLResponse), HttpError> {
             return SignalProducer { (observer, disposable) in
                 
                 let urlSession: NSURLSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
                 var request: NSURLRequest = NSURLRequest(URL: NSURL(string: baseURL)!.URLByAppendingPathComponent(path))
                 request = self.urlRequest(request, withSession: session)
-                request = self.urlRequest(request, withMethod: method, parameters: parameters)
+                request = self.urlRequest(request, withMethod: method, parameters: parameters, encoding: encoding)
                 let task = urlSession.dataTaskWithRequest(request, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
                     if let error = error {
                         observer.sendFailed(.Default(error))
@@ -71,11 +71,9 @@ public extension Reactive {
             return mutableRequest.copy() as! NSURLRequest
         }
         
-        static private func urlRequest(request: NSURLRequest, withMethod method: Method, parameters: [String: AnyObject]) -> NSURLRequest {
-            let mutableRequest: NSMutableURLRequest = request.mutableCopy() as! NSMutableURLRequest
+        static private func urlRequest(request: NSURLRequest, withMethod method: Method, parameters: [String: AnyObject], encoding: ParameterEncoding) -> NSURLRequest {
+            let mutableRequest: NSMutableURLRequest = encoding.encode(request, parameters: parameters).0
             mutableRequest.HTTPMethod = method.rawValue
-            
-            //TODO
             return mutableRequest.copy() as! NSURLRequest
         }
         

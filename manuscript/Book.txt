@@ -9,3 +9,5 @@ concepts.md
 operators.md
 design.md
 advanced.md
+backmatter.md
+references.md

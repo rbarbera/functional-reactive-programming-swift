@@ -144,6 +144,8 @@ It uses delegate as a notification mechanism to create an Observable<String> tha
 
 #### HTTP
 
+> Examples available under `Design/Data/HTTP`
+
 Most of apps nowadays access internet to get data from or report data where HTTP/S is the protocol we used for that data interaction. The current *NSURLSession* kit that Apple offers in `Foundation` provides a blocks/closure based API. Some frameworks that are commonly used for web interaction like **Alamofire** or **AFNetorking** also offer block/closured based API but the community have extended it in order to provide a Reactive access to its features.
 
 In this section we'll learn how to bring Reactive to our HTTP data interactions through the following steps:
@@ -159,73 +161,84 @@ The first step is defining which variables we need to create a request:
 2. **BaseURL:** Base url of our requests, we'll concatenate the path to that url.
 3. **Path:** Path that points to the resource we want to access.
 4. **Parameters:** Dictionary with parameters that has to be sent with the request.
+5. **Encoding:** That determines how parameters will be encoded in the URL. We use [Alamofire](https://github.com/Alamofire/Alamofire) and its `ParameterEncoding` enum to encode passed parameters.
 5. **Session:** In case we're accessing HTTP resources that require authentication we will need the user session. It's represented in the example below with a `Session` struct object. That session structure will depend on the authentication mechanism of the API you'r accessing to.
 
 ~~~~~~~~
-import Foundation
-import ReactiveCocoa
+public struct HTTP {
 
-enum Method: String {
-  case POST, PUT, PATCH, DELETE, GET
-}
+  // MARK: - REST Method
 
-enum HttpError: ErrorType {
-  case Default(NSError)
-}
+  public enum Method: String {
+    case POST, PUT, PATCH, DELETE, GET
+  }
 
-struct Session {
-  let accessToken: String
-  init(accessToken: String) {
+
+  // MARK: HTTP Error
+
+  public enum HttpError: ErrorType {
+    case Default(NSError)
+  }
+
+
+  // MARK: - Session
+
+  public struct Session {
+
+    let accessToken: String
+    let refreshToken: String
+
+    init(accessToken: String, refreshToken: String) {
       self.accessToken = accessToken
-  }
-}
-
-private func request(baseURL: String)(path: String)(method: Method, parameters: [String: AnyObject])(session: Session) -> SignalProducer<(NSData, NSURLResponse), HttpError> {
-  return SignalProducer { (observer, disposable) in
-
-    let urlSession: NSURLSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
-    let request: NSMutableURLRequest = NSMutableURLRequest(URL: NSURL(string: baseURL)!.URLByAppendingPathComponent(path))
-    // TODO - Append parameters
-    request.allHTTPHeaderFields = ["Authorization": "Bearer \(session.accessToken)"]
-    request.HTTPMethod = method.rawValue
-    let task = urlSession.dataTaskWithRequest(request, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
-      if let error = error {
-        observer.sendFailed(.Default(error))
-      }
-      else if let response = response, let data = data {
-        observer.sendNext((data, response))
-      }
-      observer.sendCompleted()
-    })
-    if disposable.disposed {
-      return
+      self.refreshToken = refreshToken
     }
-    task.resume()
   }
-}
 
-private func github() {
-  // 1. Unauthenticated request for a given base url
-  let githubRequest = request("https://api.github.com")
 
-  // 2. Unauthenticated request pointing to a given resource
-  let userRequest = githubRequest(path: "/user")
+  // MARK: - FRP Interface
 
-  // 3. Unauthenticated request getting a resource
-  let showUserRequest = userRequest(method: .GET, parameters: [:])
+  static public func request(baseURL: String)(path: String)(method: Method, parameters: [String: AnyObject], encoding: ParameterEncoding)(session: Session) -> SignalProducer<(NSData, NSURLResponse), HttpError> {
+    return SignalProducer { (observer, disposable) in
 
-  // 4. Authenticated request getting a resource
-  let mySession: Session = Session(accessToken: "xxx")
-  showUserRequest(session: mySession).on(event: { event in
-      switch event {
-      case .Next(_):
-          print("Got response from the server")
-      case .Failed(_):
-          print("Something went wrong")
-      default:
-          break
+      let urlSession: NSURLSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
+      var request: NSURLRequest = NSURLRequest(URL: NSURL(string: baseURL)!.URLByAppendingPathComponent(path))
+      request = self.urlRequest(request, withSession: session)
+      request = self.urlRequest(request, withMethod: method, parameters: parameters, encoding: encoding)
+      let task = urlSession.dataTaskWithRequest(request, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+        if let error = error {
+          observer.sendFailed(.Default(error))
+        }
+        else if let response = response, let data = data {
+          observer.sendNext((data, response))
+        }
+        observer.sendCompleted()
+      })
+      if disposable.disposed {
+        return
       }
-  }).start()
+      task.resume()
+    }
+  }
+
+  static public func mapToJSON(input: (NSData, NSURLResponse)) -> AnyObject? {
+    return try! NSJSONSerialization.JSONObjectWithData(input.0, options: NSJSONReadingOptions.AllowFragments)
+  }
+
+
+  // MARK: - Private Helpers
+
+  static private func urlRequest(request: NSURLRequest, withSession session: Session) -> NSURLRequest {
+    let mutableRequest: NSMutableURLRequest = request.mutableCopy() as! NSMutableURLRequest
+    mutableRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(session.accessToken)"]
+    return mutableRequest.copy() as! NSURLRequest
+  }
+
+  static private func urlRequest(request: NSURLRequest, withMethod method: Method, parameters: [String: AnyObject], encoding: ParameterEncoding) -> NSURLRequest {
+    let mutableRequest: NSMutableURLRequest = encoding.encode(request, parameters: parameters).0
+    mutableRequest.HTTPMethod = method.rawValue
+    return mutableRequest.copy() as! NSURLRequest
+  }
+
 }
 ~~~~~~~~
 
@@ -254,16 +267,16 @@ Then we can use it with `map`:
 
 ~~~~~~~~
 showUserRequest(session: mySession)
-  .map(mapToJSON)
+  .map(Reactive.HTTP.mapToJSON)
   .on(event: { event in
-      switch event {
-      case .Next(_):
-          print("Got response from the server")
-      case .Failed(_):
-          print("Something went wrong")
-      default:
-          break
-      }
+    switch event {
+    case .Next(_):
+      print("Got response from the server")
+    case .Failed(_):
+      print("Something went wrong")
+    default:
+      break
+    }
   }).start()
 ~~~~~~~~
 
@@ -323,7 +336,7 @@ Now with the mapper defined we can use again the `map` operator of ReactiveCocoa
 
 ~~~~~~~~
 showUserRequest(session: mySession)
-  .map(mapToJSON)
+  .map(Reactive.HTTP.mapToJSON)
   .ignoreNil()
   .map(User.singleMapper)
   .on(event: { event in
@@ -342,7 +355,7 @@ showUserRequest(session: mySession)
 One of the main advantages of the use of Reactive Programming is the ease to combine multiple SignalProducers. When we interact with APIs resources we might need fetching resources after some others have been downloaded. For example, interacting with the Github API:
 
 - Download the user repositories when the user account has been downloaded.
-- Download the respository collaborators when the repositories have been downloaded.
+- Download the repository collaborators when the repositories have been downloaded.
 - Download the list of issues of a given repository when that has been downloaded.
 
 Without the Reactive approach we end up chaining multiple completion closures and with a lot of indentations levels, which is not clear in terms of readability. That an be simplified using our request generators seen before:
@@ -371,6 +384,7 @@ private func shortUserRequest() -> SignalProducer<[Repository], HttpError> {
   - Get a `SignalProducer` whose responses are `Foundation` object instead of `NSData` values.
   - Get a `SignalProducer` whose responses are plain structs that we can use from our code reading its attributes.
 - We've also seen the use of the ReactiveCocoa `ignoreNil` to ignore nil values returned after mapping into JSON.
+- Finally we **combined** multiple HTTP requests to fetch API resources that might be related with the `flatMap` operator.
 
 ### Local persistence
 
@@ -387,10 +401,12 @@ private func shortUserRequest() -> SignalProducer<[Repository], HttpError> {
 //TODO
 
 ## Presentation layer
+
 ### IBActions
 //TODO
 
 ### MVVM
+
 //TODO
 
 
@@ -399,6 +415,4 @@ private func shortUserRequest() -> SignalProducer<[Repository], HttpError> {
 - Best practices
 - Pitfalls
 - Retain cycles
-- Signal & view lifecycles
 - Objects retainment (in producers)
-- Threading
