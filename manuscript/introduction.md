@@ -30,6 +30,8 @@ For example, if we have a stream that sends collections of tasks to be shown in 
 
 > Remember, in FRP we’re going to have three main components **Streams (observables), Operators and Bindings**. Later, we’ll see each of them with more details and the available operations.
 
+I> There's a very recommended article [here](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754) that you should read if it's the first time you read about Reactive. They present Reactive from a most generic point of view.
+
 ## Observation patterns
 When I started with the reactive concepts one of my firsts concerns was understanding which similar patters I had been used so far, the problems they presented, and how FRP could help or make them easier. You probably use some of them daily:
 

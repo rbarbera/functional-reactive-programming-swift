@@ -144,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				3D0825281C072E88001B67FF /* Reactive.swift */,
+				3D0825511C073A9F001B67FF /* Presentation */,
 				3D0825181C06CDC2001B67FF /* Data */,
 				3D08251B1C06CDC2001B67FF /* Patterns */,
 			);
@@ -153,6 +154,10 @@
 		3D0825181C06CDC2001B67FF /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				3D0825541C073AAB001B67FF /* CoreData */,
+				3D0825551C073AAB001B67FF /* Keychain */,
+				3D0825561C073AAB001B67FF /* Realm */,
+				3D0825571C073AAB001B67FF /* UserDefaults */,
 				3D0825191C06CDC2001B67FF /* HTTP */,
 			);
 			path = Data;
@@ -208,6 +213,57 @@
 				3D08253D1C0734AF001B67FF /* Validation.swift */,
 			);
 			path = Alamofire;
+			sourceTree = "<group>";
+		};
+		3D0825511C073A9F001B67FF /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				3D0825521C073A9F001B67FF /* IBActions */,
+				3D0825531C073A9F001B67FF /* MVVM */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		3D0825521C073A9F001B67FF /* IBActions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = IBActions;
+			sourceTree = "<group>";
+		};
+		3D0825531C073A9F001B67FF /* MVVM */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MVVM;
+			sourceTree = "<group>";
+		};
+		3D0825541C073AAB001B67FF /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		3D0825551C073AAB001B67FF /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Keychain;
+			sourceTree = "<group>";
+		};
+		3D0825561C073AAB001B67FF /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
+		3D0825571C073AAB001B67FF /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UserDefaults;
 			sourceTree = "<group>";
 		};
 		3D36A0381B8E2288002E5BD5 = {
