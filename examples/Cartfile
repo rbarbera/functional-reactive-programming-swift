@@ -1,1 +1,4 @@
-github "ReactiveCocoa/ReactiveCocoa" "swift2"
+github "ReactiveCocoa/ReactiveCocoa"
+github "matthewpalmer/Locksmith"
+github "Alamofire/Alamofire"
+github ""

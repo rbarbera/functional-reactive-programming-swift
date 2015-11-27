@@ -87,7 +87,8 @@ public enum ParameterEncoding {
                     let value = parameters[key]!
                     components += queryComponents(key, value)
                 }
-
+                
+                
                 return "&".join(components.map { "\($0)=\($1)" } as [String])
             }
 

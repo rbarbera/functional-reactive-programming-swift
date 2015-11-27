@@ -3,3 +3,5 @@
 - *Ash Furrow (2015)*. Functional Reactive Programming on iOS. [Link](https://leanpub.com/iosfrp)
 - *Ash Furrow (2015)*. Functional Reactive Awesomeness With Swift. [Link](https://realm.io/news/altconf-ash-furrow-functional-reactive-swift/)
 - *ReactiveCocoa*. Github documentation. [Link](https://github.com/ReactiveCocoa/ReactiveCocoa/tree/master/Documentation)
+- *ReactiveX Tutorials* [Link](http://reactivex.io/tutorials.html)
+- *Justin Spahr-Summers*. Library Oriented Programming. [Link](https://realm.io/news/justin-spahr-summers-library-oriented-programming/)

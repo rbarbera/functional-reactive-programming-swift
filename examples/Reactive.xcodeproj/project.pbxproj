@@ -31,6 +31,8 @@
 		3D08254C1C073729001B67FF /* example_kvo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08254B1C073729001B67FF /* example_kvo.swift */; };
 		3D08254E1C07373B001B67FF /* example_notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08254D1C07373B001B67FF /* example_notifications.swift */; };
 		3D0825501C07375F001B67FF /* example_closures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08254F1C07375F001B67FF /* example_closures.swift */; };
+		3D0825591C073E52001B67FF /* keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0825581C073E52001B67FF /* keychain.swift */; };
+		3D08255B1C073F25001B67FF /* user_defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08255A1C073F25001B67FF /* user_defaults.swift */; };
 		3D36A0451B8E2288002E5BD5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D36A0441B8E2288002E5BD5 /* AppDelegate.swift */; };
 		3D36A0471B8E2288002E5BD5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D36A0461B8E2288002E5BD5 /* ViewController.swift */; };
 		3D36A04A1B8E2288002E5BD5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D36A0481B8E2288002E5BD5 /* Main.storyboard */; };
@@ -100,6 +102,8 @@
 		3D08254B1C073729001B67FF /* example_kvo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = example_kvo.swift; sourceTree = "<group>"; };
 		3D08254D1C07373B001B67FF /* example_notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = example_notifications.swift; sourceTree = "<group>"; };
 		3D08254F1C07375F001B67FF /* example_closures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = example_closures.swift; sourceTree = "<group>"; };
+		3D0825581C073E52001B67FF /* keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = keychain.swift; sourceTree = "<group>"; };
+		3D08255A1C073F25001B67FF /* user_defaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = user_defaults.swift; sourceTree = "<group>"; };
 		3D36A0411B8E2288002E5BD5 /* Reactive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reactive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D36A0441B8E2288002E5BD5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3D36A0461B8E2288002E5BD5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -248,6 +252,7 @@
 		3D0825551C073AAB001B67FF /* Keychain */ = {
 			isa = PBXGroup;
 			children = (
+				3D0825581C073E52001B67FF /* keychain.swift */,
 			);
 			path = Keychain;
 			sourceTree = "<group>";
@@ -262,6 +267,7 @@
 		3D0825571C073AAB001B67FF /* UserDefaults */ = {
 			isa = PBXGroup;
 			children = (
+				3D08255A1C073F25001B67FF /* user_defaults.swift */,
 			);
 			path = UserDefaults;
 			sourceTree = "<group>";
@@ -460,6 +466,7 @@
 				3D0825271C06CDC2001B67FF /* intro_signal_producer.swift in Sources */,
 				3D08253F1C0734AF001B67FF /* Download.swift in Sources */,
 				3D0825241C06CDC2001B67FF /* intro_actions.swift in Sources */,
+				3D08255B1C073F25001B67FF /* user_defaults.swift in Sources */,
 				3D36A0471B8E2288002E5BD5 /* ViewController.swift in Sources */,
 				3D0825491C0734AF001B67FF /* Upload.swift in Sources */,
 				3D08254A1C0734AF001B67FF /* Validation.swift in Sources */,
@@ -470,6 +477,7 @@
 				3D36A0451B8E2288002E5BD5 /* AppDelegate.swift in Sources */,
 				3D0825291C072E88001B67FF /* Reactive.swift in Sources */,
 				3D0825471C0734AF001B67FF /* ServerTrustPolicy.swift in Sources */,
+				3D0825591C073E52001B67FF /* keychain.swift in Sources */,
 				3D0825251C06CDC2001B67FF /* intro_properties.swift in Sources */,
 				3D0825461C0734AF001B67FF /* Result.swift in Sources */,
 				3D0825401C0734AF001B67FF /* Error.swift in Sources */,

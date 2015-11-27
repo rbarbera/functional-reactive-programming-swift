@@ -110,33 +110,24 @@ save(myObjects).startWithCompleted {
 
 ### Notifications
 //TODO
-Notifications enable registering multiple observers easily, but they are also untyped. Values need to be extracted from either userInfo or original target once they fire.
-
+<!-- Notifications enable registering multiple observers easily, but they are also untyped. Values need to be extracted from either userInfo or original target once they fire.
 They are just a notification mechanism, and initial value usually has to be acquired in some other way.
-
-That leads to this tedious pattern:
+That leads to this tedious pattern: -->
 
 ### KVO
 //TODO
-KVO is a handy observing mechanism, but not without flaws. It's biggest flaw is confusing memory management.
-
-In case of observing a property on some object, the object has to outlive the KVO observer registration otherwise your system will crash with an exception.
+<!-- KVO is a handy observing mechanism, but not without flaws. It's biggest flaw is confusing memory management.
+In case of observing a property on some object, the object has to outlive the KVO observer registration otherwise your system will crash with an exception. -->
 
 ### Delegates
 //TODO
-Delegates can be used both as a hook for customizing behavior and as an observing mechanism.
-
+<!-- Delegates can be used both as a hook for customizing behavior and as an observing mechanism.
 Each usage has it's drawbacks, but Rx can help remedy some of the problem with using delegates as a observing mechanism.
-
 Using delegates and optional methods to report changes can be problematic because there can be usually only one delegate registered, so there is no way to register multiple observers.
-
 Also, delegates usually don't fire initial value upon invoking delegate setter, so you'll also need to read that initial value in some other way. That is kind of tedious.
-
 RxCocoa not only provides wrappers for popular UIKit/Cocoa classes, but it also provides a generic mechanism called DelegateProxy that enables wrapping your own delegates and exposing them as observable sequences.
-
 This is real code taken from UISearchBar integration.
-
-It uses delegate as a notification mechanism to create an Observable<String> that immediately returns current search text upon subscription, and then emits changed search values.
+It uses delegate as a notification mechanism to create an Observable<String> that immediately returns current search text upon subscription, and then emits changed search values. -->
 
 ## Data layer
 
@@ -144,7 +135,9 @@ It uses delegate as a notification mechanism to create an Observable<String> tha
 
 #### HTTP
 
-> Examples available under `Design/Data/HTTP`
+I> The presented examples can be found in `Design/Data/HTTP`
+
+I> Examples make use of [*Alamofire*](https://github.com/alamofire/alamofire). A networking library that also includes a set of useful components that we used.
 
 Most of apps nowadays access internet to get data from or report data where HTTP/S is the protocol we used for that data interaction. The current *NSURLSession* kit that Apple offers in `Foundation` provides a blocks/closure based API. Some frameworks that are commonly used for web interaction like **Alamofire** or **AFNetorking** also offer block/closured based API but the community have extended it in order to provide a Reactive access to its features.
 
@@ -392,7 +385,12 @@ private func shortUserRequest() -> SignalProducer<[Repository], HttpError> {
 //TODO
 
 #### NSUserDefaults
-//TODO
+
+##### Making its interface Reactive
+
+##### Creating a changes signal
+
+
 
 #### CoreData
 //TODO
