@@ -1,5 +1,6 @@
 import Foundation
 import ReactiveCocoa
+import Locksmith
 
 public extension Reactive {
     

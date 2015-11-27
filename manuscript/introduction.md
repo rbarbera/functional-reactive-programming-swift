@@ -146,4 +146,4 @@ Now you have ReactiveCocoa in your project. To use it from Swift remember to imp
 import ReactiveCocoa
 ~~~~~~~~
 
-I> There's a very recommended article [here](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754) that you should read if it's the first time you read about Reactive. They present Reactive from a most generic point of view and with the core ideas behind Reactive Programming.
+I> There's a very recommended [article](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754) that you should read if it's the first time you read about Reactive. Reactive Programming is presented from a most generic point of view and with the core ideas behind Reactive Programming.

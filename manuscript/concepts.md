@@ -1,4 +1,4 @@
-# ReactiveCocoa concepts
+# Concepts
 
 ## Signal
 
@@ -360,6 +360,4 @@ producer
   }
 ~~~~~~~~
 
-## Reference
-
-Remember you can check [ReactiveCocoa reference](https://github.com/ReactiveCocoa/ReactiveCocoa/blob/master/Documentation) for more information about previously explained concepts or any other points not covered at all in this section.
+I> Remember you can check [ReactiveCocoa reference](https://github.com/ReactiveCocoa/ReactiveCocoa/blob/master/Documentation) for more information about previously explained concepts or any other points not covered at all in this section.

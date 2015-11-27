@@ -1,5 +1,4 @@
-Reactive design
-===============
+# Design
 
 Once you get this point, you have the enough concepts to start thinking in Reactive. The reason why most of developers stop learning Reactive or don't start doing it is because there're no enough examples that can show them real uses of Reactive within their projects, in this case in Swift projects. In this chapter we will see different uses of Reactive from different layers in apps (data, presentation, ...). We'll also review steps to migrate existing Cocoa patterns to Reactive and some tips and recommendations we should keep in mind when working with Reactive.
 
@@ -385,6 +384,8 @@ private func shortUserRequest() -> SignalProducer<[Repository], HttpError> {
 //TODO
 
 #### NSUserDefaults
+
+NSUserDEfaults
 
 ##### Making its interface Reactive
 

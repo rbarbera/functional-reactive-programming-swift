@@ -15,24 +15,15 @@
 		3D0825271C06CDC2001B67FF /* intro_signal_producer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0825211C06CDC2001B67FF /* intro_signal_producer.swift */; };
 		3D0825291C072E88001B67FF /* Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0825281C072E88001B67FF /* Reactive.swift */; };
 		3D08252B1C072EBA001B67FF /* http.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08252A1C072EBA001B67FF /* http.swift */; };
-		3D08253E1C0734AF001B67FF /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0825311C0734AF001B67FF /* Alamofire.swift */; };
-		3D08253F1C0734AF001B67FF /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0825321C0734AF001B67FF /* Download.swift */; };
-		3D0825401C0734AF001B67FF /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0825331C0734AF001B67FF /* Error.swift */; };
-		3D0825411C0734AF001B67FF /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0825341C0734AF001B67FF /* Manager.swift */; };
-		3D0825421C0734AF001B67FF /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0825351C0734AF001B67FF /* MultipartFormData.swift */; };
-		3D0825431C0734AF001B67FF /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0825361C0734AF001B67FF /* ParameterEncoding.swift */; };
-		3D0825441C0734AF001B67FF /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0825371C0734AF001B67FF /* Request.swift */; };
-		3D0825451C0734AF001B67FF /* ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0825381C0734AF001B67FF /* ResponseSerialization.swift */; };
-		3D0825461C0734AF001B67FF /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0825391C0734AF001B67FF /* Result.swift */; };
-		3D0825471C0734AF001B67FF /* ServerTrustPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08253A1C0734AF001B67FF /* ServerTrustPolicy.swift */; };
-		3D0825481C0734AF001B67FF /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08253B1C0734AF001B67FF /* Stream.swift */; };
-		3D0825491C0734AF001B67FF /* Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08253C1C0734AF001B67FF /* Upload.swift */; };
-		3D08254A1C0734AF001B67FF /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08253D1C0734AF001B67FF /* Validation.swift */; };
 		3D08254C1C073729001B67FF /* example_kvo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08254B1C073729001B67FF /* example_kvo.swift */; };
 		3D08254E1C07373B001B67FF /* example_notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08254D1C07373B001B67FF /* example_notifications.swift */; };
 		3D0825501C07375F001B67FF /* example_closures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08254F1C07375F001B67FF /* example_closures.swift */; };
 		3D0825591C073E52001B67FF /* keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0825581C073E52001B67FF /* keychain.swift */; };
 		3D08255B1C073F25001B67FF /* user_defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08255A1C073F25001B67FF /* user_defaults.swift */; };
+		3D08255D1C082AE9001B67FF /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D08255C1C082AE9001B67FF /* Alamofire.framework */; };
+		3D0825611C082AF2001B67FF /* Locksmith.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0825601C082AF2001B67FF /* Locksmith.framework */; };
+		3D0825621C082B07001B67FF /* Locksmith.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0825601C082AF2001B67FF /* Locksmith.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3D0825641C082B16001B67FF /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3D08255C1C082AE9001B67FF /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3D36A0451B8E2288002E5BD5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D36A0441B8E2288002E5BD5 /* AppDelegate.swift */; };
 		3D36A0471B8E2288002E5BD5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D36A0461B8E2288002E5BD5 /* ViewController.swift */; };
 		3D36A04A1B8E2288002E5BD5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D36A0481B8E2288002E5BD5 /* Main.storyboard */; };
@@ -67,6 +58,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				3D0825641C082B16001B67FF /* Alamofire.framework in Embed Frameworks */,
+				3D0825621C082B07001B67FF /* Locksmith.framework in Embed Frameworks */,
 				3DD409C61BFA1AD700896E0F /* Realm.framework in Embed Frameworks */,
 				3DD409C41BFA1AD700896E0F /* ReactiveCocoa.framework in Embed Frameworks */,
 				3DD409C81BFA1AD700896E0F /* RealmSwift.framework in Embed Frameworks */,
@@ -86,24 +79,14 @@
 		3D0825211C06CDC2001B67FF /* intro_signal_producer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = intro_signal_producer.swift; sourceTree = "<group>"; };
 		3D0825281C072E88001B67FF /* Reactive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reactive.swift; sourceTree = "<group>"; };
 		3D08252A1C072EBA001B67FF /* http.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = http.swift; sourceTree = "<group>"; };
-		3D0825311C0734AF001B67FF /* Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alamofire.swift; sourceTree = "<group>"; };
-		3D0825321C0734AF001B67FF /* Download.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Download.swift; sourceTree = "<group>"; };
-		3D0825331C0734AF001B67FF /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
-		3D0825341C0734AF001B67FF /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
-		3D0825351C0734AF001B67FF /* MultipartFormData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipartFormData.swift; sourceTree = "<group>"; };
-		3D0825361C0734AF001B67FF /* ParameterEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParameterEncoding.swift; sourceTree = "<group>"; };
-		3D0825371C0734AF001B67FF /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
-		3D0825381C0734AF001B67FF /* ResponseSerialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseSerialization.swift; sourceTree = "<group>"; };
-		3D0825391C0734AF001B67FF /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
-		3D08253A1C0734AF001B67FF /* ServerTrustPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerTrustPolicy.swift; sourceTree = "<group>"; };
-		3D08253B1C0734AF001B67FF /* Stream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
-		3D08253C1C0734AF001B67FF /* Upload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Upload.swift; sourceTree = "<group>"; };
-		3D08253D1C0734AF001B67FF /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		3D08254B1C073729001B67FF /* example_kvo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = example_kvo.swift; sourceTree = "<group>"; };
 		3D08254D1C07373B001B67FF /* example_notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = example_notifications.swift; sourceTree = "<group>"; };
 		3D08254F1C07375F001B67FF /* example_closures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = example_closures.swift; sourceTree = "<group>"; };
 		3D0825581C073E52001B67FF /* keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = keychain.swift; sourceTree = "<group>"; };
 		3D08255A1C073F25001B67FF /* user_defaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = user_defaults.swift; sourceTree = "<group>"; };
+		3D08255C1C082AE9001B67FF /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		3D08255E1C082AEF001B67FF /* Box.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Box.framework; path = Carthage/Build/iOS/Box.framework; sourceTree = "<group>"; };
+		3D0825601C082AF2001B67FF /* Locksmith.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Locksmith.framework; path = Carthage/Build/iOS/Locksmith.framework; sourceTree = "<group>"; };
 		3D36A0411B8E2288002E5BD5 /* Reactive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reactive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D36A0441B8E2288002E5BD5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3D36A0461B8E2288002E5BD5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -126,8 +109,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D08255D1C082AE9001B67FF /* Alamofire.framework in Frameworks */,
 				3DD409CF1BFA1B5D00896E0F /* CoreLocation.framework in Frameworks */,
 				3DD409C51BFA1AD700896E0F /* Realm.framework in Frameworks */,
+				3D0825611C082AF2001B67FF /* Locksmith.framework in Frameworks */,
 				3DD409C31BFA1AD700896E0F /* ReactiveCocoa.framework in Frameworks */,
 				3DD409C71BFA1AD700896E0F /* RealmSwift.framework in Frameworks */,
 				3DD409C91BFA1AD700896E0F /* Result.framework in Frameworks */,
@@ -170,7 +155,6 @@
 		3D0825191C06CDC2001B67FF /* HTTP */ = {
 			isa = PBXGroup;
 			children = (
-				3D0825301C0734AF001B67FF /* Alamofire */,
 				3D08252A1C072EBA001B67FF /* http.swift */,
 				3D08251A1C06CDC2001B67FF /* example.swift */,
 			);
@@ -197,26 +181,6 @@
 				3D0825211C06CDC2001B67FF /* intro_signal_producer.swift */,
 			);
 			path = Intro;
-			sourceTree = "<group>";
-		};
-		3D0825301C0734AF001B67FF /* Alamofire */ = {
-			isa = PBXGroup;
-			children = (
-				3D0825311C0734AF001B67FF /* Alamofire.swift */,
-				3D0825321C0734AF001B67FF /* Download.swift */,
-				3D0825331C0734AF001B67FF /* Error.swift */,
-				3D0825341C0734AF001B67FF /* Manager.swift */,
-				3D0825351C0734AF001B67FF /* MultipartFormData.swift */,
-				3D0825361C0734AF001B67FF /* ParameterEncoding.swift */,
-				3D0825371C0734AF001B67FF /* Request.swift */,
-				3D0825381C0734AF001B67FF /* ResponseSerialization.swift */,
-				3D0825391C0734AF001B67FF /* Result.swift */,
-				3D08253A1C0734AF001B67FF /* ServerTrustPolicy.swift */,
-				3D08253B1C0734AF001B67FF /* Stream.swift */,
-				3D08253C1C0734AF001B67FF /* Upload.swift */,
-				3D08253D1C0734AF001B67FF /* Validation.swift */,
-			);
-			path = Alamofire;
 			sourceTree = "<group>";
 		};
 		3D0825511C073A9F001B67FF /* Presentation */ = {
@@ -317,6 +281,9 @@
 		3DD409CB1BFA1ADA00896E0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3D0825601C082AF2001B67FF /* Locksmith.framework */,
+				3D08255E1C082AEF001B67FF /* Box.framework */,
+				3D08255C1C082AE9001B67FF /* Alamofire.framework */,
 				3DD409CE1BFA1B5D00896E0F /* CoreLocation.framework */,
 				3DD409BF1BFA1AD700896E0F /* ReactiveCocoa.framework */,
 				3DD409C01BFA1AD700896E0F /* Realm.framework */,
@@ -439,6 +406,12 @@
 			files = (
 			);
 			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Locksmith.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/ReactiveCocoa.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Result.framework",
 			);
 			name = Carthage;
 			outputPaths = (
@@ -454,33 +427,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D0825431C0734AF001B67FF /* ParameterEncoding.swift in Sources */,
 				3D0825231C06CDC2001B67FF /* example_delegate.swift in Sources */,
 				3D08254E1C07373B001B67FF /* example_notifications.swift in Sources */,
-				3D0825451C0734AF001B67FF /* ResponseSerialization.swift in Sources */,
 				3D0825501C07375F001B67FF /* example_closures.swift in Sources */,
 				3D0825221C06CDC2001B67FF /* example.swift in Sources */,
-				3D0825411C0734AF001B67FF /* Manager.swift in Sources */,
-				3D08253E1C0734AF001B67FF /* Alamofire.swift in Sources */,
-				3D0825421C0734AF001B67FF /* MultipartFormData.swift in Sources */,
 				3D0825271C06CDC2001B67FF /* intro_signal_producer.swift in Sources */,
-				3D08253F1C0734AF001B67FF /* Download.swift in Sources */,
 				3D0825241C06CDC2001B67FF /* intro_actions.swift in Sources */,
 				3D08255B1C073F25001B67FF /* user_defaults.swift in Sources */,
 				3D36A0471B8E2288002E5BD5 /* ViewController.swift in Sources */,
-				3D0825491C0734AF001B67FF /* Upload.swift in Sources */,
-				3D08254A1C0734AF001B67FF /* Validation.swift in Sources */,
-				3D0825441C0734AF001B67FF /* Request.swift in Sources */,
 				3D08252B1C072EBA001B67FF /* http.swift in Sources */,
 				3D08254C1C073729001B67FF /* example_kvo.swift in Sources */,
-				3D0825481C0734AF001B67FF /* Stream.swift in Sources */,
 				3D36A0451B8E2288002E5BD5 /* AppDelegate.swift in Sources */,
 				3D0825291C072E88001B67FF /* Reactive.swift in Sources */,
-				3D0825471C0734AF001B67FF /* ServerTrustPolicy.swift in Sources */,
 				3D0825591C073E52001B67FF /* keychain.swift in Sources */,
 				3D0825251C06CDC2001B67FF /* intro_properties.swift in Sources */,
-				3D0825461C0734AF001B67FF /* Result.swift in Sources */,
-				3D0825401C0734AF001B67FF /* Error.swift in Sources */,
 				3D0825261C06CDC2001B67FF /* intro_signal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,12 +1,44 @@
 import Foundation
 import ReactiveCocoa
 
+public enum UserDefaultsError: ErrorType {
+    case SynchronizationError
+}
+
 public extension NSUserDefaults {
     
     // MARK: - Set
     
     public func rac_setObject(value: AnyObject?, forKey defaultName: String) -> SignalProducer<Void, NoError> {
         self.setObject(value, forKey: defaultName)
+        return SignalProducer.empty
+    }
+    
+    public func rac_setInteger(value: Int, forKey defaultName: String) -> SignalProducer<Void, NoError> {
+        self.setInteger(value, forKey: defaultName)
+        return SignalProducer.empty
+    }
+    
+    public func rac_setFloat(value: Float, forKey defaultName: String) -> SignalProducer<Void, NoError> {
+        self.setFloat(value, forKey: defaultName)
+        return SignalProducer.empty
+    }
+    
+    public func rac_setDouble(value: Double, forKey defaultName: String) -> SignalProducer<Void, NoError> {
+        self.setDouble(value, forKey: defaultName)
+        return SignalProducer.empty
+    }
+    
+    public func rac_setBool(value: Bool, forKey defaultName: String) -> SignalProducer<Void, NoError> {
+        self.setBool(value, forKey: defaultName)
+        return SignalProducer.empty
+    }
+    
+    
+    // MARK: - Synchronize
+    
+    public func rac_synchronize() -> SignalProducer<Void, NoError> {
+        _  = self.synchronize()
         return SignalProducer.empty
     }
     
@@ -57,17 +89,11 @@ public extension NSUserDefaults {
         return SignalProducer(value: doubleForKey(defaultName))
     }
     
+    public func rac_boolForKey(defaultName: String) -> SignalProducer<Bool, NoError> {
+        return SignalProducer(value: boolForKey(defaultName))
+    }
+    
+    public func rac_URLForKey(defaultName: String) -> SignalProducer<NSURL?, NoError> {
+        return SignalProducer(value: URLForKey(defaultName))
+    }
 }
-
-
-/*
-
-public func boolForKey(defaultName: String) -> Bool
-@available(iOS 4.0, *)
-public func URLForKey(defaultName: String) -> NSURL?
-
-public func setInteger(value: Int, forKey defaultName: String)
-public func setFloat(value: Float, forKey defaultName: String)
-public func setDouble(value: Double, forKey defaultName: String)
-public func setBool(value: Bool, forKey defaultName: String)
-*/

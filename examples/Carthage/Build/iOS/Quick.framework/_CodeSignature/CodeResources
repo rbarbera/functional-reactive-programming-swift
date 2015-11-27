@@ -14,7 +14,7 @@
 		</data>
 		<key>Headers/Quick.h</key>
 		<data>
-		SDz6QPC1QYFlg90mtrOwC4sxCm0=
+		/Xf9t+YazFAtXprU9DeUoTWB3rU=
 		</data>
 		<key>Headers/QuickConfiguration.h</key>
 		<data>
@@ -26,27 +26,27 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		WKtNyfK81smfJkmwvu6VsScI3iA=
+		rdROhdkxJ/qT43OcoGOBaGUo/wE=
 		</data>
 		<key>Modules/Quick.swiftmodule/arm.swiftdoc</key>
 		<data>
-		ufaQeL9nOMuM+xhZ6o8Csa6djFo=
+		QpzLh3VjeHzG7yq0+imYhTTMJgM=
 		</data>
 		<key>Modules/Quick.swiftmodule/arm.swiftmodule</key>
 		<data>
-		OYsaCeK1NY3wUEgLWE9YFa6Ry9A=
+		dLjCR1jZ7CVMEt8WrrZ96hqySms=
 		</data>
 		<key>Modules/Quick.swiftmodule/arm64.swiftdoc</key>
 		<data>
-		Zx7euohAw3XnxwGM+W794Cq8zwk=
+		qbcxaEm92WSc6MjgCiGyyTfhs+E=
 		</data>
 		<key>Modules/Quick.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		aE1IWurUQ7D4j288uG3QOLQ36BI=
+		qSoR3zqqEoF+TF5vjIxnm5vZh98=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		TlQuJPk+5xbwdv0NaueImbtQFiQ=
+		QfbrXg9M17t7M1mX9Yzh72ZIg20=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -61,7 +61,7 @@
 		</data>
 		<key>Headers/Quick.h</key>
 		<data>
-		SDz6QPC1QYFlg90mtrOwC4sxCm0=
+		/Xf9t+YazFAtXprU9DeUoTWB3rU=
 		</data>
 		<key>Headers/QuickConfiguration.h</key>
 		<data>
@@ -73,23 +73,23 @@
 		</data>
 		<key>Modules/Quick.swiftmodule/arm.swiftdoc</key>
 		<data>
-		ufaQeL9nOMuM+xhZ6o8Csa6djFo=
+		QpzLh3VjeHzG7yq0+imYhTTMJgM=
 		</data>
 		<key>Modules/Quick.swiftmodule/arm.swiftmodule</key>
 		<data>
-		OYsaCeK1NY3wUEgLWE9YFa6Ry9A=
+		dLjCR1jZ7CVMEt8WrrZ96hqySms=
 		</data>
 		<key>Modules/Quick.swiftmodule/arm64.swiftdoc</key>
 		<data>
-		Zx7euohAw3XnxwGM+W794Cq8zwk=
+		qbcxaEm92WSc6MjgCiGyyTfhs+E=
 		</data>
 		<key>Modules/Quick.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		aE1IWurUQ7D4j288uG3QOLQ36BI=
+		qSoR3zqqEoF+TF5vjIxnm5vZh98=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		TlQuJPk+5xbwdv0NaueImbtQFiQ=
+		QfbrXg9M17t7M1mX9Yzh72ZIg20=
 		</data>
 	</dict>
 	<key>rules</key>

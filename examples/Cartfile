@@ -1,4 +1,4 @@
-github "ReactiveCocoa/ReactiveCocoa"
+github "ReactiveCocoa/ReactiveCocoa" "v4.0.0-alpha.3"
 github "matthewpalmer/Locksmith"
 github "Alamofire/Alamofire"
-github ""
+github "realm/realm-cocoa"

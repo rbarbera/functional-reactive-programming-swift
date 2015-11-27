@@ -1,6 +1,6 @@
 import Foundation
 import ReactiveCocoa
-
+import Alamofire
 
 // MARK: - Mapping to plain object
 
