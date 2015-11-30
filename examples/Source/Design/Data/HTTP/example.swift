@@ -63,6 +63,7 @@ private func github() {
         }
     }).start()
     
+    
     // 5. Authenticated request getting a JSON resource
     showUserRequest(session: mySession)
         .map(Reactive.HTTP.mapToJSON)
@@ -76,7 +77,7 @@ private func github() {
                 break
             }
         }).start()
-    
+        
     // 6. Authenticated request getting an User resource
     showUserRequest(session: mySession)
         .map(Reactive.HTTP.mapToJSON)

@@ -134,6 +134,8 @@ It uses delegate as a notification mechanism to create an Observable<String> tha
 
 #### HTTP
 
+##### Making it Reactive
+
 I> The presented examples can be found in `Design/Data/HTTP`
 
 I> Examples make use of [*Alamofire*](https://github.com/alamofire/alamofire). A networking library that also includes a set of useful components that we used.
@@ -146,7 +148,7 @@ In this section we'll learn how to bring Reactive to our HTTP data interactions 
 2. Create a mapper for these requests to support JSON APIs.
 3. Define a mapper for JSON responses to map them into plain objects.
 
-##### 1. Request generator
+###### 1. Request generator
 The first step is defining which variables we need to create a request:
 
 1. **Method:** GET/POST/PUT/PATCH/DELETE
@@ -191,7 +193,6 @@ public struct HTTP {
 
   static public func request(baseURL: String)(path: String)(method: Method, parameters: [String: AnyObject], encoding: ParameterEncoding)(session: Session) -> SignalProducer<(NSData, NSURLResponse), HttpError> {
     return SignalProducer { (observer, disposable) in
-
       let urlSession: NSURLSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
       var request: NSURLRequest = NSURLRequest(URL: NSURL(string: baseURL)!.URLByAppendingPathComponent(path))
       request = self.urlRequest(request, withSession: session)
@@ -243,7 +244,7 @@ Let's analyze it:
 
 > Notice that the `SignalProducer` type next event type is a tuple of (NSData, NSURLResponse). We want to propagate the response back, that way the consumer can extract information about the HTTP response.
 
-##### 2. JSON requests
+###### 2. JSON requests
 
 The `SignalProducer` created in the example above is a generic one that is valid for any kind of HTTP response. If we wanted to make it specific for JSON responses and return a `Foundation` object instead we can use the **map** operator of Reactive.
 
@@ -274,7 +275,7 @@ showUserRequest(session: mySession)
 
 Voila! we moved our generic Reactive Functional API Client to an API Client valid for JSON APIs.
 
-##### 3. Plain objects mapping
+###### 3. Plain objects mapping
 
 Depending on the response, we'll want to map it into a plain object that we can use from our code having its own attributes defined. As we did mapping the response into a `Foundation` object, we can again map that object into a defined `Foundation` or `Struct`. Let's say we have defined an `User` struct with the user data that the Github API returns:
 
@@ -343,7 +344,10 @@ showUserRequest(session: mySession)
   }).start()
 ~~~~~~~~
 
-##### Combining requests
+##### Examples of use
+
+###### Combining requests
+
 One of the main advantages of the use of Reactive Programming is the ease to combine multiple SignalProducers. When we interact with APIs resources we might need fetching resources after some others have been downloaded. For example, interacting with the Github API:
 
 - Download the user repositories when the user account has been downloaded.
@@ -369,6 +373,35 @@ private func shortUserRequest() -> SignalProducer<[Repository], HttpError> {
 }
 ~~~~~~~~
 
+###### Retrying requests
+//TODO
+
+###### Throttling requests
+ 
+`throttle` is used when there're multiple events sent and we don't need all of them but the last ones based on a defined time frame. For example, supposing the time frame is 2 seconds, and we receive the following events:
+
+|-- 2 seconds --|-- 2 seconds --|-- 2 seconds --|
+| A B       C D |  E  F         |               | # No throttling
+|               D               F               | # Throttling
+
+The last events in these time frames, D and F are selected from the original list of events. This is very useful in a common scenario where the user is introducing data in an app and as a consequence we execute web requests. If we executed a web request for every character introduced by the user:
+
+1. It wouldn't be efficient.
+2. The behaviour of the app would be unexpected for the user as it depends on asynchronous requests.
+
+This problem can be easily handled in Reactive with the `throttle` operator:
+
+~~~~~~~~
+userSearchInput
+  .throttle(3, onScheduler: QueueScheduler())
+  .flatMap(.Latest, transform: { (text) -> Signal<[Issue], Reactive.HTTP.HttpError> in
+    return searchRequest(term: text)
+  })
+  .startWithNext { next in
+    // Update search results
+  }
+~~~~~~~~
+
 ##### Summary
 - We use the `SignalProducer`constructor defining in the closure how the request is build and executed. When the producer is started the HTTP request is executed.
 - The constructor is defined using **currying** to have more flexibility building our own requests changing the *path* and *parameters*.
@@ -385,16 +418,68 @@ private func shortUserRequest() -> SignalProducer<[Repository], HttpError> {
 
 #### NSUserDefaults
 
-NSUserDEfaults
+##### Making it Reactive
 
-##### Making its interface Reactive
+I> The presented examples can be found in `Design/Data/HTTP`
 
-##### Creating a changes signal
+`NSUserDefaults` is a key-value storage provided by Foundation and commonly used by Objective-C / Swift developers. Its public interface is very simple and based on a set of getters and setters for accessing these values stored under a key. It also provides methods for cleaning values from the storage and synchronizing the stored values with the disk.
 
+Making `NSUserDefaults` would be relatively easy:
 
+1. We'll convert the existing interface to Reactive. Accessors will be now producers that will perform the same operation.
+2. We'll also implement a signal that notifies about changes in stored elements.
 
-#### CoreData
-//TODO
+###### Public interface
+
+In order to convert existing methods to Reactive we'll keep the same methods structure, we can go directly into `NSUserDefaults` and copy them from them. We'll change the method names prefixing a `rac_` before the method name to avoid conflict with parent methods. Moreover the methods will return a `SignalProducer` whose types will depend on the accessor type:
+
+| **Accessor type** | **Value type** | **Error type** |
+|-------------------|----------------|----------------|
+| Getter | Stored value type | NoError |
+| Setter | Void | NoError |
+
+`synchronize` and `deleteObject` methods will return neither value nor error. The resulting methods are listed below and we use the `SignalProducer` constructors `empty` and `value:`:
+
+~~~~~~~~
+public func rac_setObject(value: AnyObject?, forKey defaultName: String) -> SignalProducer<Void, NoError> 
+public func rac_setInteger(value: Int, forKey defaultName: String) -> SignalProducer<Void, NoError>
+public func rac_setFloat(value: Float, forKey defaultName: String) -> SignalProducer<Void, NoError>
+public func rac_setDouble(value: Double, forKey defaultName: String) -> SignalProducer<Void, NoError>
+public func rac_setBool(value: Bool, forKey defaultName: String) -> SignalProducer<Void, NoError>        
+public func rac_synchronize() -> SignalProducer<Void, NoError>        
+public func rac_removeObjectForKey(defaultName: String) -> SignalProducer<Void, NoError>        
+public func rac_objectForKey(defaultName: String) -> SignalProducer<AnyObject?, NoError>
+public func rac_stringForKey(defaultName: String) -> SignalProducer<String?, NoError>
+public func rac_arrayForKey(defaultName: String) -> SignalProducer<[AnyObject]?, NoError>
+public func rac_dictionaryForKey(defaultName: String) -> SignalProducer<[String : AnyObject]?, NoError>
+public func rac_dataForKey(defaultName: String) -> SignalProducer<NSData?, NoError>
+public func rac_stringArrayForKey(defaultName: String) -> SignalProducer<[String]?, NoError>
+public func rac_integerForKey(defaultName: String) -> SignalProducer<Int, NoError>
+public func rac_floatForKey(defaultName: String) -> SignalProducer<Float, NoError>
+public func rac_doubleForKey(defaultName: String) -> SignalProducer<Double, NoError>
+public func rac_boolForKey(defaultName: String) -> SignalProducer<Bool, NoError>
+public func rac_URLForKey(defaultName: String) -> SignalProducer<NSURL?, NoError>
+~~~~~~~~
+
+If we wanted for example set an object under a given key and then synchronize the user defaults we could do:
+
+~~~~~~~~
+Reactive.UserDefaults.rac_setObject("Job", forKey: "name")
+  .then(Reactive.UserDefaults.synchronize())
+  .start()
+~~~~~~~~
+
+###### Changes signal
+
+// TODO
+
+##### Examples of use
+
+###### Saving user data after a web request
+
+###### React to user local settings
+
+######
 
 #### Realm
 //TODO
@@ -407,7 +492,6 @@ NSUserDEfaults
 ### MVVM
 
 //TODO
-
 
 
 ## Include them?

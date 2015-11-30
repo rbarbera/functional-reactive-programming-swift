@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D03260F1C0849BE0046C224 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D03260E1C0849BE0046C224 /* Quick.framework */; };
+		3D0326111C0849C20046C224 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0326101C0849C20046C224 /* Nimble.framework */; };
+		3D0326131C0849DD0046C224 /* Nimble.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0326101C0849C20046C224 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3D0326141C0849DD0046C224 /* Quick.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3D03260E1C0849BE0046C224 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3D0326191C084A3C0046C224 /* user_defaults_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0326181C084A3C0046C224 /* user_defaults_tests.swift */; };
 		3D0825221C06CDC2001B67FF /* example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08251A1C06CDC2001B67FF /* example.swift */; };
 		3D0825231C06CDC2001B67FF /* example_delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08251C1C06CDC2001B67FF /* example_delegate.swift */; };
 		3D0825241C06CDC2001B67FF /* intro_actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08251E1C06CDC2001B67FF /* intro_actions.swift */; };
@@ -29,7 +34,7 @@
 		3D36A04A1B8E2288002E5BD5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D36A0481B8E2288002E5BD5 /* Main.storyboard */; };
 		3D36A04C1B8E2288002E5BD5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D36A04B1B8E2288002E5BD5 /* Assets.xcassets */; };
 		3D36A04F1B8E2288002E5BD5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D36A04D1B8E2288002E5BD5 /* LaunchScreen.storyboard */; };
-		3D36A05A1B8E2288002E5BD5 /* ReactiveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D36A0591B8E2288002E5BD5 /* ReactiveTests.swift */; };
+		3D733FCE1C0BFA6A00B74DA1 /* operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D733FCD1C0BFA6A00B74DA1 /* operators.swift */; };
 		3DD409C31BFA1AD700896E0F /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD409BF1BFA1AD700896E0F /* ReactiveCocoa.framework */; };
 		3DD409C41BFA1AD700896E0F /* ReactiveCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD409BF1BFA1AD700896E0F /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3DD409C51BFA1AD700896E0F /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD409C01BFA1AD700896E0F /* Realm.framework */; };
@@ -52,6 +57,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		3D0326121C0849C60046C224 /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3D0326131C0849DD0046C224 /* Nimble.framework in Copy Frameworks */,
+				3D0326141C0849DD0046C224 /* Quick.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3D36A0751B8E235C002E5BD5 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -71,6 +88,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3D03260E1C0849BE0046C224 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
+		3D0326101C0849C20046C224 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
+		3D0326181C084A3C0046C224 /* user_defaults_tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = user_defaults_tests.swift; sourceTree = "<group>"; };
 		3D08251A1C06CDC2001B67FF /* example.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = example.swift; sourceTree = "<group>"; };
 		3D08251C1C06CDC2001B67FF /* example_delegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = example_delegate.swift; sourceTree = "<group>"; };
 		3D08251E1C06CDC2001B67FF /* intro_actions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = intro_actions.swift; sourceTree = "<group>"; };
@@ -95,8 +115,8 @@
 		3D36A04E1B8E2288002E5BD5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3D36A0501B8E2288002E5BD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D36A0551B8E2288002E5BD5 /* ReactiveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReactiveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3D36A0591B8E2288002E5BD5 /* ReactiveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactiveTests.swift; sourceTree = "<group>"; };
 		3D36A05B1B8E2288002E5BD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3D733FCD1C0BFA6A00B74DA1 /* operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = operators.swift; sourceTree = "<group>"; };
 		3DD409BF1BFA1AD700896E0F /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		3DD409C01BFA1AD700896E0F /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		3DD409C11BFA1AD700896E0F /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
@@ -123,12 +143,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D03260F1C0849BE0046C224 /* Quick.framework in Frameworks */,
+				3D0326111C0849C20046C224 /* Nimble.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D0326151C084A250046C224 /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				3D0326161C084A250046C224 /* Data */,
+			);
+			path = Design;
+			sourceTree = "<group>";
+		};
+		3D0326161C084A250046C224 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				3D0326171C084A250046C224 /* UserDefaults */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		3D0326171C084A250046C224 /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				3D0326181C084A3C0046C224 /* user_defaults_tests.swift */,
+			);
+			path = UserDefaults;
+			sourceTree = "<group>";
+		};
 		3D0825171C06CDC2001B67FF /* Design */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,15 +318,25 @@
 		3D36A0581B8E2288002E5BD5 /* ReactiveTests */ = {
 			isa = PBXGroup;
 			children = (
-				3D36A0591B8E2288002E5BD5 /* ReactiveTests.swift */,
+				3D0326151C084A250046C224 /* Design */,
 				3D36A05B1B8E2288002E5BD5 /* Info.plist */,
 			);
 			path = ReactiveTests;
 			sourceTree = "<group>";
 		};
+		3D733FCC1C0BFA5B00B74DA1 /* Operators */ = {
+			isa = PBXGroup;
+			children = (
+				3D733FCD1C0BFA6A00B74DA1 /* operators.swift */,
+			);
+			path = Operators;
+			sourceTree = "<group>";
+		};
 		3DD409CB1BFA1ADA00896E0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3D0326101C0849C20046C224 /* Nimble.framework */,
+				3D03260E1C0849BE0046C224 /* Quick.framework */,
 				3D0825601C082AF2001B67FF /* Locksmith.framework */,
 				3D08255E1C082AEF001B67FF /* Box.framework */,
 				3D08255C1C082AE9001B67FF /* Alamofire.framework */,
@@ -296,6 +352,7 @@
 		3DF7F5D21C018E7100C9D9CD /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				3D733FCC1C0BFA5B00B74DA1 /* Operators */,
 				3D0825171C06CDC2001B67FF /* Design */,
 				3D08251D1C06CDC2001B67FF /* Intro */,
 			);
@@ -331,6 +388,7 @@
 				3D36A0511B8E2288002E5BD5 /* Sources */,
 				3D36A0521B8E2288002E5BD5 /* Frameworks */,
 				3D36A0531B8E2288002E5BD5 /* Resources */,
+				3D0326121C0849C60046C224 /* Copy Frameworks */,
 			);
 			buildRules = (
 			);
@@ -348,6 +406,7 @@
 		3D36A0391B8E2288002E5BD5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = ppinera;
 				TargetAttributes = {
@@ -431,6 +490,7 @@
 				3D08254E1C07373B001B67FF /* example_notifications.swift in Sources */,
 				3D0825501C07375F001B67FF /* example_closures.swift in Sources */,
 				3D0825221C06CDC2001B67FF /* example.swift in Sources */,
+				3D733FCE1C0BFA6A00B74DA1 /* operators.swift in Sources */,
 				3D0825271C06CDC2001B67FF /* intro_signal_producer.swift in Sources */,
 				3D0825241C06CDC2001B67FF /* intro_actions.swift in Sources */,
 				3D08255B1C073F25001B67FF /* user_defaults.swift in Sources */,
@@ -449,7 +509,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D36A05A1B8E2288002E5BD5 /* ReactiveTests.swift in Sources */,
+				3D0326191C084A3C0046C224 /* user_defaults_tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -600,10 +660,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = ReactiveTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = es.ppinera.ReactiveTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Reactive.app/Reactive";
 			};
 			name = Debug;
@@ -612,6 +678,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = ReactiveTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = es.ppinera.ReactiveTests;
