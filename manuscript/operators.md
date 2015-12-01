@@ -64,6 +64,32 @@ I> The method `on` has the parameters as optionasl, thus if you want to provide 
 
 ### Pipe
 
+With signals the operator `|>` is used to apply a primitive to an event stream. In case of `SignalProducer` it also allows applying `Signal` primitives to `SignalProducer`:
+
+~~~~~~~~
+// Signal
+public func |> <T, E, X>(signal: Signal<T, E>, @noescape transform: Signal<T, E> -> X) -> X {
+
+// Signal producer
+public func |> <T, E, U, F>(producer: SignalProducer<T, E>, transform: Signal<T, E> -> Signal<U, F>) -> SignalProducer<U, F>
+public func |> <T, E, X>(producer: SignalProducer<T, E>, @noescape transform: SignalProducer<T, E> -> X) -> X
+~~~~~~~~
+
+For example, suppose we define the following primitive that given a `Signal` of integers, it adds a number to each integer:
+
+~~~~~~~~
+func sum(amount: Int)(input: Signal<Int, NoError>) -> Signal<Int, NoError> {
+    return input.map({$0 + amount})
+}
+let integerPipe = Signal<Int, NoError>.pipe()
+let integerObserver = integerPipe.1
+let integerSignal = integerPipe.0
+let signal = integerSignal |> sum(2)
+~~~~~~~~
+
+We define our primitive, in this case using flurry we made it more generic so that we can add any amount. Then we can apply it to any `Signal<Int, NoError>` signal.
+
+
 ### Lift
 
 `lift` operators allow applying signal operators to a `SignalProducer`. The operator creates a new `SignalProducer` like if the operator had been applied to each produced `Signal` individually.

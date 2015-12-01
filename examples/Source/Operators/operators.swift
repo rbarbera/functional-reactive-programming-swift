@@ -10,5 +10,5 @@ let integerObserver = integerPipe.1
 let integerSignal = integerPipe.0
 
 let sum2 = sum(2)
-let signal = integerSignal |> sum2
-
+integerSignal
+    |> sum2
