@@ -26,7 +26,7 @@ mySignal.observeNext { data in
 }
 ~~~~~~~~
 
-![](images/operators_observation.pdf)
+![Observation operator](images/op-observer.png)
 
 T> Note that the side effects are specified with closures. Be careful retaining variables from the external scope of variables. The closure will be retained during the signal execution and a bad implementation of the signal might lead to components retained in memory and never released.
 
