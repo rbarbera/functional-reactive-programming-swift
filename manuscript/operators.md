@@ -26,6 +26,8 @@ mySignal.observeNext { data in
 }
 ~~~~~~~~
 
+![](images/operators_observation.png)
+
 T> Note that the side effects are specified with closures. Be careful retaining variables from the external scope of variables. The closure will be retained during the signal execution and a bad implementation of the signal might lead to components retained in memory and never released.
 
 X> Signals shouldn't propagate more next events once the stream has been completed, cancelled or interrupted. In order to validate that I propose you the following exercise:
