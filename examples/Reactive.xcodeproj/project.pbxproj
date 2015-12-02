@@ -34,7 +34,7 @@
 		3D36A04A1B8E2288002E5BD5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D36A0481B8E2288002E5BD5 /* Main.storyboard */; };
 		3D36A04C1B8E2288002E5BD5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D36A04B1B8E2288002E5BD5 /* Assets.xcassets */; };
 		3D36A04F1B8E2288002E5BD5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D36A04D1B8E2288002E5BD5 /* LaunchScreen.storyboard */; };
-		3D733FCE1C0BFA6A00B74DA1 /* operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D733FCD1C0BFA6A00B74DA1 /* operators.swift */; };
+		3D733FCE1C0BFA6A00B74DA1 /* observation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D733FCD1C0BFA6A00B74DA1 /* observation.swift */; };
 		3DD409C31BFA1AD700896E0F /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD409BF1BFA1AD700896E0F /* ReactiveCocoa.framework */; };
 		3DD409C41BFA1AD700896E0F /* ReactiveCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD409BF1BFA1AD700896E0F /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3DD409C51BFA1AD700896E0F /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD409C01BFA1AD700896E0F /* Realm.framework */; };
@@ -116,7 +116,7 @@
 		3D36A0501B8E2288002E5BD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D36A0551B8E2288002E5BD5 /* ReactiveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReactiveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D36A05B1B8E2288002E5BD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3D733FCD1C0BFA6A00B74DA1 /* operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = operators.swift; sourceTree = "<group>"; };
+		3D733FCD1C0BFA6A00B74DA1 /* observation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = observation.swift; sourceTree = "<group>"; };
 		3DD409BF1BFA1AD700896E0F /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		3DD409C01BFA1AD700896E0F /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		3DD409C11BFA1AD700896E0F /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
@@ -327,7 +327,7 @@
 		3D733FCC1C0BFA5B00B74DA1 /* Operators */ = {
 			isa = PBXGroup;
 			children = (
-				3D733FCD1C0BFA6A00B74DA1 /* operators.swift */,
+				3D733FCD1C0BFA6A00B74DA1 /* observation.swift */,
 			);
 			path = Operators;
 			sourceTree = "<group>";
@@ -490,7 +490,7 @@
 				3D08254E1C07373B001B67FF /* example_notifications.swift in Sources */,
 				3D0825501C07375F001B67FF /* example_closures.swift in Sources */,
 				3D0825221C06CDC2001B67FF /* example.swift in Sources */,
-				3D733FCE1C0BFA6A00B74DA1 /* operators.swift in Sources */,
+				3D733FCE1C0BFA6A00B74DA1 /* observation.swift in Sources */,
 				3D0825271C06CDC2001B67FF /* intro_signal_producer.swift in Sources */,
 				3D0825241C06CDC2001B67FF /* intro_actions.swift in Sources */,
 				3D08255B1C073F25001B67FF /* user_defaults.swift in Sources */,

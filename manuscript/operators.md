@@ -89,7 +89,6 @@ let signal = integerSignal |> sum(2)
 
 We define our primitive, in this case using flurry we made it more generic so that we can add any amount. Then we can apply it to any `Signal<Int, NoError>` signal.
 
-
 ### Lift
 
 `lift` operators allow applying signal operators to a `SignalProducer`. The operator creates a new `SignalProducer` like if the operator had been applied to each produced `Signal` individually.
