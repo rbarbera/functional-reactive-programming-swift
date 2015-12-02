@@ -26,7 +26,7 @@ mySignal.observeNext { data in
 }
 ~~~~~~~~
 
-![](images/operators_observation.png)
+![](images/operators_observation.pdf)
 
 T> Note that the side effects are specified with closures. Be careful retaining variables from the external scope of variables. The closure will be retained during the signal execution and a bad implementation of the signal might lead to components retained in memory and never released.
 
@@ -37,7 +37,7 @@ X> 3. Send the folloging events: 0, 1, 2, .Completed, 3. What do can you see in 
 
 ### Injecting effects
 
-Similar to observe, with signal producers we can observe the events sent. In this case we use the `on` operator that returns another producer. It allows us chaining multiple observers applied to the same source producer.  
+Similar to observe, with signal producers we can observe the events sent. In this case we use the `on` operator that returns another producer. It allows us chaining multiple observers applied to the same source producer.
 
 ~~~~~~~~
 let otherProducer = sourceProducer
