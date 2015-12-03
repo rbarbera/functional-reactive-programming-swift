@@ -26,6 +26,8 @@ mySignal.observeNext { data in
 }
 ~~~~~~~~
 
+![](images/operators_observation.png)
+
 T> Note that the side effects are specified with closures. Be careful retaining variables from the external scope of variables. The closure will be retained during the signal execution and a bad implementation of the signal might lead to components retained in memory and never released.
 
 X> Signals shouldn't propagate more next events once the stream has been completed, cancelled or interrupted. In order to validate that I propose you the following exercise:
@@ -62,33 +64,6 @@ I> The method `on` has the parameters as optionasl, thus if you want to provide 
 
 ## Composition
 
-### Pipe
-
-With signals the operator `|>` is used to apply a primitive to an event stream. In case of `SignalProducer` it also allows applying `Signal` primitives to `SignalProducer`:
-
-~~~~~~~~
-// Signal
-public func |> <T, E, X>(signal: Signal<T, E>, @noescape transform: Signal<T, E> -> X) -> X {
-
-// Signal producer
-public func |> <T, E, U, F>(producer: SignalProducer<T, E>, transform: Signal<T, E> -> Signal<U, F>) -> SignalProducer<U, F>
-public func |> <T, E, X>(producer: SignalProducer<T, E>, @noescape transform: SignalProducer<T, E> -> X) -> X
-~~~~~~~~
-
-For example, suppose we define the following primitive that given a `Signal` of integers, it adds a number to each integer:
-
-~~~~~~~~
-func sum(amount: Int)(input: Signal<Int, NoError>) -> Signal<Int, NoError> {
-    return input.map({$0 + amount})
-}
-let integerPipe = Signal<Int, NoError>.pipe()
-let integerObserver = integerPipe.1
-let integerSignal = integerPipe.0
-let signal = integerSignal |> sum(2)
-~~~~~~~~
-
-We define our primitive, in this case using flurry we made it more generic so that we can add any amount. Then we can apply it to any `Signal<Int, NoError>` signal.
-
 ### Lift
 
 `lift` operators allow applying signal operators to a `SignalProducer`. The operator creates a new `SignalProducer` like if the operator had been applied to each produced `Signal` individually.
@@ -96,10 +71,37 @@ We define our primitive, in this case using flurry we made it more generic so th
 ## Transforming
 
 ### Mapping
-// TODO
+`map` operator transforms the event next values using using the passed function. Given an input `Signal<T, NoError>`/`SignalProducer<T, NoError>` and a function that transform `T` into a new type `M`, `myFunc(input: T) -> M` the operator can be applied on this way:
+
+~~~~~~~~
+mySignal.map(mappingFunction)
+~~~~~~~~
+
+Imagine we have a text field where the user inputs data and we have to validate that the introduced data is not empty. Our current signal only returns the text that the user is typing in the field. Thanks to the `map` operator we can have instead a signal that returns `true` or `false` depending on wether the field is empty or not:
+
+~~~~~~~~
+let (userTextSignal, userTextObserver) = Signal<Int, NoError>.pipe()
+let isValid: Signal<Bool, NoError> = userTextSignal.map{$0 != ""}
+isValid.observeNext { valid in print(valid) }
+userTextObserver.sendNext("") // should print false
+userTextObserver.sendNext("pep@") // should print true
+~~~~~~~~
+> Note: $0 represents the values sent through the signal where in this case it's the text introduced.
+ 
+![](images/operators_mapping.png)
+
+X> Suppose we have a `Signal<AnyObject, NoError>` where `AnyObject` represents an API JSON response, try to map these responses into a custom plain model, for example `User` or `Track`. 
+
 
 ### Filtering
-// TODO
+`filter` is used to filter next values using a provided predicate. Only these values that satisfy the predicate will be propagated to the output stream. The `filter` operator expects a closure where that takes each next value and returns `true`/`false`:
+
+~~~~~~~~
+mySignal.filter(filterFunction)
+~~~~~~~~
+
+![](images/operators_filtering.png)
+
 
 ### Aggregating
 // TODO
@@ -134,6 +136,8 @@ We define our primitive, in this case using flurry we made it more generic so th
 
 ### Retrying
 //TODO
+
+### Promote errors
 
 
 ### DON'T FORGET
