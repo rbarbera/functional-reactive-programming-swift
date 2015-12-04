@@ -479,8 +479,6 @@ Reactive.UserDefaults.rac_setObject("Job", forKey: "name")
 
 ###### React to user local settings
 
-######
-
 #### Realm
 //TODO
 
