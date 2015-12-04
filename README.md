@@ -1,6 +1,8 @@
 # Functional Reactive Programming in Swift
 Book that introduces the Functional Reactive Programming in Swift with some useful application examples.
 
+![cover](https://github.com/gitdoapp/functional-reactive-programming-swift/blob/master/assets/minicover.png?raw=true)
+
 ### How to provide feedback
 
 1. Use the last version from [Leanpub](https://leanpub.com/functionalreactiveprogrammingswift)
