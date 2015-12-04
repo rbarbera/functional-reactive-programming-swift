@@ -1,4 +1,5 @@
 import Foundation
 import ReactiveCocoa
 
-let pipe = Signal<String>.pipe
+var array: [String] = []
+array.appendContentsOf(<#T##newElements: SequenceType##SequenceType#>)
