@@ -2,6 +2,8 @@
 
 With the concepts explained before you can start working with your first signals and signal producers. However, the most interesting part of Reactive is how we can combine them thanks to operators. Operators in ReactiveCocoa are primitives provided by the framework that can be applied over the streams of events. An *operator* then, is a function that transform signals and signals producers.
 
+I> This section is inspired in [ReactiveCocoa Operators reference](https://github.com/ReactiveCocoa/ReactiveCocoa/blob/master/Documentation/BasicOperators.md#aggregating) available on Github.
+
 T> There's a website, [**RAC Marble**](http://neilpa.me/rac-marbles) with interactive diagrams where you can check the behaviour of each operator mentioned. Use it whenever you have doubt about any operator that you've using.
 
 ## Performing side effects
@@ -111,7 +113,6 @@ myIssuesSignal.observeNext { issues in
 ![](images/operators_filtering.png)
 
 ### Aggregating
-// TODO
 
 #### Reduce
 `reduce` allows combining event stream's values into a single value. How these values are combined are specified with a closure passed to this operator. The resulting signal doesn't send the final reduced value until the original one completes.
