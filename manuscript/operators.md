@@ -18,12 +18,12 @@ mySignal.observe { event in
     default: break
   }
 }
-mySignal.observeFailed { error in 
+mySignal.observeFailed { error in
   print("Oh, something went wrong: \(error)")
 }
 mySignal.observeCompleted
 mySignal.observeInterrupted
-mySignal.observeNext { data in 
+mySignal.observeNext { data in
   print("Yeah!, new data: \(data)")
 }
 ~~~~~~~~
@@ -71,6 +71,9 @@ I> The method `on` has the parameters as optionals, thus if you want to provide 
 ## Transforming
 
 ### Mapping
+
+[**Interactive diagram:**](http://neilpa.me/rac-marbles/#map)
+
 `map` operator transforms the event next values using using the passed function. Given an input `Signal<T, NoError>`/`SignalProducer<T, NoError>` and a function that transform `T` into a new type `M`, `myFunc(input: T) -> M` the operator can be applied on this way:
 
 ~~~~~~~~
@@ -87,17 +90,20 @@ userTextObserver.sendNext("") // should print false
 userTextObserver.sendNext("pep@") // should print true
 ~~~~~~~~
 > Note: $0 represents the values sent through the signal where in this case it's the text introduced.
- 
+
 ![](images/operators_mapping.png)
 
 ### Filtering
+
+[**Interactive diagram:**](http://neilpa.me/rac-marbles/#filter)
+
 `filter` is used to filter next values using a provided predicate. Only these values that satisfy the predicate will be propagated to the output stream. The `filter` operator expects a closure where that takes each next value and returns `true`/`false`:
 
 ~~~~~~~~
 mySignal.filter(filterFunction)
 ~~~~~~~~
 
-Imagine the're listing a set of Github issues in a TableView and each issue contains an attribute `assigned` with the assigned person. We would like to list only these issues that are assigned to me taking into account that the source signal returns all the existing issues:
+Imagine we are listing a set of Github issues in a TableView and each issue contains an attribute `assigned` with the assigned person. We would like to list only these issues that are assigned to me taking into account that the source signal returns all the existing issues:
 
 ~~~~~~~~
 let me: User // Equatable struct
@@ -111,9 +117,11 @@ myIssuesSignal.observeNext { issues in
 ![](images/operators_filtering.png)
 
 ### Aggregating
-// TODO
 
 #### Reduce
+
+[**Interactive diagram:**](http://neilpa.me/rac-marbles/#reduce)
+
 `reduce` allows combining event stream's values into a single value. How these values are combined are specified with a closure passed to this operator. The resulting signal doesn't send the final reduced value until the original one completes.
 
 We can use it for example to group multiple arrays into a signel array. In the example below we've a `Signal` that returns arrays of issues *(for example coming from paginated requests to the API)* and we use the reduce operator. The opeator needs an *initial value* and then the closure that takes as arguments the *previous value* and the *new next event value* and returns the reduced value where in this case is another array of issues with the new values concatenated.
@@ -151,26 +159,160 @@ observer.sendNext(3)     // nothing printed
 observer.sendCompleted()   // prints [1, 2, 3]
 ~~~~~~~~
 
-![](images/operators_collect.png)
-
 ## Combining
 
+Combining operators combine multiple streams values into a single stream
+
 ### Latest values
-// TODO
+
+[**Interactive diagram:**](http://neilpa.me/rac-marbles/#combineLatest)
+
+`combineLatest` combine the last sent value through multiple streams into a single stream whose values are tuples with these last values.
+
+The first value will be sent once all of the streams have sent at least one value. Every time any streams sends a new value, the resulting stream will send a new value with that value and the last from the other streams.
+
+~~~~~~~~
+let (numbersSignal, numbersObserver) = Signal<Int, NoError>.pipe()
+let (lettersSignal, lettersObserver) = Signal<String, NoError>.pipe()
+
+let signal = combineLatest(numbersSignal, lettersSignal)
+signal.observeNext { next in print("Next: \(next)") }
+signal.observeCompleted { print("Completed") }
+
+numbersObserver.sendNext(1)      // nothing printed
+numbersObserver.sendNext(2)      // nothing printed
+lettersObserver.sendNext("A")    // prints (2, A)
+numbersObserver.sendNext(3)      // prints (3, A)
+numbersObserver.sendCompleted()  // nothing printed
+lettersObserver.sendNext("B")    // prints (3, B)
+lettersObserver.sendNext("C")    // prints (3, C)
+lettersObserver.sendCompleted()  // prints "Completed"
+~~~~~~~~
+
+![](images/operators_combinelatest)
 
 ### Zipping
-// TODO
 
-## Flattening
+[**Interactive diagram:**](http://neilpa.me/rac-marbles/#zip)
 
-### Concatenating
-// TODO
+The zip function joins values of two (or more) event streams pair-wise. The elements of any Nth tuple correspond to the Nth elements of the input streams.
+
+That means the Nth value of the output stream cannot be sent until each input has sent at least N values.
+
+~~~~~~~~
+let (numbersSignal, numbersObserver) = Signal<Int, NoError>.pipe()
+let (lettersSignal, lettersObserver) = Signal<String, NoError>.pipe()
+
+let signal = zip(numbersSignal, lettersSignal)
+signal.observeNext { next in print("Next: \(next)") }
+signal.observeCompleted { print("Completed") }
+
+numbersObserver.sendNext(1)      // nothing printed
+numbersObserver.sendNext(2)      // nothing printed
+lettersObserver.sendNext("A")    // prints (1, A)
+numbersObserver.sendNext(3)      // nothing printed
+numbersObserver.sendCompleted()  // nothing printed
+lettersObserver.sendNext("B")    // prints (2, B)
+lettersObserver.sendNext("C")    // prints (3, C)
+numbersObserver.sendNext(5)      // nothing printed
+lettersObserver.sendNext("D")    // prints (4, D)
+numbersObserver.sendNext(5)      // nothing printed
+~~~~~~~~
+
+You can also use the `zipWith` operator applied to a `Signal`:
+
+~~~~~~~~
+let signal = numbersSignal.zipWith(lettersSignal)
+~~~~~~~~
+
+![image](images/operators_zip.png)
+
+## Flattening producers
+
+The flatten operator transforms a SignalProducer-of-SignalProducers into a single SignalProducer whose values are forwarded from the inner producer in accordance with the provided FlattenStrategy.
+
+To understand, why there are different strategies and how they compare to each other, take a look at this example and imagine the column offsets as time:
+
+~~~~~~~~
+let values = [
+// imagine column offset as time
+[ 1,    2,      3 ],
+   [ 4,      5,     6 ],
+         [ 7,     8 ],
+]
+
+let merge =
+[ 1, 4, 2, 7,5, 3,8,6 ]
+
+let concat =
+[ 1,    2,      3,4,      5,     6,7,     8]
+
+let latest =
+[ 1, 4,    7,     8 ]
+~~~~~~~~
+
+Note, how the values interleave and which values are even included in the resulting array.
 
 ### Merging
-// TODO
+
+[**Interactive diagram:**](http://neilpa.me/rac-marbles/#merge)
+
+The `.Merge` strategy immediately forwards every value of the inner `SignalProducers` to the outer `SignalProducer`. Any failure sent on the outer producer or any inner producer is immediately sent on the flattened producer and terminates it.
+
+~~~~~~~~
+let (producerA, observerA) = SignalProducer<Int, NoError>.buffer(5)
+let (producerB, observerB) = SignalProducer<Int, NoError>.buffer(5)
+let (signal, observer) = SignalProducer<SignalProducer<Int, NoError>, NoError>.buffer(5)
+
+signal.flatten(.Merge).startWithNext { next in print(next) }
+
+observer.sendNext(producerA)
+observer.sendNext(producerB)
+observer.sendCompleted()
+
+observerA.sendNext(20)          // prints "20"
+observerB.sendNext(1)           // prints "1"
+observerA.sendNext(40)          // prints "40"
+observerA.sendNext(60)          // prints "60"
+observerA.sendNext(80)          // prints "80"
+observerB.sendNext(1)           // prints "1"
+observerA.sendNext(100)         // prints "100"
+~~~~~~~~
+
+![](images/operators_merge.png)
+
+
+### Concatenating
+
+[**Interactive diagram:**](http://neilpa.me/rac-marbles/#concat)
+
+The `.Concat` strategy is used to serialize work of the inner SignalProducers. The outer producer is started immediately. Each subsequent producer is not started until the preceeding one has completed. Failures are immediately forwarded to the flattened producer.
+
+~~~~~~~~
+let (producerA, lettersObserver) = SignalProducer<String, NoError>.buffer(5)
+let (producerB, numbersObserver) = SignalProducer<String, NoError>.buffer(5)
+let (signal, observer) = SignalProducer<SignalProducer<String, NoError>, NoError>.buffer(5)
+
+signal.flatten(.Concat).startWithNext { next in print(next) }
+
+observer.sendNext(producerA)
+observer.sendNext(producerB)
+observer.sendCompleted()
+
+numbersObserver.sendNext("1")    // nothing printed
+lettersObserver.sendNext("a")    // prints "a"
+lettersObserver.sendNext("b")    // prints "b"
+numbersObserver.sendNext("2")    // nothing printed
+lettersObserver.sendNext("c")    // prints "c"
+lettersObserver.sendCompleted()    // prints "1", "2"
+numbersObserver.sendNext("3")    // prints "3"
+numbersObserver.sendCompleted()
+~~~~~~~~
 
 ### Switching to the latest
 // TODO
+
+### Flatmap
 
 ## Handling Errors
 
