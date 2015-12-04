@@ -490,10 +490,3 @@ Reactive.UserDefaults.rac_setObject("Job", forKey: "name")
 ### MVVM
 
 //TODO
-
-
-## Include them?
-- Best practices
-- Pitfalls
-- Retain cycles
-- Objects retainment (in producers)
