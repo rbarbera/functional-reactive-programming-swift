@@ -3,13 +3,22 @@ Book that introduces the Functional Reactive Programming in Swift with some usef
 
 ### How to provide feedback
 
-- Get the last available version from **Release**. Every new version will include a changelog with new content added and feedback applied.
-- When you have feedback:
-  - Create an issue with the following name: `VERSION - Name` *(try to use a representative name)*
-  - Add de label **Feedback**
-  - Fill the issue body with the following details:
-    - Which section/part/page the feedback applies to.
-    - Add a comment explaining the feedback with as much details as possible.
+1. Use the last version from [Leanpub](https://leanpub.com/functionalreactiveprogrammingswift)
+2. Use the [Trello board](https://trello.com/b/mqPuiSt2/book-functional-reactive-programming-in-swift) to report feedback:
+  - Add the feedback in the proper list.
+  - Use the existing labels to group the feedback depending on its type:
+    - **Typo**: Any typo mistake you find in the book, report it with this label.
+    - **Idea**: If you had any idea for the book, propose it here *(e.g. explaining how to convert any existing component into Reactive)*
+    - **Improvement**: If you think any of the sections can be improved somehow, create a task for it proposing your improvement ideas.
+  - If you're refering to any section in the book, specify the *section* and *page*
+
+### Test project
+The book includes an example project with the book examples implemented. In order to run it locally:
+
+1. Git clone the repository in your system with `git clone https://github.com/gitdoapp/functional-reactive-programming-swift.git`
+2. Install [Carthage](https://github.com/carthage/carthage) if you didn't have it installed with `brew install carthage`
+3. Inside `./examples` execute `carthage update` to fetch and build the dependencies.
+4. Open the `Reactive.xcodeproj` file.
 
 ### Reviewers
 Here's the list of people that will contribute with the book reviewing it and providing direct feedback.
@@ -18,7 +27,3 @@ Here's the list of people that will contribute with the book reviewing it and pr
 - patoroco@gmail.com
 - danimartinprieto@gmail.com
 - r.lapuente@gmail.com
-
-
-## Notes
-- Use first person of the plural
