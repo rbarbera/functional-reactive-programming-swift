@@ -6,3 +6,5 @@
 - *ReactiveX Tutorials* [Link](http://reactivex.io/tutorials.html)
 - *Justin Spahr-Summers*. Library Oriented Programming. [Link](https://realm.io/news/justin-spahr-summers-library-oriented-programming/)
 - *Neil Pankey*: Reactive Cocoa Extensions (Rex). [Link](https://github.com/neilpa/Rex)
+- *Sommer Panage*: Accessibility Three Ways: iOS Implementation Case Studies. [Link](https://realm.io/news/sommer-panage-accessibility-implementation-ios/)
+- *Nacho Soto*: Imperative FRP. [Link](https://realm.io/news/nacho-soto-functional-reactive-programming/)
