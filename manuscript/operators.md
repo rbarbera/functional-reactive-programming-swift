@@ -449,55 +449,7 @@ numbersSignal
 
 The given stream will still not actually generate failures, but this is useful because some operators to combine streams require the inputs to have matching error types.
 
-## Other useful operators
-
-### Flatmap
-
-`flatMap` maps every stream value into a new `SignalProducer`/`SignalProducer` and forward their values through the main stream using the defined `FlattenStrategy` that can be any of the strategies seen before, `merge`, `concat`, `latest`.
-
-~~~~~~~~
-let (innerProducer, innerObserver) = SignalProducer<String, NoError>.buffer(5)
-let (signal, observer) = SignalProducer<String, NoError>.buffer(5)
-signal.flatMap(.Concat) { (input) -> SignalProducer<String, NoError> in
-   return innerProducer.map({"\(input)-\($0)"})
-}.startWithNext { next in
-   print(next)
-}
-innerObserver.sendNext("A") // nothing printed
-innerObserver.sendNext("B") // nothing printed
-innerObserver.sendNext("C") // nothing printed
-innerObserver.sendCompleted() // nothing printed
-observer.sendNext("1") // printed 1-A, 1-B, 1-C
-observer.sendNext("2") // printed 2-A, 2-B, 2-c
-~~~~~~~~
-
-### Scan
-It aggregates the `Signal`/`SignalProducer` values into a single combined values using a combination closure that defines how each value is combined with the previous one. The scan method needs an initial value that is used to combine the first delivered value. 
-
-~~~~~~~~
-let (signal, observer) = Signal<String, NoError>.pipe()
-let scanSignal = signal.scan("") { "\($0)\($1)" }
-scanSignal.observeNext { next in
-    print(next)
-}
-observer.sendNext("A") // A printed
-observer.sendNext("B") // AB printed
-observer.sendNext("C") // ABC printed
-~~~~~~~~
-
-### CombinePrevious
-
-Forwards events from the `Signal`/`SignalProducer` with history. It combines the values returned in a tuple whose first element is the previous value and whose second element is the current value. The `combinePrevious` takes an `initial` value which is the previous element of the tuple for the first delivered value:
-
-~~~~~~~~
-let (signal, observer) = Signal<String, NoError>.pipe()
-let combinedSignal = signal.combinePrevious("A")
-combinedSignal.observeNext { next in
-    print(next)
-}
-observer.sendNext("B") // (A, B) printed
-observer.sendNext("C") // (B, C) printed
-~~~~~~~~
+## Skip operators
 
 ### Skip
 Skips the first `x` values of a `Signal`/`SignalProducer` and sends the values afterwards.
@@ -547,7 +499,23 @@ observer.sendNext("C") // C printed
 ~~~~~~~~
 
 ### SkipRepeats
-// TODO
+It forwards only those values from a `Signal`/`SignalProducer` which does not pass `isRepeat` compared with the previous value. The first value is always forwarded.
+
+~~~~~~~~
+let (signal, observer) = Signal<String, NoError>.pipe()
+let repeatsSkippedSignal = signal.skipRepeats { $0 == $1 }
+repeatsSkippedSignal.observeNext { next in
+    print(next)
+}
+observer.sendNext("A") // A printed
+observer.sendNext("A") // nothing printed
+observer.sendNext("B") // B printed
+observer.sendNext("C") // C printed
+~~~~~~~~
+
+> If the `Signal`/`SignalValue` value conforms the `Equatable` protocol you can use directly `skipRepeats()` method without passing any closure.
+
+## Take operators
 
 ### Take
 Sends the first `x` values of a `Signal`/`SignalProducer` and stops sending afterwards. When these values are received then a `completed` event is sent.
@@ -630,6 +598,83 @@ observer.sendNext("C") // completed printed
 observer.sendNext("D") // nothing printed
 ~~~~~~~~
 
+## Attempt operators
+
+### Attempt
+It applies `operation` to values from `self` with `Success`ful results forwarded on the returned signal and `Failure`s sent as `Failed` events.
+
+### AttemptMap
+It applies `operation` to values from `Signal`/`SignalProducer` with `Success`ful results mapped on the returned signal and `Failure`s sent as `Failed` events.
+
+
+## Other useful operators
+
+### Flatmap
+`flatMap` maps every stream value into a new `SignalProducer`/`SignalProducer` and forward their values through the main stream using the defined `FlattenStrategy` that can be any of the strategies seen before, `merge`, `concat`, `latest`.
+
+~~~~~~~~
+let (innerProducer, innerObserver) = SignalProducer<String, NoError>.buffer(5)
+let (signal, observer) = SignalProducer<String, NoError>.buffer(5)
+signal.flatMap(.Concat) { (input) -> SignalProducer<String, NoError> in
+   return innerProducer.map({"\(input)-\($0)"})
+}.startWithNext { next in
+   print(next)
+}
+innerObserver.sendNext("A") // nothing printed
+innerObserver.sendNext("B") // nothing printed
+innerObserver.sendNext("C") // nothing printed
+innerObserver.sendCompleted() // nothing printed
+observer.sendNext("1") // printed 1-A, 1-B, 1-C
+observer.sendNext("2") // printed 2-A, 2-B, 2-c
+~~~~~~~~
+
+### Scan
+It aggregates the `Signal`/`SignalProducer` values into a single combined values using a combination closure that defines how each value is combined with the previous one. The scan method needs an initial value that is used to combine the first delivered value. 
+
+~~~~~~~~
+let (signal, observer) = Signal<String, NoError>.pipe()
+let scanSignal = signal.scan("") { "\($0)\($1)" }
+scanSignal.observeNext { next in
+    print(next)
+}
+observer.sendNext("A") // A printed
+observer.sendNext("B") // AB printed
+observer.sendNext("C") // ABC printed
+~~~~~~~~
+
+### CombinePrevious
+Forwards events from the `Signal`/`SignalProducer` with history. It combines the values returned in a tuple whose first element is the previous value and whose second element is the current value. The `combinePrevious` takes an `initial` value which is the previous element of the tuple for the first delivered value:
+
+~~~~~~~~
+let (signal, observer) = Signal<String, NoError>.pipe()
+let combinedSignal = signal.combinePrevious("A")
+combinedSignal.observeNext { next in
+    print(next)
+}
+observer.sendNext("B") // (A, B) printed
+observer.sendNext("C") // (B, C) printed
+~~~~~~~~
+
+### Throttle
+It [throttle](https://en.wikipedia.org/wiki/Throttling_process_(computing)) values sent by the receiver, so that at least `interval` seconds pass between each, then forwards them on the given scheduler. If multiple values are received before the interval has elapsed, the latest value is the one that will be passed on.
+If the input signal terminates while a value is being throttled, that value will be discarded and the returned signal will terminate inmediately.
+
+~~~~~~~~
+let (signal, observer) = Signal<String, NoError>.pipe()
+let throttledSignal = signal.throttle(3, onScheduler: QueueScheduler())
+throttledSignal.observeNext { next
+    print(next)
+}
+// Between 0-3 seconds
+observer.sendNext("A") // nothing printed
+observer.sendNext("B") // nothing printed
+// Second 3 - B printed
+// Second 6 - nothing printed
+// Between 6-9 seconds
+observer.sendNext("C") // nothing printed
+// Second 9 - C printed
+~~~~~~~~
+
 ### Delay
 Delays `Next` and `Completed` events by the given interval on the privded scheduler. If a `Failed` and `Interrupted` event is sent, they are forwarded inmediately though.
 
@@ -650,7 +695,6 @@ observe.sendCompleted() // completed printed
 > Note that as the `Failed` and `Interrupted` events are forwarded inmediately if there were any `Next` or `Completed` event scheduled to be delivered and we sent a `Failed` event then these events wouldn't be forwared because the `Signal`/`SignalProducer` already failed.
 
 ### Materialize/Dematerialize
-
 **Materialize**
 Instead of treating events `Next`, `Completed`, `Failed` and `Interrupted` independently all of them are manipulated just like any other value, an `Event<Value, Error>` value. When `Completed`, `Failed` and `Interrupted` events are sent they're converted into an `Event` value and then the respective `Completed`, `Failed` and `Interrupted` is sent.
 
@@ -704,25 +748,3 @@ samplerObserver.sendNext(()) // C printed
 observer.sendCompleted() // nothing printed
 samplerObserver.sendCompleted() // completed printed
 ~~~~~~~~
-
-### AttemptMap
-It applies `operation` to values from `Signal`/`SignalProducer` with `Success`ful results mapped on the returned signal and `Failure`s sent as `Failed` events.
-
-~~~~~~~~
-let (signal, observer) = Signal<String, NoError>.pipe()
-let attemptSignal = signal.attemptMap { (input) -> Result<String, NoError> in
-    return Result(value: "")
-}
-~~~~~~~~
-
-### Attempt
-
-
-
-/// Applies `operation` to values from `self` with `Success`ful results
-    /// forwarded on the returned signal and `Failure`s sent as `Failed` events.
-    @warn_unused_result(message="Did you forget to call `observe` on the signal?")
-    public func attempt(operation: Value -> Result<(), Error>) -> Signal<Value, Error> {
-
-### Throttle
-// TODO
