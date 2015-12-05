@@ -472,19 +472,69 @@ observer.sendNext("2") // printed 2-A, 2-B, 2-c
 ~~~~~~~~
 
 ### Skip
-// TODO
+Skips the first `x` values of a `Signal`/`SignalProducer` and sends the values afterwards.
+
+~~~~~~~~
+let (signal, observer) = Signal<String, NoError>.pipe()
+let skipSignal = signal.skip(2)
+skipSignal.observeNext { next in
+    print(next)
+}
+observer.sendNext("A") // nothing printed
+observer.sendNext("B") // nothing printed
+observer.sendNext("C") // printed C
+observer.sendCompleted()
+~~~~~~~~
 
 ### Take
-// TODO
+Sends the first `x` values of a `Signal`/`SignalProducer` and stops sending afterwards. When these values are received then a `completed` event is sent.
+
+~~~~~~~~
+let (signal, observer) = Signal<String, NoError>.pipe()
+let takeSignal = signal.take(2)
+takeSignal.observeNext { next in
+    print(next)
+}
+observer.sendNext("A") // printed A
+observer.sendNext("B") // printed B
+observer.sendNext("C") // nothing printed
+observer.sendCompleted()
+~~~~~~~~
 
 ### TakeLast
-// TODO
+Waits until the `Signal`/`SignalProducer` is completed and then it sends the last `x` values sent through the stream.
+
+~~~~~~~~
+let (signal, observer) = Signal<String, NoError>.pipe()
+let takeLastSignal = signal.takeLast(2)
+takeLastSignal.observeNext { next in
+    print(next)
+}
+observer.sendNext("A") // nothing printed
+observer.sendNext("B") // nothing printed
+observer.sendNext("C") // nothing printed
+observer.sendCompleted() // printed B, C
+~~~~~~~~
 
 ### TakeUntil
-// TODO
+It'll send values until a `Next` or `Completed` event is received from a provided `Signal`/`SignalProducer`. That one controls the main stream and decide when no more values should be forwared.
+
+~~~~~~~~
+let (signal, observer) = Signal<String, NoError>.pipe()
+let (controlSignal, controlObserver) = Signal<String, NoError>.pipe()
+let controlledSignal = signal.takeUntil(controlSignal)
+controlledSignal.observeNext { next in
+    print(next)
+}
+observer.sendNext("A") // printed A
+observer.sendNext("B") // printed B
+controlObserver.sendCompleted() // nothing printed
+observer.sendNext("C") // nothing printed
+observer.sendNext("D") // nothing printed
+~~~~~~~~
 
 ### Delay
-// TODO
+
 
 ### Materialize/Dematerialize
 // TODO

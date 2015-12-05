@@ -1,8 +1,5 @@
 # Created by https://www.gitignore.io/api/osx
 
-./examples/Carthage/Checkouts
-./examples/Carthage/Build
-
 ### OSX ###
 .DS_Store
 .AppleDouble
