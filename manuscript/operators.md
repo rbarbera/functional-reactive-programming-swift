@@ -460,7 +460,7 @@ let (innerProducer, innerObserver) = SignalProducer<String, NoError>.buffer(5)
 let (signal, observer) = SignalProducer<String, NoError>.buffer(5)
 signal.flatMap(.Concat) { (input) -> SignalProducer<String, NoError> in
    return innerProducer.map({"\(input)-\($0)"})
-}.startWithNext { (next) -> () in
+}.startWithNext { next in
    print(next)
 }
 innerObserver.sendNext("A") // nothing printed
@@ -469,6 +469,34 @@ innerObserver.sendNext("C") // nothing printed
 innerObserver.sendCompleted() // nothing printed
 observer.sendNext("1") // printed 1-A, 1-B, 1-C
 observer.sendNext("2") // printed 2-A, 2-B, 2-c
+~~~~~~~~
+
+### Scan
+It aggregates the `Signal`/`SignalProducer` values into a single combined values using a combination closure that defines how each value is combined with the previous one. The scan method needs an initial value that is used to combine the first delivered value. 
+
+~~~~~~~~
+let (signal, observer) = Signal<String, NoError>.pipe()
+let scanSignal = signal.scan("") { "\($0)\($1)" }
+scanSignal.observeNext { next in
+    print(next)
+}
+observer.sendNext("A") // A printed
+observer.sendNext("B") // AB printed
+observer.sendNext("C") // ABC printed
+~~~~~~~~
+
+### CombinePrevious
+
+Forwards events from the `Signal`/`SignalProducer` with history. It combines the values returned in a tuple whose first element is the previous value and whose second element is the current value. The `combinePrevious` takes an `initial` value which is the previous element of the tuple for the first delivered value:
+
+~~~~~~~~
+let (signal, observer) = Signal<String, NoError>.pipe()
+let combinedSignal = signal.combinePrevious("A")
+combinedSignal.observeNext { next in
+    print(next)
+}
+observer.sendNext("B") // (A, B) printed
+observer.sendNext("C") // (B, C) printed
 ~~~~~~~~
 
 ### Skip
@@ -485,6 +513,41 @@ observer.sendNext("B") // nothing printed
 observer.sendNext("C") // printed C
 observer.sendCompleted()
 ~~~~~~~~
+
+### SkipUntil
+It skips values until a `Next` event is sent by a provided signal. From that point all the output `Signal`/`SignalProducer` behaves as the source signal in terms of events.
+
+~~~~~~~~
+let (signal, observer) = Signal<String, NoError>.pipe()
+let (controlSignal, controlObserver) = Signal<(), NoError>.pipe()
+let skipSignal = signal.skipUntil(controlSignal)
+skipSignal.observeNext { next in
+    print(next)
+}
+observer.sendNext("A") // nothing printed
+observer.sendNext("B") // nothing printed
+controlObserver.sendNext(()) // nothing printed
+observer.sendNext("C") // C printed
+~~~~~~~~
+
+### SkipWhile
+It does not forward any values from the `Signal`/`SignalProducer` until the predicate returns false. From that point the output `Signal`/`SignalProducer` behaves as the input one.
+
+~~~~~~~~
+let (signal, observer) = Signal<String, NoError>.pipe()
+var skip: Bool = true
+let skippedSignal = signal.skipWhile { _ in return skip }
+skippedSignal.observeNext { next in
+    print(next)
+}
+observer.sendNext("A") // nothing printed
+observer.sendNext("B") // nothing printed
+skip = false
+observer.sendNext("C") // C printed
+~~~~~~~~
+
+### SkipRepeats
+// TODO
 
 ### Take
 Sends the first `x` values of a `Signal`/`SignalProducer` and stops sending afterwards. When these values are received then a `completed` event is sent.
@@ -521,7 +584,7 @@ It'll send values until a `Next` or `Completed` event is received from a provide
 
 ~~~~~~~~
 let (signal, observer) = Signal<String, NoError>.pipe()
-let (controlSignal, controlObserver) = Signal<String, NoError>.pipe()
+let (controlSignal, controlObserver) = Signal<(), NoError>.pipe()
 let controlledSignal = signal.takeUntil(controlSignal)
 controlledSignal.observeNext { next in
     print(next)
@@ -533,41 +596,133 @@ observer.sendNext("C") // nothing printed
 observer.sendNext("D") // nothing printed
 ~~~~~~~~
 
-### Delay
+### TakeUntilReplacement
+Forwards `Next`, `Failed` and `Interrupted` events from the `Signal`/`SignalProducer` until a replacement `Signal`/`SignalProducer` starts sending events. Then all the events from the replacement signal will be forwarded instead.
 
-
-### Materialize/Dematerialize
-// TODO
-
-### SampleOn
-// TODO
-
-### TakeUntil
-// TODO
+~~~~~~~~
+let (signal, observer) = Signal<String, NoError>.pipe()
+let (rSignal, rObserver) = Signal<String, NoError>.pipe()
+let replaceSignal = signal.takeUntilReplacement(rSignal)
+observer.sendNext("A") // printed A
+rObserver.sendNext("1") // printed 1
+observer.sendNext("B") // nothing printed
+observer.sendNext("C") // nothing printed
+rObserver.sendNext("2") // printed 2
+~~~~~~~~
 
 ### TakeWhile
-// TODO
+It will forwared `Next` events until the predicate returns false. At that point the output `Signal`/`SignalProducer` will complete.
 
-### SkipUntil
-// TODO
+~~~~~~~~
+let (signal, observer) = Signal<String, NoErro>.pipe()
+var forward: Bool = true
+let takeWhileSignal = signal.takeWhile { _ in return forward }
+takeWhile.observerNext { next in
+    print(next)
+}
+takeWhile.observeCompleted{
+    print("completed")
+}
+observer.sendNext("A") // A printed
+observer.sendNext("B") // B printed
+forward = false
+observer.sendNext("C") // completed printed
+observer.sendNext("D") // nothing printed
+~~~~~~~~
 
-### Scan
-// TODO
+### Delay
+Delays `Next` and `Completed` events by the given interval on the privded scheduler. If a `Failed` and `Interrupted` event is sent, they are forwarded inmediately though.
 
-### SkipRepeats
-// TODO
+~~~~~~~~
+let (signal, observer) = Signal<String, NoError>.pipe()
+let delayedSignal = signal.delay(3, onScheduler: QueueScheduler())
+delayedSignal.observeNext { next in
+    print(next)
+}
+delayedSignal.observeCompleted {
+    print("completed")
+}
+observer.sendNext("A") // A printed after 3 seconds
+observer.sendNext("B") // B printed after 3 seconds
+observe.sendCompleted() // completed printed
+~~~~~~~~
 
-### SkipWhile
-// TODO
+> Note that as the `Failed` and `Interrupted` events are forwarded inmediately if there were any `Next` or `Completed` event scheduled to be delivered and we sent a `Failed` event then these events wouldn't be forwared because the `Signal`/`SignalProducer` already failed.
 
-### TakeUntilReplacement
-// TODO
+### Materialize/Dematerialize
 
-### Attempt
-// TODO
+**Materialize**
+Instead of treating events `Next`, `Completed`, `Failed` and `Interrupted` independently all of them are manipulated just like any other value, an `Event<Value, Error>` value. When `Completed`, `Failed` and `Interrupted` events are sent they're converted into an `Event` value and then the respective `Completed`, `Failed` and `Interrupted` is sent.
+
+**Dematerialize**
+It reverts the above, takes a `Signal`/`SignalProducer` of `Event<Value, NoError>` values and convert it into a `Signal`/`SignalProducer` of `Value` instead.
+
+~~~~~~~~
+let (signal, observer) = Signal<String, NoError>.pipe()
+let materializedSignal = signal.materialize()
+materializedSignal.observeNext { next in
+    switch next {
+        case .Next(value):
+            print(value)
+        case .Completed:
+            print("value completed")
+        default:
+            break
+    }
+}
+materializedSignal.observeCompleted {
+    print("completed")
+}
+observer.sendNext("A") // A printed
+observer.sendNext("B") // B printed
+observer.sendCompleted() // value completed / completed printed
+~~~~~~~~
+
+### SampleOn
+Whenever a `sampler` `Signal`/`SignalProducer` sends a next event the latest value from the signal is forwarded. If the sampler fires a new value but the source signal hasn't delivered any value yet nothing is forwared.
+
+The resulting `Signal`/`SignalProducer` will complete when both, `input` and `sampler` ones complete and will interrupt when either sends an interrupted event.
+
+> The sampler signal value type has to be `()`
+
+~~~~~~~~
+let (signal, observer) = Signal<String, NoError>.pipe()
+let (samplerSignal, samplerObserver) = Signal<(), NoError>.pipe()
+let sampledSignal = signal.sampleOn(samplerSignal)
+sampledSignal.observeNext { next
+    print(next)
+}
+sampledSignal.observeCompleted {
+    print("completed")
+}
+observer.sendNext("A") // nothing printed
+observer.sendNext("B") // nothing printed
+samplerObserver.sendNext(()) // B printed
+samplerObserver.sendNext(()) // B printed
+observer.sendNext("C") // nothing printed
+samplerObserver.sendNext(()) // C printed
+observer.sendCompleted() // nothing printed
+samplerObserver.sendCompleted() // completed printed
+~~~~~~~~
 
 ### AttemptMap
-// TODO
+It applies `operation` to values from `Signal`/`SignalProducer` with `Success`ful results mapped on the returned signal and `Failure`s sent as `Failed` events.
+
+~~~~~~~~
+let (signal, observer) = Signal<String, NoError>.pipe()
+let attemptSignal = signal.attemptMap { (input) -> Result<String, NoError> in
+    return Result(value: "")
+}
+~~~~~~~~
+
+### Attempt
+
+
+
+/// Applies `operation` to values from `self` with `Success`ful results
+    /// forwarded on the returned signal and `Failure`s sent as `Failed` events.
+    @warn_unused_result(message="Did you forget to call `observe` on the signal?")
+    public func attempt(operation: Value -> Result<(), Error>) -> Signal<Value, Error> {
 
 ### Throttle
 // TODO

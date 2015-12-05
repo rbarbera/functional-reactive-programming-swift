@@ -86,6 +86,12 @@ It was developing the **Core** of this application where I implemented the data 
 
 My dream currently is launch this project and travel around the world developing and maintining the app that helps other developers as you to centralize the software projects management in Github. With your purchase you'll help to the development of this application, that I hope it's available soon. Thanks for everything and I hope that you enjoy with the book as much as I did writing it for you.
 
+## SwiftReactive
+
+While I was writing the book I came up with the idea of building a set of Foundation frameworks to use in any Swift project. These Foundation frameworks would cover core needs of any project like HTTP and database interactions as well as reactive interfaces for existing foundations componentes. 
+
+I started a new organization on Github called [**SwiftReactive**](https://github.com/swiftreactive) where I'll start creating this frameworks. If you would like to contribute with the idea feel free to drop me a line and I'll include you in the group. Stay tuned!
+
 ## Teaching Reactive
 
 I enjoy learning and sharing my acquired knowledges. The same way we learn from others, others will be able to learn from us. Lot of the examples around internet show very interesting use cases but too ideal for you. You end up wondering if you'll find such a perfect case in your app. That's the moment when you can go further or stop there. I did it and now I enjoy combining **signals** and **events** , especially now with Swift. I would like to pass on my motivation to more developers and that they/you start using **Reactive** in the projects.
