@@ -719,11 +719,11 @@ materializedSignal.observeCompleted {
 }
 observer.sendNext("A") // A printed
 observer.sendNext("B") // B printed
-observer.sendCompleted() // value completed / completed printed // ???? It's not clear if the signal is complted or not at this point
+observer.sendCompleted() // value completed / completed printed // ???? It's not clear if the signal is completed or not at this point
 ~~~~~~~~
 
 ### SampleOn
-Whenever a `sampler` `Signal`/`SignalProducer` sends a next event the latest value from the signal is forwarded. If the sampler fires a new value but the source signal hasn't delivered any value yet nothing is forwared.
+Whenever a `sampler` `Signal`/`SignalProducer` sends a next event the latest value from the signal is forwarded. If the sampler fires a new value but the source signal hasn't delivered any value yet nothing is forwarded.
 
 The resulting `Signal`/`SignalProducer` will complete when both, `input` and `sampler` ones complete and will interrupt when either sends an interrupted event.
 
