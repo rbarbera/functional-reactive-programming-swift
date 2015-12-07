@@ -116,7 +116,7 @@ RxSwift offers in its repository a very interesting [comparative table](https://
 
 Both offer basic components to work with Reactive, in the case of RxSwift some advantages and functionality that are not available in ReactiveCocoa. Moreover the syntax and operators are lightly different.
 
-My recommendation is that you choose one and get familiar with it. So far I haven't found anything blocking in ReactiveCocoa that has forced me to migrate my reactive implementations to RxSwift.
+My recommendation is that you choose one and get familiar with it.
 
 ### Add ReactiveCocoa to your projects
 In order to integrate ReactiveCocoa in your projects you can do it on several ways. The most recommended ones are using Carthage, or using CocoaPods.
@@ -142,6 +142,40 @@ Now you have ReactiveCocoa in your project. To use it from Swift remember to imp
 
 ~~~~~~~~
 import ReactiveCocoa
+~~~~~~~~
+
+### Add RxSwift to your projects
+In order to integrate RxSwift in your projects you can do it on several ways. The most recommended ones are using Carthage, or using CocoaPods.
+
+**Carthage**
+
+It's the default integration option. If you don't know about Carthage yet I recommend you to take a look to its [documentation](https://github.com/Carthage/Carthage) where they explain how to install it in your system. Once you have it:
+
+1. Edit or create a file called **Cartfile** and add the following line `github "ReactiveX/RxSwift" "2.0.0-beta.4"`
+2. Execute the command: `carthage update`
+3. Follow the steps in the documentation to add the generated framework to your project.
+
+**Cocoapods**
+
+If you prefer using CocoaPods you'll hav eto use the option `use_frameworks!` of CocoaPods in your `Podfile`. For `tvOS` support you'll also need the version of CocoaPods 0.39:
+
+1. Edit or create the file **Podfile**. If you haven't used CocoaPods before, in this [link](https://cocoapods.org) you'll find more information about the file structure.
+2. Add the following lines:
+
+~~~~~~~~
+pod 'RxSwift', '~> 2.0.0-beta'
+pod 'RxCocoa', '~> 2.0.0-beta'
+pod 'RxBlocking', '~> 2.0.0-beta'
+~~~~~~~~
+
+Then execute the command `pod install` and open your project using the file `.xcworkspace`.
+
+Now you have RxSwift in your project. To use it from Swift remember to import the framework in any Swift file where you're going to use the framework.
+
+~~~~~~~~
+import RxSwift
+import RxCocoa
+import RxBlocking
 ~~~~~~~~
 
 I> There's a very recommended [article](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754) that you should read if it's the first time you read about Reactive. Reactive Programming is presented from a most generic point of view and with the core ideas behind Reactive Programming.
