@@ -20,8 +20,6 @@ The events received from these streams will be mostly used directly and won’t 
 
 > An operator applied to a  stream is a function that given an input stream it returns another stream manipulating the events received by the source stream.
 
-![Example of two operators, one for mapping events and the other one for filtering them][image-1]
-
 When we *consume* these events we can do it in two ways:
 - **Observing**: We can directly observe the stream, and specify in a *closure* the actions to be executed depending on the type of event.
 - **Binding**: Connecting streams with existing object. Every time an event is received from the stream, it automatically updates the object *(or object property)*.
