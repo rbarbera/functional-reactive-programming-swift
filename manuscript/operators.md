@@ -133,16 +133,16 @@ We can use it for example to group multiple arrays into a signel array. In the e
 
 ~~~~~~~~
 let (issuesSignal, issuesObserver) = Signal<[Issue], HttpError>.pipe
-signal
+issuesSignal
   .reduce([]) { (previous: [Issue], new: [Issue]) -> [Issue] in
     var mutablePrevious = previous
     mutablePrevious.appendContentsOf(new)
     return mutablePrevious
   }
   .observeNext { issues in print(issues.count) }
-observer.sendNext([issue1, issue2]])     // nothing printed
-observer.sendNext([issue2, issue3])      // nothing printed
-observer.sendCompleted()   // prints 4
+issuesObserver.sendNext([issue1, issue2]])     // nothing printed
+issuesObserver.sendNext([issue2, issue3])      // nothing printed
+issuesObserver.sendCompleted()   // prints 4
 ~~~~~~~~
 
 ![](images/operators_reducing.png)
@@ -151,7 +151,7 @@ T> In the example above we've reduced the operators in a single array but you ca
 
 #### Collect
 
-`collect` is ussed to combine all stream's values into a single array of values. The array is not sent until the source signal completes *(which means it won't send any more values through the stream)*
+`collect` is used to combine all stream's values into a single array of values. The array is not sent until the source signal completes *(which means it won't send any more values through the stream)*
 
 ~~~~~~~~
 let (signal, observer) = Signal<Int, NoError>.pipe()
@@ -200,7 +200,7 @@ lettersObserver.sendCompleted()  // prints "Completed"
 
 [**Interactive diagram:**](http://neilpa.me/rac-marbles/#zip)
 
-The zip function joins values of two (or more) event streams pair-wise. The elements of any Nth tuple correspond to the Nth elements of the input streams.
+The zip function joins values of two (or more) event streams in parallel. The elements of any Nth tuple correspond to the Nth elements of the input streams.
 
 That means the Nth value of the output stream cannot be sent until each input has sent at least N values.
 
@@ -253,7 +253,7 @@ let concat =
 [ 1,    2,      3,4,      5,     6,7,     8]
 
 let latest =
-[ 1, 4,    7,     8 ]
+[ 1, 4,    7,     8 ] // ?????? unclear. This strategy needs a simpler example
 ~~~~~~~~
 
 Note, how the values interleave and which values are even included in the resulting array.
@@ -314,7 +314,7 @@ numbersObserver.sendNext("3")    // prints "3"
 numbersObserver.sendCompleted()
 ~~~~~~~~
 
-### Switching to the latest
+### Switching to the latest // ???? Still not clear
 The .Latest strategy forwards only values from the latest input SignalProducer.
 
 ~~~~~~~~
@@ -629,7 +629,7 @@ observer.sendNext("2") // printed 2-A, 2-B, 2-c
 ~~~~~~~~
 
 ### Scan
-It aggregates the `Signal`/`SignalProducer` values into a single combined values using a combination closure that defines how each value is combined with the previous one. The scan method needs an initial value that is used to combine the first delivered value. 
+It aggregates the `Signal`/`SignalProducer` values into a single combined values using a combination closure that defines how each value is combined with the previous one. The scan method needs an initial value that is used to combine the first delivered value.
 
 ~~~~~~~~
 let (signal, observer) = Signal<String, NoError>.pipe()
@@ -719,11 +719,11 @@ materializedSignal.observeCompleted {
 }
 observer.sendNext("A") // A printed
 observer.sendNext("B") // B printed
-observer.sendCompleted() // value completed / completed printed
+observer.sendCompleted() // value completed / completed printed // ???? It's not clear if the signal is completed or not at this point
 ~~~~~~~~
 
 ### SampleOn
-Whenever a `sampler` `Signal`/`SignalProducer` sends a next event the latest value from the signal is forwarded. If the sampler fires a new value but the source signal hasn't delivered any value yet nothing is forwared.
+Whenever a `sampler` `Signal`/`SignalProducer` sends a next event the latest value from the signal is forwarded. If the sampler fires a new value but the source signal hasn't delivered any value yet nothing is forwarded.
 
 The resulting `Signal`/`SignalProducer` will complete when both, `input` and `sampler` ones complete and will interrupt when either sends an interrupted event.
 

@@ -2,7 +2,7 @@
 
 ## Signal
 
-A signal represents a stream of *events*. Think on a signal as an encapsulated operation that sends events of its execution status. Thee events are sent to a set of observers that are interested in the execution of that signal. Signals in **ReactiveCocoa** send events no matter if there aren't observers and the encapsulated operation is executed when the signal is initializeid:
+A signal represents a stream of *events*. Think on a signal as an encapsulated operation that sends events of its execution status. Three kind of events are sent to a set of observers that are interested in the execution of that signal. Signals in **ReactiveCocoa** send events no matter if there aren't observers and the encapsulated operation is executed when the signal is initializeid:
 
 > You can find scenarios where you're going to observe a signal and that has already sent some events. In other Reactive frameworks these signals are called *Hot Signals* because they are sending events even if nobody asked for them.
 
@@ -15,7 +15,7 @@ If you think about data sources that we're used to work with daily the ones show
 
 Sounds interesting, right? Three examples above use the delegate pattern to propagate information about what happened to the delegate entity of these components. Later on we'll learn how to turn these patterns into Reactive, and you'll learn how to create a signal of push notifications, or a signal for GPS positions that you can use wherever you want in your app.
 
-In the example project you'll find the example `intro_signal.swift` where the GPS data source is modeled with Reactive. Don't worry if you don't know any of the concepts used there. What we do is create a `LocaiontManager` which is subclass of `CLLocationManager` and its delegate is itself. Internally we have two attributes, an *Observer* and a *Signal*. Signal allows us to observe events, and it's `internal` in order to have visibility in the target where this component is being used. We also have an observer that is like a sink where we can send the events through. Events sent to this observer are forwarded to the signal observers:
+In the example project you'll find the example `intro_signal.swift` where the GPS data source is modeled with Reactive. Don't worry if you don't know any of the concepts used there. What we do is create a `LocationManager` which is subclass of `CLLocationManager` and its delegate is itself. Internally we have two attributes, an *Observer* and a *Signal*. Signal allows us to observe events, and it's `internal` in order to have visibility in the target where this component is being used. We also have an observer that is like a sink where we can send the events through. Events sent to this observer are forwarded to the signal observers:
 
 ~~~~~~~~
 import Foundation
@@ -94,7 +94,7 @@ Apart from sending data event, signal also support sending events that mean the 
 
   The closure returns a class object that conforms the **Disposable** protocol. A disposable is a reference object that allows the operation disposing whenever we need it. For example if we want to cancel an import operation because something unexpected happened.
 
-**Using a pipe**: If our *operation* cannot be encapsulated so that we can define it when the signal is initialized we can use `pipe()`. With pipe we create an an *Observer* and a *Signal*. As in the previous example the observer behaves as a sink that forwards the events to the signal. Observers are typically kept as private in terms of visibility and only the observers are exposed. That way you create a private scope where you can control the signal from. The example presented in `intro_signal.swift` conforms that pattern.
+**Using a pipe**: If our *operation* cannot be encapsulated so that we can define it when the signal is initialized we can use `pipe()`. With pipe we create an an *Observer* and a *Signal*. As in the previous example the observer behaves as a sink that forwards the events to the signal. Observers are typically kept as private in terms of visibility and only the signals are exposed. That way you create a private scope where you can control the signal from. The example presented in `intro_signal.swift` conforms that pattern.
 
 ## Signal Producer
 
@@ -161,7 +161,7 @@ Producers can be initialized on several ways depending on your requirements. The
 
 ### Signal or Signal Producers?
 
-After this quick introduction of these two concepts you might be wondering when you should use one or another. The seem similar, they encapsulate an operation that sends events of its status and we've a set of observers listening to these events. There's a a small difference though that make signals useful for some scenarios and signal producers for anothers. Remember:
+After this quick introduction of these two concepts you might be wondering when you should use one or another. They seem similar, they encapsulate an operation that sends events of its status and we've a set of observers listening to these events. There's a a small difference though that make signals useful for some scenarios and signal producers for anothers. Remember:
 
 - **Signal:** It's started when it's created.
 - **Signal producer:** It's started when you call its `start()` method.
@@ -300,7 +300,7 @@ loginButton.addTarget(cocoaAction, action: CocoaAction.selector, forControlEvent
 
 You might have noticed that every time we observe a `Signal` or `SignalProducer` it returns a `Disposable` object. `Disposable` is a mechanism that ReactiveCocoa offers for memory management and cancellation of actions. Depending on wether the `Disposable` comes from a `Signal` or a `SignalProducer` the behaviour is different.
 
-- **SignalProducer**: When a disposable is returned by a `SignalProducer` is called it will cancel the operation (e.g. background processing, network requests, etc.), clean up all temporary resources and will send an `Interrupted` event upon the particular `Signal` that was created.
+- **SignalProducer**: When a disposable returned by a `SignalProducer` is called, it will cancel the operation (e.g. background processing, network requests, etc.), clean up all temporary resources and it will send an `Interrupted` event upon the particular `Signal` that was created.
 - **Signal**: In this case calling the disposable will prevent the observers from receiving future events from the signal but it won't have any effect on the operation *(e.g. it won't be cancelled or resources cleaned)*.
 
 `Disposable` itself is defined as a protocol in  ReactiveCocoa. That protocol has the structure shown below where *disposed* indicates wether the `Disposable` has been disposed or not and a function `dispose()` to dispose the action:
