@@ -719,7 +719,7 @@ materializedSignal.observeCompleted {
 }
 observer.sendNext("A") // A printed
 observer.sendNext("B") // B printed
-observer.sendCompleted() // value completed / completed printed
+observer.sendCompleted() // value completed / completed printed // ???? It's not clear if the signal is complted or not at this point
 ~~~~~~~~
 
 ### SampleOn
