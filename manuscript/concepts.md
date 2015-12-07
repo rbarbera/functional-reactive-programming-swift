@@ -300,7 +300,7 @@ loginButton.addTarget(cocoaAction, action: CocoaAction.selector, forControlEvent
 
 You might have noticed that every time we observe a `Signal` or `SignalProducer` it returns a `Disposable` object. `Disposable` is a mechanism that ReactiveCocoa offers for memory management and cancellation of actions. Depending on wether the `Disposable` comes from a `Signal` or a `SignalProducer` the behaviour is different.
 
-- **SignalProducer**: When a disposable is returned by a `SignalProducer` is called it will cancel the operation (e.g. background processing, network requests, etc.), clean up all temporary resources and will send an `Interrupted` event upon the particular `Signal` that was created.
+- **SignalProducer**: When a disposable returned by a `SignalProducer` is called, it will cancel the operation (e.g. background processing, network requests, etc.), clean up all temporary resources and it will send an `Interrupted` event upon the particular `Signal` that was created.
 - **Signal**: In this case calling the disposable will prevent the observers from receiving future events from the signal but it won't have any effect on the operation *(e.g. it won't be cancelled or resources cleaned)*.
 
 `Disposable` itself is defined as a protocol in  ReactiveCocoa. That protocol has the structure shown below where *disposed* indicates wether the `Disposable` has been disposed or not and a function `dispose()` to dispose the action:
