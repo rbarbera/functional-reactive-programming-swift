@@ -15,7 +15,7 @@ If you think about data sources that we're used to work with daily the ones show
 
 Sounds interesting, right? Three examples above use the delegate pattern to propagate information about what happened to the delegate entity of these components. Later on we'll learn how to turn these patterns into Reactive, and you'll learn how to create a signal of push notifications, or a signal for GPS positions that you can use wherever you want in your app.
 
-In the example project you'll find the example `intro_signal.swift` where the GPS data source is modeled with Reactive. Don't worry if you don't know any of the concepts used there. What we do is create a `LocaiontManager` which is subclass of `CLLocationManager` and its delegate is itself. Internally we have two attributes, an *Observer* and a *Signal*. Signal allows us to observe events, and it's `internal` in order to have visibility in the target where this component is being used. We also have an observer that is like a sink where we can send the events through. Events sent to this observer are forwarded to the signal observers:
+In the example project you'll find the example `intro_signal.swift` where the GPS data source is modeled with Reactive. Don't worry if you don't know any of the concepts used there. What we do is create a `LocationManager` which is subclass of `CLLocationManager` and its delegate is itself. Internally we have two attributes, an *Observer* and a *Signal*. Signal allows us to observe events, and it's `internal` in order to have visibility in the target where this component is being used. We also have an observer that is like a sink where we can send the events through. Events sent to this observer are forwarded to the signal observers:
 
 ~~~~~~~~
 import Foundation
