@@ -151,7 +151,7 @@ T> In the example above we've reduced the operators in a single array but you ca
 
 #### Collect
 
-`collect` is ussed to combine all stream's values into a single array of values. The array is not sent until the source signal completes *(which means it won't send any more values through the stream)*
+`collect` is used to combine all stream's values into a single array of values. The array is not sent until the source signal completes *(which means it won't send any more values through the stream)*
 
 ~~~~~~~~
 let (signal, observer) = Signal<Int, NoError>.pipe()
@@ -629,7 +629,7 @@ observer.sendNext("2") // printed 2-A, 2-B, 2-c
 ~~~~~~~~
 
 ### Scan
-It aggregates the `Signal`/`SignalProducer` values into a single combined values using a combination closure that defines how each value is combined with the previous one. The scan method needs an initial value that is used to combine the first delivered value. 
+It aggregates the `Signal`/`SignalProducer` values into a single combined values using a combination closure that defines how each value is combined with the previous one. The scan method needs an initial value that is used to combine the first delivered value.
 
 ~~~~~~~~
 let (signal, observer) = Signal<String, NoError>.pipe()
