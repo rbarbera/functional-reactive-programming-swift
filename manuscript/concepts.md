@@ -2,7 +2,7 @@
 
 ## Signal
 
-A signal represents a stream of *events*. Think on a signal as an encapsulated operation that sends events of its execution status. Thee events are sent to a set of observers that are interested in the execution of that signal. Signals in **ReactiveCocoa** send events no matter if there aren't observers and the encapsulated operation is executed when the signal is initializeid:
+A signal represents a stream of *events*. Think on a signal as an encapsulated operation that sends events of its execution status. Three kind of events are sent to a set of observers that are interested in the execution of that signal. Signals in **ReactiveCocoa** send events no matter if there aren't observers and the encapsulated operation is executed when the signal is initializeid:
 
 > You can find scenarios where you're going to observe a signal and that has already sent some events. In other Reactive frameworks these signals are called *Hot Signals* because they are sending events even if nobody asked for them.
 
