@@ -200,7 +200,7 @@ lettersObserver.sendCompleted()  // prints "Completed"
 
 [**Interactive diagram:**](http://neilpa.me/rac-marbles/#zip)
 
-The zip function joins values of two (or more) event streams pair-wise. The elements of any Nth tuple correspond to the Nth elements of the input streams.
+The zip function joins values of two (or more) event streams in parallel. The elements of any Nth tuple correspond to the Nth elements of the input streams.
 
 That means the Nth value of the output stream cannot be sent until each input has sent at least N values.
 
