@@ -94,7 +94,7 @@ Apart from sending data event, signal also support sending events that mean the 
 
   The closure returns a class object that conforms the **Disposable** protocol. A disposable is a reference object that allows the operation disposing whenever we need it. For example if we want to cancel an import operation because something unexpected happened.
 
-**Using a pipe**: If our *operation* cannot be encapsulated so that we can define it when the signal is initialized we can use `pipe()`. With pipe we create an an *Observer* and a *Signal*. As in the previous example the observer behaves as a sink that forwards the events to the signal. Observers are typically kept as private in terms of visibility and only the observers are exposed. That way you create a private scope where you can control the signal from. The example presented in `intro_signal.swift` conforms that pattern.
+**Using a pipe**: If our *operation* cannot be encapsulated so that we can define it when the signal is initialized we can use `pipe()`. With pipe we create an an *Observer* and a *Signal*. As in the previous example the observer behaves as a sink that forwards the events to the signal. Observers are typically kept as private in terms of visibility and only the signals are exposed. That way you create a private scope where you can control the signal from. The example presented in `intro_signal.swift` conforms that pattern.
 
 ## Signal Producer
 
