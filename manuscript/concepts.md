@@ -161,7 +161,7 @@ Producers can be initialized on several ways depending on your requirements. The
 
 ### Signal or Signal Producers?
 
-After this quick introduction of these two concepts you might be wondering when you should use one or another. The seem similar, they encapsulate an operation that sends events of its status and we've a set of observers listening to these events. There's a a small difference though that make signals useful for some scenarios and signal producers for anothers. Remember:
+After this quick introduction of these two concepts you might be wondering when you should use one or another. They seem similar, they encapsulate an operation that sends events of its status and we've a set of observers listening to these events. There's a a small difference though that make signals useful for some scenarios and signal producers for anothers. Remember:
 
 - **Signal:** It's started when it's created.
 - **Signal producer:** It's started when you call its `start()` method.
