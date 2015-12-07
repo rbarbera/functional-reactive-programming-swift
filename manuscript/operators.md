@@ -253,7 +253,7 @@ let concat =
 [ 1,    2,      3,4,      5,     6,7,     8]
 
 let latest =
-[ 1, 4,    7,     8 ]
+[ 1, 4,    7,     8 ] // ?????? unclear. This strategy needs a simpler example
 ~~~~~~~~
 
 Note, how the values interleave and which values are even included in the resulting array.
@@ -314,7 +314,7 @@ numbersObserver.sendNext("3")    // prints "3"
 numbersObserver.sendCompleted()
 ~~~~~~~~
 
-### Switching to the latest
+### Switching to the latest // ???? Still not clear
 The .Latest strategy forwards only values from the latest input SignalProducer.
 
 ~~~~~~~~
