@@ -133,16 +133,16 @@ We can use it for example to group multiple arrays into a signel array. In the e
 
 ~~~~~~~~
 let (issuesSignal, issuesObserver) = Signal<[Issue], HttpError>.pipe
-signal
+issuesSignal
   .reduce([]) { (previous: [Issue], new: [Issue]) -> [Issue] in
     var mutablePrevious = previous
     mutablePrevious.appendContentsOf(new)
     return mutablePrevious
   }
   .observeNext { issues in print(issues.count) }
-observer.sendNext([issue1, issue2]])     // nothing printed
-observer.sendNext([issue2, issue3])      // nothing printed
-observer.sendCompleted()   // prints 4
+issuesObserver.sendNext([issue1, issue2]])     // nothing printed
+issuesObserver.sendNext([issue2, issue3])      // nothing printed
+issuesObserver.sendCompleted()   // prints 4
 ~~~~~~~~
 
 ![](images/operators_reducing.png)
