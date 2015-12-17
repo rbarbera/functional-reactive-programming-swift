@@ -108,7 +108,7 @@ Thus, it's very important when we define the source of events:
 
 > For example, we can define a source of events that executes a web request when someone observes that source. In the closure that defines the operation we use an HTTP client that we have defined at the app level as a Singleton instance. If we retain that instance in the closure and we tried to free it out, due to the fact that it's retained in the closure it couldn't be freed up. Or even worse, if we change its state out of the closure, we might not have that case in mind and our operation would act like if the state was the previous one.
 
-**Debugging** is not easy with Reactive programming. In imperative programming we can easily define breakpoints in different parts of our code and debug the execution thank to them. In this case we end up with reusable functions that are passed around, combined and structured. These functions don't anything about where they're called from, nor which Reactive stream they belong to. There're some tricks for this but we'll explain them later on.
+**Debugging** is not easy with Reactive programming. In imperative programming we can easily define breakpoints in different parts of our code and debug the execution thank to them. In this case we end up with reusable functions that are passed around, combined and structured. These functions don't know anything about where they're called from, nor which Reactive stream they belong to. There're some tricks for this but we'll explain them later on.
 
 ## Frameworks for Swift
 We've currently multiple options to work with Reactive, the two most popular are **RxSwift** and **ReactiveCocoa**.
