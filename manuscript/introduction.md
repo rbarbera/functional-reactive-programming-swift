@@ -40,7 +40,7 @@ objectToObserve.addObserver(self, forKeyPath: "myDate", options: .New, context: 
 
 ### Delegates
 
-This is one of the first patterns that you learn when you give your first steps in the iOS/OSX development since most of the Apple frameworks will stick to it. *UITableViewDelegate, UITableViewDataSource, UITextViewDelegate ...* are some examples. The main problem that this pattern presents is that there can only be a delegate registered. If we're working with a more complex scenario where only one entity is not enough, this pattern requires some modifications to support multiple delegates *(for example a proxy class)*.
+This is one of the first patterns that you learn when you give your first steps in the iOS/OSX development since most of the Apple frameworks will stick to it. *UITableViewDelegate, UITableViewDataSource, UITextViewDelegate ...* are some examples. The main problem that this pattern presents is that there can only be one delegate registered. If we're working with a more complex scenario where only one entity is not enough, this pattern requires some modifications to support multiple delegates *(for example a proxy class)*.
 
 ~~~~~~~~
 func tableView(tableView: UITableView,
@@ -54,7 +54,7 @@ return UITableViewCell()
 
 When it's complex to get closer to the events source in order to *subscribe* to it we use the pattern that consists on sending notifications. Do you know NSNotificationCenter? CoreData uses it to notify when a context is going to execute a saving operation. The problem with that pattern is that the information sent is returned using a dictionary, *UserInfo*, and the observer has to know previously the structure of that dictionary to parse it. Thus, there's no safety with the structure and types sent.
 
-Reactive libraries available nowadays offer extensions to move from these patterns to reactive approaches. From generating signals from notifications sent to the NSNotificationCenter, to detecting taps on an UIButton.
+Reactive libraries available nowadays offer extensions to move from these patterns to reactive approaches. From generating signals from notifications sent to the NSNotificationCenter, to detecting taps on a UIButton.
 
 ~~~~~~~~
 NSNotificationCenter
@@ -108,7 +108,7 @@ Thus, it's very important when we define the source of events:
 
 > For example, we can define a source of events that executes a web request when someone observes that source. In the closure that defines the operation we use an HTTP client that we have defined at the app level as a Singleton instance. If we retain that instance in the closure and we tried to free it out, due to the fact that it's retained in the closure it couldn't be freed up. Or even worse, if we change its state out of the closure, we might not have that case in mind and our operation would act like if the state was the previous one.
 
-**Debugging** is not easy with Reactive programming. In imperative programming we can easily define breakpoints in different parts of our code and debug the execution thank to them. In this case we end up with reusable functions that are passed around, combined and structured. These functions don't anything about where they're called from, nor which Reactive stream they belong to. There're some tricks for this but we'll explain them later on.
+**Debugging** is not easy with Reactive programming. In imperative programming we can easily define breakpoints in different parts of our code and debug the execution thank to them. In this case we end up with reusable functions that are passed around, combined and structured. These functions don't know anything about where they're called from, nor which Reactive stream they belong to. There're some tricks for this but we'll explain them later on.
 
 ## Frameworks for Swift
 We've currently multiple options to work with Reactive, the two most popular are **RxSwift** and **ReactiveCocoa**.
