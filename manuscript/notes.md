@@ -1,10 +1,9 @@
 # Notes
 
-- There's a set of libraries that simplify working with Reactive in Swift. In this book we'll show the examples based on **ReactiveCocoa** and *RxSwift*.
-- Explained concepts can also be applied in other programming languages. Once you understand what's Reactive, the difference is the syntax and the API that your framework offers.
-- It's difficult to understand Reactive without functional concepts, i.e., **Functional Reactive Programming (FRP)**. This book will address some functional concepts so if you're not familiar with them at all, I recommend you to read the book [**Functional Programming in Swift**](https://www.objc.io/books/) by *Chris Eidhof, Florian Kugler, and Wouter Swierstra*.
-- Although you'll find  most of the Reactive concepts on Internet. The method of this book is based on:
-  - **Examples carefully designed** in most of the chapters.
-	- **Real use cases** that show the sense of using Reactive on situations that we've to face daily as a developers.
-- All the examples included in this book will be available on this [repository](https://github.com/gitdoapp/functional-reactive-programming-swift) where you'll find the book written in Markdown so you can propose improvements, fix mistakes or even add new examples. Any direct contributor will have an special mention in the book expressing thanks for its contribution.
-- Any *"bug"* found in the book can be directly reported as a PR to the repository or sent directly by email to the email address [pepibumur@gmail.com](mailto://pepibumur@gmail.com)
+- There're lot of libraries that simplify working with Reactive in Swift. In this book we will show examples based on **ReactieCocoa** and **RxSwift**, the most used ones.
+- The concepts explained in this book can be applied in other programming languages. Once you understand the core ideas of Reactive Programming, the difference is in te syntax and the API that the framework you use offers.
+- It's difficult to understand Reactive without some functional concepts. You'll find the term *Functional Reactive Programming (FRP)* instead of just simply, RP. this book will address some functional concepts that should not be very complicated. In case functional ideas might be confusing for you I recommend you to read the book [**Functional Programming in Swift**](https://www.objc.io/books/) by *Chris Eidhof, Florian Kugler, and Wouter Swierstra*.
+- The *method*  of this book consists on presenting real examples where RP would be very useful, you will learn from turning Cocoa patterns into Reactive to interact with your CoreData database using RP.
+- The book is available on this [repository](https://github.com/SwiftReactive/reactive-programming-in-your-swift-apps) where you will find the book written in Markdown. Feel free to propose improvements, fix mistakes or even add new examples. Any direct contributor will have an special mention in the book giving thanks for its contribution.
+- The app presented in this book is also available on this [repository](https://github.com/SwiftReactive/GithubClient.git). The `README` includes the steps to clone the repository and setup it on your computer.
+- You can report *"bugs"* creating PR in the repository or just sending an email to [pepibumur@gmail.com](mailto://pepibumur@gmail.com).

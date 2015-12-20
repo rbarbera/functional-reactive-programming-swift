@@ -1,18 +1,10 @@
 ## Grammar Notes
-- Use the 1st person of the plural
+- Use the 1st person of the plural when explaining the examples.
 - When talking about any technical component use ``
 - Don't repeat `Signals` or `SignalProducers` and use only Signals
-
-
-## Structure
-- Design
-  - Best practices
-  - Pitfalls
-  - Retain cycles
-  - Signal & view lifecycles
-  - Objects retainment (in producers)
-  - Threading
-
+- Use captures instead of code examples.
+- Try to be explicit with the examples. Swift is a recent languages and that might cause confusion.
+- Avoid abreviations.
 
 ## Leanpub
 X> Exercise
