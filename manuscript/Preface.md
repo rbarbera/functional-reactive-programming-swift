@@ -83,7 +83,7 @@ While I was writing the book I came up with the idea of building a set of Founda
 I started a new organization on Github called [**SwiftReactive**](https://github.com/swiftreactive) where I'll start creating this frameworks. If you would like to contribute with the idea feel free to drop me a line and I'll include you in the group. I am currently working on the following Reactive wrappers:
 
 - [**ReactiveFoundation**](https://github.com/SwiftReactive/ReactiveCommander): It offers a set of components wrapping Foundation components but offering a Reactive interface instead.
-- [**ReactiveCommander**](https://github.com/SwiftReactive/ReactiveCommander): Command Pattern
+- [**ReactiveCommander**](https://github.com/SwiftReactive/ReactiveCommander): Command Pattern based on `NSOperation`s and `NSOperationQueue`s. It provides a set of base commands to be extended. Enqueued commands can be executed subscribing to their responses, pure Reactive.
 - ReactiveCoreData
 
 ## Teaching Reactive

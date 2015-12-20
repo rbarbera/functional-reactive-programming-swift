@@ -8,7 +8,7 @@ let (signal, observer) = Signal<String, NoError>.pipe()
 /// Completed event, at which point the returned signal behaves exactly like
 /// `signal`.
 
-let textField: UITextField = UITextField()
+UITextField()
 
 let searchStrings = textField.rac_textSignal()
     .toSignalProducer()
