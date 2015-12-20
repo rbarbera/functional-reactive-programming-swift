@@ -86,7 +86,8 @@ I started a new organization on Github called [**SwiftReactive**](https://github
 - [**ReactiveCommander**](https://github.com/SwiftReactive/ReactiveCommander): Command Pattern based on `NSOperation`s and `NSOperationQueue`s. It provides a set of base commands to be extended. Enqueued commands can be executed subscribing to their responses, pure Reactive.
 - [**ReactiveCoreData**](https://github.com/SwiftReactive/ReactiveCoreData): CoreData wrapper that internally uses [SugarRecord](https://github.com/swiftreactive/sugarrecord) for the data base setup. It provides accessors and getters to manipulate your storage data.
 - [**ReactiveRealm**](https://github.com/SwiftReactive/ReactiveCoreData): Similar to the CoreData wrapper but with [Realm](https://realm.io) as a persistence solution instead.
-- [**ReactiveAPI**](https://github.com/SwiftReactive/ReacitveAPI):
+
+![Stack that shows the structure of how SwiftReactive frameworks are combined](images/preface_swiftreactive.png)
 
 ## Teaching Reactive
 
