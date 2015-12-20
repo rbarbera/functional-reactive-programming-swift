@@ -22,7 +22,7 @@ The reason behind choosing Swift *(besides being a cool language, and you know i
 
 - **Fluent Interface**: We don't have brackets anymore, `[self setBrackets:NO]`. Back in time, with Objective-C, if we wanted to chain different operations we ended up with an unreadable code full of brackets. Some libraries had to turn to defined macros in order to simplify their API. Rather, with Swift we can chain operations with a simple dot and consequently [fluent interfaces](https://en.wikipedia.org/wiki/Fluent_interface) are much more readable. The concatenation of operators applied to stream data is something frequently done in Reactive, and so the importance of having this feature in the language. If we take a look to the example below we can see how different operations are chained using custom operators to finally get a *stream* result of applying these operations to the source stream:
 
-{width=40%,float=left}
+{width=60%}
 ![Example showing the fluent interface using operators applied to the text being introduced in a UITextField](images/preface_fluent.png)
 
 - **Custom operators:** That make even more interesting the chaining of operations. In the example above the operator `|>` is used to apply a **function** to the input stream and return another stream with the events mapped using the function. As you can see functions have a remarkable importance in Reactive because they'll manipulate data sent through the streams.
@@ -78,9 +78,13 @@ My dream currently is launch this project and travel around the world developing
 
 ## SwiftReactive
 
-While I was writing the book I came up with the idea of building a set of Foundation frameworks to use in any Swift project. These Foundation frameworks would cover core needs of any project like HTTP and database interactions as well as reactive interfaces for existing foundations componentes.
+While I was writing the book I came up with the idea of building a set of Foundation frameworks to use in any Swift project. These Foundation frameworks would cover core needs of any project like HTTP and database interactions as well as reactive interfaces for existing Foundation components.
 
-I started a new organization on Github called [**SwiftReactive**](https://github.com/swiftreactive) where I'll start creating this frameworks. If you would like to contribute with the idea feel free to drop me a line and I'll include you in the group. Stay tuned!
+I started a new organization on Github called [**SwiftReactive**](https://github.com/swiftreactive) where I'll start creating this frameworks. If you would like to contribute with the idea feel free to drop me a line and I'll include you in the group. I am currently working on the following Reactive wrappers:
+
+- [**ReactiveFoundation**](https://github.com/SwiftReactive/ReactiveCommander): It offers a set of components wrapping Foundation components but offering a Reactive interface instead.
+- [**ReactiveCommander**](https://github.com/SwiftReactive/ReactiveCommander): Command Pattern
+- ReactiveCoreData
 
 ## Teaching Reactive
 
