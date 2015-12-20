@@ -6,7 +6,7 @@ Once you get this point, you have the enough concepts to start thinking in React
 
 - **Threading:** Although you can observe the events from any thread using `Schedulers` it's strongly recommended to keep the threading map simple. If you have large chain of operators and they're changing between threads it'll affect the performance and also the battery, the more threads you make use of the more consume of resources you'll do. When you design your `Signals` or `SignalProducers` decide the thread where its operations will be executed and use the same thread for consecutive operators. If you need the events to be observed from a different thread, then add the `observeOn()` at the end of that chain.
 
-- **Avoid mutable states:** When designing your actions, try to think them in a Mathematical way, given an input, we return an output. Don't use side variables that might mutate and introduce extra, not taken into account, statuses that cause unexpected events in your resulting Signal. Signals generators should have the following structure:
+- **Avoid mutable states:** When designing your operations, try to think them in a Mathematical way, given an input, we return an output. Don't use side variables that might mutate and introduce extra, not taken into account, statuses that cause unexpected events in your resulting Signal. Signals generators should have the following structure:
 
   ~~~~~~~~
   func concatenateSignal(inputA: String, inputB: String) -> SignalProducer<Void, Error> {
@@ -18,7 +18,7 @@ Once you get this point, you have the enough concepts to start thinking in React
   }
   ~~~~~~~~
 
-- **Unidirectional flow:** Related with the previous statement, this one is also very important. The core idea of Reactive programming is representing the data propagation as an unidirectional stream. When you design signals try to keep that core idea and avoid lateral dependencies. If at one point of your stream wee ned data from a previous point we should pass that data through the stream and use it as input parameter. *Don't use external variables to reference an state during the data flow. If you find that case in your code, rethink your stream design.*
+- **Unidirectional flow:** Related with the previous statement, this one is also very important. The core idea of Reactive Programming is representing the data propagation as an unidirectional stream. When you design signals try to keep that core idea and avoid lateral dependencies. If at one point of your stream wee ned data from a previous point we should pass that data through the stream and use it as input parameter. *Don't use external variables to reference an state during the data flow. If you find that case in your code, rethink your stream design.*
 
   ~~~~~~~~
   // Bad design
@@ -54,7 +54,7 @@ Once you get this point, you have the enough concepts to start thinking in React
 
 ### Completion closures
 
-When blocks where introduced back with Objective-C most of common framework started using this pattern notifying the completion of its operations. In Swift, blocks where renamed to closures adding some advantages like the option to specify the retainmend of external variables when the closure is defined. The migration of that pattern to Reactive is relatively easy.
+When blocks were introduced back with Objective-C most of common framework started using this pattern notifying the completion of its operations. In Swift, blocks were renamed to closures adding some advantages like the option to specify the retainmend of external variables when the closure is defined. The migration of that pattern to Reactive is relatively easy.
 
 Let's say we have the method shown below:
 
@@ -140,7 +140,7 @@ I> The presented examples can be found in `Design/Data/HTTP`
 
 I> Examples make use of [*Alamofire*](https://github.com/alamofire/alamofire). A networking library that also includes a set of useful components that we used.
 
-Most of apps nowadays access internet to get data from or report data where HTTP/S is the protocol we used for that data interaction. The current *NSURLSession* kit that Apple offers in `Foundation` provides a blocks/closure based API. Some frameworks that are commonly used for web interaction like **Alamofire** or **AFNetorking** also offer block/closured based API but the community have extended it in order to provide a Reactive access to its features.
+Most of apps nowadays access Internet to get data from or report data where HTTP/S is the protocol we used for that data interaction. The current *NSURLSession* kit that Apple offers in `Foundation` provides a blocks/closure based API. Some frameworks that are commonly used for web interaction like **Alamofire** or **AFNetorking** also offer block/closured based API but the community have extended it in order to provide a Reactive access to its features.
 
 In this section we'll learn how to bring Reactive to our HTTP data interactions through the following steps:
 
@@ -189,7 +189,7 @@ public struct HTTP {
   }
 
 
-  // MARK: - FRP Interface
+  // MARK: - RP Interface
 
   static public func request(baseURL: String)(path: String)(method: Method, parameters: [String: AnyObject], encoding: ParameterEncoding)(session: Session) -> SignalProducer<(NSData, NSURLResponse), HttpError> {
     return SignalProducer { (observer, disposable) in
@@ -242,7 +242,7 @@ Let's analyze it:
 - **Session:** We define an struct that contains information about the user session. In the example presented the user access token.
 - **Request:** Request function is implemented **currying**, why? If we call that curry function passing the base URL then we have a request generator for a given base url. Does the `APIClient` singleton instance sound familiar to you? We could say that that request is the functional equivalent to your API clients. The function returns a `SignalProducer` that creates the request, and executes it when the `SignalProducer` is started.
 
-> Notice that the `SignalProducer` type next event type is a tuple of (NSData, NSURLResponse). We want to propagate the response back, that way the consumer can extract information about the HTTP response.
+> Notice that the `SignalProducer` type next event type is a tuple of (NSData, NSURLResponse). We want to propagate the response back, that way, the consumer can extract information about the HTTP response.
 
 ###### 2. JSON requests
 
@@ -377,7 +377,7 @@ private func shortUserRequest() -> SignalProducer<[Repository], HttpError> {
 //TODO
 
 ###### Throttling requests
- 
+
 `throttle` is used when there're multiple events sent and we don't need all of them but the last ones based on a defined time frame. For example, supposing the time frame is 2 seconds, and we receive the following events:
 
 |-- 2 seconds --|-- 2 seconds --|-- 2 seconds --|
@@ -441,7 +441,7 @@ In order to convert existing methods to Reactive we'll keep the same methods str
 `synchronize` and `deleteObject` methods will return neither value nor error. The resulting methods are listed below and we use the `SignalProducer` constructors `empty` and `value:`:
 
 ~~~~~~~~
-public func rac_setObject(value: AnyObject?, forKey defaultName: String) -> SignalProducer<Void, NoError> 
+public func rac_setObject(value: AnyObject?, forKey defaultName: String) -> SignalProducer<Void, NoError>
 public func rac_setInteger(value: Int, forKey defaultName: String) -> SignalProducer<Void, NoError>
 public func rac_setFloat(value: Float, forKey defaultName: String) -> SignalProducer<Void, NoError>
 public func rac_setDouble(value: Double, forKey defaultName: String) -> SignalProducer<Void, NoError>
