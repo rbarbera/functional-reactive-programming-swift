@@ -1,14 +1,14 @@
 # Introduction to Reactive Programming
 
 ## What’s Reactive Programming (RP)?
-You might have heard before about RP, even you might have seen some examples. According to **Wikipedia**
+You might have heard before about RP, even you might have seen some examples. According to **[Wikipedia](https://en.wikipedia.org/wiki/Reactive_programming)**
 
-> In computing, reactive programming is a programming paradigm oriented around **data flows** and the propagation of change. This means that it should be possible to express static or dynamic data flows with ease in the programming languages used, and that the underlying execution model will automatically propagate changes through the data flow.
-> For example, in an imperative programming setting,  would mean that  is being assigned the result of  in the instant the expression is evaluated. Later, the values of  and  can be changed with no effect on the value of .
-> In reactive programming, the value of  would be automatically updated based on the new values.
+> In computing, Reactive Programming is a programming paradigm oriented around **data flows** and the propagation of change. This means that it should be possible to express static or dynamic data flows with ease in the programming languages used, and that the underlying execution model will automatically propagate changes through the data flow.
+> For example, in an Imperative Programming setting, `a = b + c` would mean that `a` is being assigned the result of `b + c` in the instant the expression is evaluated. Later, the values of `b` and  `c` can be changed with no effect on the value of `a`.
+> In Reactive Programming, the value of `a` would be automatically updated based on the new values.
 
 We understand RP as a paradigm where the information/data/events flow in an “channel” and our program/logic reacts according to these events. These channels where the information flows through  are called **streams** and the information sent are **events**.
-All the events that take place in our app are now **events sources**, and these sources are **observables**. When they send event, we’re responsible to operate with them, combining, mapping, filter, or just simply, use them. Some examples of streams could be:
+All the events that take place in our app are now **events sources**, and these sources are **observables**. When they send event, we are responsible to operate with them, combining, mapping, filtering, or just simply, consuming them. Some examples of streams could be:
 
 1. A web request where the data source would be the API client, and the events sent, the responses from the server.
 2. The tap event on a button. The button itself would be the data source and the taps on the button would be the actions.
@@ -16,20 +16,21 @@ All the events that take place in our app are now **events sources**, and these 
 
 You might have noticed that almost everything can be modeled as a stream of data, and you’re right. The components that you find in Cocoa framework and in most of libraries don’t offer public RP. Instead, you’ll find **extensions** that add the reactive behaviour to existing frameworks. We can then, create a native API to model user interactions with the app, the app with local data sources, and also, why not? with remote data sources.
 
-The events received from these streams will be mostly used directly and won’t require any manipulation before using them, but one of the main advantages of RP is the ease of applying operators to these events. These operators are defined as a functions that can be applied to the stream. The term functional appears, and joins the paradigm RP, **Functional Reactive Programming**. We couldn’t imagine RP without the use of functional concepts.
+The events received from these streams will be mostly consumed directly and won’t require any manipulation before using them, but one of the main advantages of RP is the ease of applying operators to these events. These operators are defined as a functions that can be applied to the stream. The term functional appears, and joins the RP pardigm, **Functional Reactive Programming**. We couldn’t imagine RP without the use of functional concepts.
 
 > An operator applied to a  stream is a function that given an input stream it returns another stream manipulating the events received by the source stream.
 
 When we *consume* these events we can do it in two ways:
-- **Observing**: We can directly observe the stream, and specify in a *closure* the actions to be executed depending on the type of event.
+
+- **Observing**: We can directly observe the stream, and specify in a *closure* the operations to be executed depending on the type of event.
 - **Binding**: Connecting streams with existing object. Every time an event is received from the stream, it automatically updates the object *(or object property)*.
 
 For example, if we have a stream that sends collections of tasks to be shown in a table, and we have a collection that keeps a reference to the last returned collection, we can bind the signal that returns these collections to the collection property. That way it always reflect the last state when the stream sends new collections. It’s also very common use binding for UI elements. For example, updating the state of enabled in a button using a function that validates some text streams.
 
-> Remember, in FRP we’re going to have three main components **Streams (observables), Operators and Bindings**. Later, we’ll see each of them with more details and the available operations.
+> Remember, in RP we’re going to have three main components **Streams (observables), Operators and Bindings**. Later, we’ll see each of them with more details and the available operations.
 
 ## Observation patterns
-When I started with the reactive concepts one of my firsts concerns was understanding which similar patters I had been used so far, the problems they presented, and how FRP could help or make them easier. You probably use some of them daily:
+When I started with the reactive concepts one of my firsts concerns was understanding which similar patters I had been using so far, the problems they presented, and how FRP could help or make them easier. You probably use some of them daily:
 
 ### KVO
 Extensively used in Cocoa. It allows observing the state of the properties of a given object, and react to the changes. The main problem with KVO is that it’s not easy to use, the API is overloaded and it doesn’t offer and API based on blocks (closures in Swift).
@@ -52,7 +53,7 @@ return UITableViewCell()
 
 ### Notifications
 
-When it's complex to get closer to the events source in order to *subscribe* to it we use the pattern that consists on sending notifications. Do you know NSNotificationCenter? CoreData uses it to notify when a context is going to execute a saving operation. The problem with that pattern is that the information sent is returned using a dictionary, *UserInfo*, and the observer has to know previously the structure of that dictionary to parse it. Thus, there's no safety with the structure and types sent.
+When it's complex to get closer to the events source in order to *subscribe* to it we use the pattern that consists on broadcasting notifications. Do you know NSNotificationCenter? CoreData uses it to notify when a context is going to execute a saving operation. The problem with that pattern is that the information sent is returned using a dictionary, *UserInfo*, and the observer has to know previously the structure of that dictionary to parse it. Thus, there's no safety with the structure and types sent.
 
 Reactive libraries available nowadays offer extensions to move from these patterns to reactive approaches. From generating signals from notifications sent to the NSNotificationCenter, to detecting taps on a UIButton.
 
@@ -66,7 +67,7 @@ NSNotificationCenter
 
 The FRP has big advantages used in contexts where it's pretty straightforward modeling the flow of events as a stream. As I commented previously, everything can be modeled as an stream, and you can in fact have a project fully reactive, but from my point of view, you'll end up having a very complex logic for streams generation that will make more difficult the readability of your code.
 
-> With Reactive programming happens something similar to Functional programming. It's a paradigm in programming that has been more widely used on the iOS/OSX development with the launch of Swift. There's no need to feel overwhelmed and feel a big pressure to migrate your projects towards these paradigms. Use these in your projects as you see you're comfortable with them and you feel that your project requires them in some components. You were happy without them! Now you can even be more, but with calm.
+> With Reactive Programming happens something similar to Functional Programming. It's a paradigm in programming that has been more widely used on the iOS/OSX development with the launch of Swift. There's no need to feel overwhelmed and feel a big pressure to migrate your projects towards these paradigms. Use these in your projects as you see you're comfortable with them and you feel that your project requires them in some components.
 
 After some months using ReactiveCocoa in my projects, especially in the data source *(local & remote)* I noticed a set of advantages:
 
@@ -86,29 +87,25 @@ NSURLSession.sharedSession().rac_dataWithRequest(URLRequest)
 }
 ~~~~~~~~
 
-- **State simplify:** Due to the fact that data flow is modeled in an unidirectional way the number of states that can be involved in these operations is reduced making our code more stable and robust *(less cases to be considered)*.
+- **State simplification:** Due to the fact that data flow is modeled in an unidirectional way the number of states that can be involved in these operations is reduced making our code more stable and robust.
 
 ## Disadvantages
 
-The main disadvantage of Reactive programming is the **coupling** caused by the fact that you have to depend on a framework to bring Reactive components to your project. As it's not supported natively the developers have to make use of existing frameworks. If you use a framework, all your app will depend on that framework, from UI elements, to data components.
+The main disadvantage of Reactive Programming is the **coupling** caused by the fact that you have to depend on a framework to bring Reactive components to your project. As it's not supported natively the developers have to make use of existing frameworks. If you use a framework, all your app will depend on that framework, from UI elements, to data components.
 
-Thus, it's very important that you choose properly the Reactive library that you're going to work with, factors like having a great community and that it's very active are very important. Although it might seem a very important problem the fact that you have that coupling, if we thinkg a little bit in other frameworks that you are probably using in your apps it's not so bad.
+Thus, it's very important that you choose properly the Reactive library that you're going to work with, factors like having a great community and that it's very active are very important. Although it might seem a very important problem the fact that you have that coupling, if we think a little bit in other frameworks that you are probably using in your apps it's not so bad.
 
 > How many of you are using AFNetworking or Alamofire for the networking of your apps? Or how many of you have used MagicalRecord as a CoreData wrapper?
 
 The coupling is inherent in our projects, that's why we've to ensure that we're coupling with a library **stable, tested, and with a lot of support**.
 
-If components are not properly designed we might have problems with elements **retained in memory**. Actions to be executed depending on the events received are specified with closures. These closures are retained in memory during the operation lifecycle. If any of these closures is retaining a self or any other element, it'll be retained as well by the operation.
+Moreover Reactive Programming requires paying an special attention to **retainment in memory** by operations. Operations to be executed depending on the events received are specified with closures. These closures are retained in memory during the operation lifecycle. If any of these closures is retaining `self` or any other element, it'll be retained as well by the operation.
 
-Thus, it's very important when we define the source of events:
-
-- Understand the components involved in the closure
-- Understand the importance of wether retaining them or not in the closure.
-- Keep in mind all the states of variables out of the closures scope and keep them in mind when you define the closure.
+Thus, when you define your operations keep in mind the elements that you're using out of your operation scope and retain only these that are needed for your operation.
 
 > For example, we can define a source of events that executes a web request when someone observes that source. In the closure that defines the operation we use an HTTP client that we have defined at the app level as a Singleton instance. If we retain that instance in the closure and we tried to free it out, due to the fact that it's retained in the closure it couldn't be freed up. Or even worse, if we change its state out of the closure, we might not have that case in mind and our operation would act like if the state was the previous one.
 
-**Debugging** is not easy with Reactive programming. In imperative programming we can easily define breakpoints in different parts of our code and debug the execution thank to them. In this case we end up with reusable functions that are passed around, combined and structured. These functions don't know anything about where they're called from, nor which Reactive stream they belong to. There're some tricks for this but we'll explain them later on.
+**Debugging** is not easy with Reactive Programming. In Imperative Programming we can easily define breakpoints in different parts of our code and debug the execution thank to them. In this case we end up with reusable functions that are passed around, combined and structured. These functions know nothing about where they're called from, nor which Reactive stream they belong to. There're some tricks for this but we'll explain them later on.
 
 ## Frameworks for Swift
 We've currently multiple options to work with Reactive, the two most popular are **RxSwift** and **ReactiveCocoa**.
