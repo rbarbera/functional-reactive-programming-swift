@@ -22,7 +22,7 @@ The reason behind choosing Swift *(besides being a cool language, and you know i
 
 - **Fluent Interface**: We don't have brackets anymore, `[self setBrackets:NO]`. Back in time, with Objective-C, if we wanted to chain different operations we ended up with an unreadable code full of brackets. Some libraries had to turn to defined macros in order to simplify their API. Rather, with Swift we can chain operations with a simple dot and consequently [fluent interfaces](https://en.wikipedia.org/wiki/Fluent_interface) are much more readable. The concatenation of operators applied to stream data is something frequently done in Reactive, and so the importance of having this feature in the language. If we take a look to the example below we can see how different operations are chained using custom operators to finally get a *stream* result of applying these operations to the source stream:
 
-{width=60%}
+{width=100%}
 ![Example showing the fluent interface using operators applied to the text being introduced in a UITextField](images/preface_fluent.png)
 
 - **Custom operators:** That make even more interesting the chaining of operations. In the example above the operator `|>` is used to apply a **function** to the input stream and return another stream with the events mapped using the function. As you can see functions have a remarkable importance in Reactive because they'll manipulate data sent through the streams.
@@ -82,9 +82,11 @@ While I was writing the book I came up with the idea of building a set of Founda
 
 I started a new organization on Github called [**SwiftReactive**](https://github.com/swiftreactive) where I'll start creating this frameworks. If you would like to contribute with the idea feel free to drop me a line and I'll include you in the group. I am currently working on the following Reactive wrappers:
 
-- [**ReactiveFoundation**](https://github.com/SwiftReactive/ReactiveCommander): It offers a set of components wrapping Foundation components but offering a Reactive interface instead.
+- [**ReactiveFoundation**](https://github.com/SwiftReactive/ReactiveFoundation): It offers a set of components wrapping Foundation components but offering a Reactive interface instead.
 - [**ReactiveCommander**](https://github.com/SwiftReactive/ReactiveCommander): Command Pattern based on `NSOperation`s and `NSOperationQueue`s. It provides a set of base commands to be extended. Enqueued commands can be executed subscribing to their responses, pure Reactive.
-- ReactiveCoreData
+- [**ReactiveCoreData**](https://github.com/SwiftReactive/ReactiveCoreData): CoreData wrapper that internally uses [SugarRecord](https://github.com/swiftreactive/sugarrecord) for the data base setup. It provides accessors and getters to manipulate your storage data.
+- [**ReactiveRealm**](https://github.com/SwiftReactive/ReactiveCoreData): Similar to the CoreData wrapper but with [Realm](https://realm.io) as a persistence solution instead.
+- [**ReactiveAPI**](https://github.com/SwiftReactive/ReacitveAPI):
 
 ## Teaching Reactive
 
