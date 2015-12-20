@@ -22,12 +22,12 @@ The reason behind choosing Swift *(besides being a cool language, and you know i
 
 - **Fluent Interface**: We don't have brackets anymore, `[self setBrackets:NO]`. Back in time, with Objective-C, if we wanted to chain different operations we ended up with an unreadable code full of brackets. Some libraries had to turn to defined macros in order to simplify their API. Rather, with Swift we can chain operations with a simple dot and consequently [fluent interfaces](https://en.wikipedia.org/wiki/Fluent_interface) are much more readable. The concatenation of operators applied to stream data is something frequently done in Reactive, and so the importance of having this feature in the language. If we take a look to the example below we can see how different operations are chained using custom operators to finally get a *stream* result of applying these operations to the source stream:
 
-{width=60%,float=center}
+{width=40%,float=left}
 ![Example showing the fluent interface using operators applied to the text being introduced in a UITextField](images/preface_fluent.png)
 
 - **Custom operators:** That make even more interesting the chaining of operations. In the example above the operator `|>` is used to apply a **function** to the input stream and return another stream with the events mapped using the function. As you can see functions have a remarkable importance in Reactive because they'll manipulate data sent through the streams.
 
-- **Generics and type safety:** With Objective-C it was impossible to specify the data type when you defined the stream of data. We used foundation types, NSArray, NSDictionary, NSObject, and the observer entities had to cast the data validating it in *execution time*. Thanks to Swift and the introduction of generics it's possible now to define that the stream source is a source of data, type X, and consequently the data sent is of type X. The types are tracked by the compiler thus your implementations are more robust.
+- **Generics and type safety:** With Objective-C it was impossible to specify the data type when you defined the stream of data. We used foundation types, `NSArray`, `NSDictionary`, `NSObject`, and the observer entities had to cast the data validating it in *execution time*. Thanks to Swift and the introduction of generics it's possible now to define that the stream source is a source of data, type X, and consequently the data sent is of type X. The types are tracked by the compiler thus your implementations are more robust.
 
 
 ## A book, an adventure
