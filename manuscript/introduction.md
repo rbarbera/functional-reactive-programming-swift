@@ -38,14 +38,14 @@ When I started with the reactive concepts one of my firsts concerns was understa
 Extensively used in Cocoa. It allows observing the state of the properties of a given object, and react to the changes. The main problem with KVO is that it’s not easy to use, the API is overloaded and it doesn’t offer and API based on blocks (closures in Swift).
 
 {width=100%}
-![Example observing a text field attribute changes](images/introduction_kvo.png)
+![Example observing a text field attribute changes.](images/introduction_kvo.png)
 
 ### Delegates
 
 This is one of the first patterns that you learn when you give your first steps in the iOS/OSX development since most of the Apple frameworks will stick to it. *UITableViewDelegate, UITableViewDataSource, UITextViewDelegate ...* are some examples. The main problem that this pattern presents is that there can only be one delegate registered. If we're working with a more complex scenario where only one entity is not enough, this pattern requires some modifications to support multiple delegates *(for example a proxy class)*.
 
 {width=100%}
-![Example of the delegate pattern using the UITextFieldDelegate](images/introduction_delegate.png)
+![Example of the delegate pattern using the UITextFieldDelegate.](images/introduction_delegate.png)
 
 ### Notifications
 
@@ -54,7 +54,7 @@ When it's complex to get closer to the events source in order to *subscribe* to 
 Reactive libraries available nowadays offer extensions to move from these patterns to reactive approaches. From generating signals from notifications sent to the NSNotificationCenter, to detecting taps on a UIButton.
 
 {width=100%}
-![Example using NSNotificationCenter to listen to CoreData saving notifications](images/introduction_notificationcenter.png)
+![Example using NSNotificationCenter to listen to CoreData saving notifications.](images/introduction_notificationcenter.png)
 
 ## Advantages
 
