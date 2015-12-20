@@ -16,6 +16,8 @@ All the events that take place in our app are now **events sources**, and these 
 
 You might have noticed that almost everything can be modeled as a stream of data, and you’re right. The components that you find in Cocoa framework and in most of libraries don’t offer public RP. Instead, you’ll find **extensions** that add the reactive behaviour to existing frameworks. We can then, create a native API to model user interactions with the app, the app with local data sources, and also, why not? with remote data sources.
 
+I> RxSwift has recently created a [community](http://community.rxswift.org/) publishing different projects, and extensions that are using RxSwift. You find projects like [RxAlamofire](https://github.com/RxSwiftCommunity/RxAlamofire) that makes the popular [Alamofire](https://github.com/Alamofire/Alamofire) Reactive. Or [Action](https://github.com/RxSwiftCommunity/Action) that encapsulates an action to be performed, usually by a button press. Contains helpful extensions on a variety of UI classes.
+
 The events received from these streams will be mostly consumed directly and won’t require any manipulation before using them, but one of the main advantages of RP is the ease of applying operators to these events. These operators are defined as a functions that can be applied to the stream. The term functional appears, and joins the RP pardigm, **Functional Reactive Programming**. We couldn’t imagine RP without the use of functional concepts.
 
 > An operator applied to a  stream is a function that given an input stream it returns another stream manipulating the events received by the source stream.
@@ -27,7 +29,7 @@ When we *consume* these events we can do it in two ways:
 
 For example, if we have a stream that sends collections of tasks to be shown in a table, and we have a collection that keeps a reference to the last returned collection, we can bind the signal that returns these collections to the collection property. That way it always reflect the last state when the stream sends new collections. It’s also very common use binding for UI elements. For example, updating the state of enabled in a button using a function that validates some text streams.
 
-> Remember, in RP we’re going to have three main components **Streams (observables), Operators and Bindings**. Later, we’ll see each of them with more details and the available operations.
+I> Remember, in RP we’re going to have three main components **Streams (observables), Operators and Bindings**. Later, we’ll see each of them with more details and the available operations.
 
 ## Observation patterns
 When I started with the reactive concepts one of my firsts concerns was understanding which similar patters I had been using so far, the problems they presented, and how FRP could help or make them easier. You probably use some of them daily:
@@ -35,9 +37,8 @@ When I started with the reactive concepts one of my firsts concerns was understa
 ### KVO
 Extensively used in Cocoa. It allows observing the state of the properties of a given object, and react to the changes. The main problem with KVO is that it’s not easy to use, the API is overloaded and it doesn’t offer and API based on blocks (closures in Swift).
 
-~~~~~~~~
-objectToObserve.addObserver(self, forKeyPath: "myDate", options: .New, context: &myContext)
-~~~~~~~~
+{width=100%}
+![Example observing a text field attribute changes](images/introduction_kvo.png)
 
 ### Delegates
 
@@ -113,66 +114,5 @@ RxSwift offers in its repository a very interesting [comparative table](https://
 
 Both offer basic components to work with Reactive, in the case of RxSwift some advantages and functionality that are not available in ReactiveCocoa. Moreover the syntax and operators are lightly different.
 
-My recommendation is that you choose one and get familiar with it.
-
-### Add ReactiveCocoa to your projects
-In order to integrate ReactiveCocoa in your projects you can do it on several ways. The most recommended ones are using Carthage, or using CocoaPods.
-
-**Carthage**
-
-It's the default integration option. If you don't know about Carthage yet I recommend you to take a look to its [documentation](https://github.com/Carthage/Carthage) where they explain how to install it in your system. Once you have it:
-
-1. Edit or create a file called **Cartfile** and add the following line `github "ReactiveCocoa/ReactiveCocoa"`
-2. Execute the command: `carthage update`
-3. Follow the steps in the documentation to add the generated framework to your project.
-
-**Cocoapods**
-
-ReactiveCocoa doesn't offer direct support to CocoaPods but there are some unofficial [.podspec](https://github.com/CocoaPods/Specs/tree/master/Specs/ReactiveCocoa) moving around to use them with CocoaPods. These `.podspec` are include in the list of CocoaPods so  you can use them directly in your **Podfile**:
-
-1. Edit or create the file **Podfile**. If you haven't used CocoaPods before, in this [link](https://cocoapods.org) you'll find more information about the file structure.
-2. Add the line that specify the pod of ReactiveCocoa `pod ReactiveCocoa`
-3. Execute the command `pod install` to integrate ReactiveCocoa
-4. Remember opening the project using the file `.xcworkspace`
-
-Now you have ReactiveCocoa in your project. To use it from Swift remember to import the framework in any Swift file where you're going to use the framework.
-
-~~~~~~~~
-import ReactiveCocoa
-~~~~~~~~
-
-### Add RxSwift to your projects
-In order to integrate RxSwift in your projects you can do it on several ways. The most recommended ones are using Carthage, or using CocoaPods.
-
-**Carthage**
-
-It's the default integration option. If you don't know about Carthage yet I recommend you to take a look to its [documentation](https://github.com/Carthage/Carthage) where they explain how to install it in your system. Once you have it:
-
-1. Edit or create a file called **Cartfile** and add the following line `github "ReactiveX/RxSwift" "2.0.0-beta.4"`
-2. Execute the command: `carthage update`
-3. Follow the steps in the documentation to add the generated framework to your project.
-
-**Cocoapods**
-
-If you prefer using CocoaPods you'll hav eto use the option `use_frameworks!` of CocoaPods in your `Podfile`. For `tvOS` support you'll also need the version of CocoaPods 0.39:
-
-1. Edit or create the file **Podfile**. If you haven't used CocoaPods before, in this [link](https://cocoapods.org) you'll find more information about the file structure.
-2. Add the following lines:
-
-~~~~~~~~
-pod 'RxSwift', '~> 2.0.0-beta'
-pod 'RxCocoa', '~> 2.0.0-beta'
-pod 'RxBlocking', '~> 2.0.0-beta'
-~~~~~~~~
-
-Then execute the command `pod install` and open your project using the file `.xcworkspace`.
-
-Now you have RxSwift in your project. To use it from Swift remember to import the framework in any Swift file where you're going to use the framework.
-
-~~~~~~~~
-import RxSwift
-import RxCocoa
-import RxBlocking
-~~~~~~~~
-
-I> There's a very recommended [article](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754) that you should read if it's the first time you read about Reactive. Reactive Programming is presented from a most generic point of view and with the core ideas behind Reactive Programming.
+- In order to add ReactiveCocoa in your project you can wether do it with [CocoaPods](https://cocoapods.org) or [Carthage](https://github.com/carthage/carthage). You'll find the steps in the [repository](https://github.com/reactivecocoa/reactivecocoa) `README` file.
+- If you prefer [RxSwift](https://github.com/ReactiveX/RxSwift) instead its repository include detailed steps to add it to your project.

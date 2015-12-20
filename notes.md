@@ -7,6 +7,7 @@
 - Avoid abreviations.
 
 ## Leanpub
+W> Warning
 X> Exercise
 D> Discussion
 Q> Question
