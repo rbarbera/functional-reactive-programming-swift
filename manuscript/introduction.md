@@ -44,13 +44,8 @@ Extensively used in Cocoa. It allows observing the state of the properties of a 
 
 This is one of the first patterns that you learn when you give your first steps in the iOS/OSX development since most of the Apple frameworks will stick to it. *UITableViewDelegate, UITableViewDataSource, UITextViewDelegate ...* are some examples. The main problem that this pattern presents is that there can only be one delegate registered. If we're working with a more complex scenario where only one entity is not enough, this pattern requires some modifications to support multiple delegates *(for example a proxy class)*.
 
-~~~~~~~~
-func tableView(tableView: UITableView,
-  cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-return UITableViewCell()
-
-}
-~~~~~~~~
+{width=100%}
+![Example of the delegate pattern using the UITextFieldDelegate](images/introduction_delegate.png)
 
 ### Notifications
 
@@ -58,19 +53,16 @@ When it's complex to get closer to the events source in order to *subscribe* to 
 
 Reactive libraries available nowadays offer extensions to move from these patterns to reactive approaches. From generating signals from notifications sent to the NSNotificationCenter, to detecting taps on a UIButton.
 
-~~~~~~~~
-NSNotificationCenter
-  .defaultCenter()
-  .addObserver(self, selector: "contextWillSave:", name: NSManagedObjectContextWillSaveNotification, object: self)
-~~~~~~~~
+{width=100%}
+![Example using NSNotificationCenter to listen to CoreData saving notifications](images/introduction_notificationcenter.png)
 
 ## Advantages
 
-The FRP has big advantages used in contexts where it's pretty straightforward modeling the flow of events as a stream. As I commented previously, everything can be modeled as an stream, and you can in fact have a project fully reactive, but from my point of view, you'll end up having a very complex logic for streams generation that will make more difficult the readability of your code.
+RP has big advantages used in contexts where it's pretty straightforward modeling the flow of events as a stream. As I commented previously, everything can be modeled as an stream, and you can in fact have a project fully reactive, but from my point of view, you'll end up having a very complex logic for streams generation that will make more difficult the readability of your code.
 
 > With Reactive Programming happens something similar to Functional Programming. It's a paradigm in programming that has been more widely used on the iOS/OSX development with the launch of Swift. There's no need to feel overwhelmed and feel a big pressure to migrate your projects towards these paradigms. Use these in your projects as you see you're comfortable with them and you feel that your project requires them in some components.
 
-After some months using ReactiveCocoa in my projects, especially in the data source *(local & remote)* I noticed a set of advantages:
+After some months using RP in my projects, especially in the data source *(local & remote)* I noticed a set of advantages:
 
 - **Multiple observers:** A stream doesn't limit the number of observers. You can subscribe as much as you want and all of them will receive the events sent by the stream simultaneously. You can even specify *buffering* rules to send previous events to new observers and avoid repeating tasks that have already been executed.
 - **Security with types:** Thanks to the use of generics we can have validation with types at the compilation time and avoid having to deal with unknown types like *AnyObjects* or *NSObjects*.
@@ -79,14 +71,8 @@ After some months using ReactiveCocoa in my projects, especially in the data sou
 - **Easy composition and reusability:** The streams can be combined in many ways *(thanks to the operators that frameworks provide)*. Moreover we can create our own operators according to our needs. Frameworks recommend you trying to use the existing one because these have been perfectly designed keeping all the principles of the Reactive in mind.
 - **Error handling:** By default Reactive frameworks offer error handling operators. In case of failure operations are retried according to your specified rules. For example, if a stream receives a response from an HTTP request and we want that request to be retried in case of reciving an specific error we can use these operators and auto retry that request.
 
-~~~~~~~~
-NSURLSession.sharedSession().rac_dataWithRequest(URLRequest)
-.retry(2)
-.catch { error in
-  println("Network error occurred: \(error)")
-  return SignalProducer.empty
-}
-~~~~~~~~
+{width=100%}
+![Reactive request using NSURLSession. The request is automatically retried in case of getting an error response.](images/introduction_request.png)
 
 - **State simplification:** Due to the fact that data flow is modeled in an unidirectional way the number of states that can be involved in these operations is reduced making our code more stable and robust.
 
