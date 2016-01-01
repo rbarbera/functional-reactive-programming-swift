@@ -95,10 +95,89 @@ Thus, when you define your operations keep in mind the elements that you're usin
 **Debugging** is not easy with Reactive Programming. In Imperative Programming we can easily define breakpoints in different parts of our code and debug the execution thank to them. In this case we end up with reusable functions that are passed around, combined and structured. These functions know nothing about where they're called from, nor which Reactive stream they belong to. There're some tricks for this but we'll explain them later on.
 
 ## Frameworks for Swift
+
 We've currently multiple options to work with Reactive, the two most popular are **RxSwift** and **ReactiveCocoa**.
 RxSwift offers in its repository a very interesting [comparative table](https://github.com/ReactiveX/RxSwift) to understand the differences between RxSwift and other frameworks *(some of them are not directly related to the Reactive paradigm)*
 
-Both offer basic components to work with Reactive, in the case of RxSwift some advantages and functionality that are not available in ReactiveCocoa. Moreover the syntax and operators are lightly different.
+### How does ReactiveCocoa relate to Rx?
 
-- In order to add ReactiveCocoa in your project you can wether do it with [CocoaPods](https://cocoapods.org) or [Carthage](https://github.com/carthage/carthage). You'll find the steps in the [repository](https://github.com/reactivecocoa/reactivecocoa) `README` file.
-- If you prefer [RxSwift](https://github.com/ReactiveX/RxSwift) instead its repository include detailed steps to add it to your project.
+ReactiveCocoa was originally inspired, and therefore heavily influenced, by
+Microsoft’s [Reactive
+Extensions](https://msdn.microsoft.com/en-us/data/gg577609.aspx) (Rx) library. There are many ports of Rx, including [RxSwift](https://github.com/ReactiveX/RxSwift), but ReactiveCocoa is _intentionally_ not a direct port.
+
+**Where RAC differs from Rx**, it is usually to:
+
+ * Create a simpler API
+ * Address common sources of confusion
+ * More closely match Cocoa conventions
+
+The following are some of the concrete differences, along with their rationales.
+
+#### Naming
+
+In most versions of Rx, Streams over time are known as `Observable`s, which
+parallels the `Enumerable` type in .NET. Additionally, most operations in Rx.NET
+borrow names from [LINQ](https://msdn.microsoft.com/en-us/library/bb397926.aspx),
+which uses terms reminiscent of relational databases, like `Select` and `Where`.
+
+**RAC is focused on matching Swift naming first and foremost**, with terms like
+`map` and `filter` instead. Other naming differences are typically inspired by
+significantly better alternatives from [Haskell](https://www.haskell.org) or
+[Elm](http://elm-lang.org) (which is the primary source for the “signal”
+terminology).
+
+#### Signals and Signal Producers (“hot” and “cold” observables)
+
+One of the most confusing aspects of Rx is that of [“hot”, “cold”, and “warm”
+observables](http://www.introtorx.com/content/v1.0.10621.0/14_HotAndColdObservables.html) (event streams).
+
+In short, given just a method or function declaration like this, in C#:
+
+```csharp
+IObservable<string> Search(string query)
+```
+
+… it is **impossible to tell** whether subscribing to (observing) that
+`IObservable` will involve side effects. If it _does_ involve side effects, it’s
+also impossible to tell whether _each subscription_ has a side effect, or if only
+the first one does.
+
+This example is contrived, but it demonstrates **a real, pervasive problem**
+that makes it extremely hard to understand Rx code (and pre-3.0 ReactiveCocoa
+code) at a glance.
+
+[ReactiveCocoa 3.0][CHANGELOG] has solved this problem by distinguishing side
+effects with the separate [`Signal`][Signals] and [`SignalProducer`][Signal producers] types. Although this
+means there’s another type to learn about, it improves code clarity and helps
+communicates intent much better.
+
+In other words, **ReactiveCocoa’s changes here are [simple, not
+easy](http://www.infoq.com/presentations/Simple-Made-Easy)**.
+
+#### Typed errors
+
+When [signals][] and [signal producers][] are allowed to [fail][Events] in ReactiveCocoa,
+the kind of error must be specified in the type system. For example,
+`Signal<Int, NSError>` is a signal of integer values that may fail with an error
+of type `NSError`.
+
+More importantly, RAC allows the special type `NoError` to be used instead,
+which _statically guarantees_ that an event stream is not allowed to send a
+failure. **This eliminates many bugs caused by unexpected failure events.**
+
+In Rx systems with types, event streams only specify the type of their
+values—not the type of their errors—so this sort of guarantee is impossible.
+
+#### UI programming
+
+Rx is basically agnostic as to how it’s used. Although UI programming with Rx is
+very common, it has few features tailored to that particular case.
+
+RAC takes a lot of inspiration from [ReactiveUI](http://reactiveui.net/),
+including the basis for [Actions][].
+
+Unlike ReactiveUI, which unfortunately cannot directly change Rx to make it more
+friendly for UI programming, **ReactiveCocoa has been improved many times
+specifically for this purpose**—even when it means diverging further from Rx.
+
+> In order to add ReactiveCocoa in your project you can wether do it with [CocoaPods](https://cocoapods.org) or [Carthage](https://github.com/carthage/carthage). You'll find the steps in the [repository](https://github.com/reactivecocoa/reactivecocoa) `README` file. If you prefer [RxSwift](https://github.com/ReactiveX/RxSwift) instead its repository include detailed steps to add it to your project.

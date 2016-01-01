@@ -1,74 +1,88 @@
 # Concepts
 
-## Signal
+This section will get you through RP concepts and the components that implement these concepts in both, ReactiveCocoa and RxSwift. This section is structured as a reference. If you are already familiar with RP concepts, or you have use any other ReactiveX framework before, you can jump directly into the next section. If not, this section is very important, do not skip it.
 
-A signal represents a stream of *events*. Think on a signal as an encapsulated operation that sends events of its execution status. Three kind of events are sent to a set of observers that are interested in the execution of that signal. Signals in **ReactiveCocoa** send events no matter if there aren't observers and the encapsulated operation is executed when the signal is initializeid:
 
-> You can find scenarios where you're going to observe a signal and that has already sent some events. In other Reactive frameworks these signals are called *Hot Signals* because they are sending events even if nobody asked for them.
+I> If you're interested in learning only one of the frameworks (ReactiveCocoa or RxSwift) you can just read only the subsections that belong to your selected framework. There are some subsections that make a comparison between both of them that are interesting in order to understand the principles of both Reactive solutions.
 
-**Some examples of signals**
-If you think about data sources that we're used to work with daily the ones shown below can be modeled as signals:
+I> RxSwift documentation is available [here](https://github.com/ReactiveX/RxSwift/tree/master/Documentation)
+I> ReactiveCocoa documentation is available [here](https://github.com/ReactiveCocoa/ReactiveCocoa/tree/master/Documentation)
+
+## Observables
+
+As you might have guessed from its name, an `Observable` is *"something"* whose changes can be observed. In RP `Observable`s behave like streams, thus, they start sending data, deliver one or multiple events and then complete, successfuly or not. `Observable`s can be **Hot** and **Cold**. According to [ReactiveX.io](http://reactivex.io)
+
+> When does an Observable begin emitting its sequence of items? It depends on the Observable. A “hot” Observable may begin emitting items as soon as it is created, and so any observer who later subscribes to that Observable may start observing the sequence somewhere in the middle. A “cold” Observable, on the other hand, waits until an observer subscribes to it before it begins to emit items, and so such an observer is guaranteed to see the whole sequence from the beginning.
+
+In order to make this distinction more clear in ReactiveCocoa they decided to use a different naming more explicit. ReactiveCocoa defines cold `Observables` as `SignalProducers`, and hot `Observables` as `Signals` but the meaning at the end is the same. This distinction might be initially confusing but as you go through RP it becomes more clear.
+
+Extracted form [RxSwift](https://github.com/ReactiveX/RxSwift/edit/master/Documentation/HotAndColdObservables.md) the following table shows a comparative between Hot and Cold observables:
+
+| Hot Observables                                                                                         | Cold observables                                                              |
+|---------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------|
+| ... are sequences                                                                                       | ... are sequences                                                             |
+| Use resources ("produce heat") no matter if there is any observer subscribed.                           | Don't use resources (don't produce heat) until observer subscribes.           |
+| Variables / properties / constants, tap coordinates, mouse coordinates, UI control values, current time | Async operations, HTTP Connections, TCP connections, streams                  |
+| Usually contains ~ N elements                                                                           | Usually contains ~ 1 element                                                  |
+| Sequence elements are produced no matter if there is any observer subscribed.                           | Sequence elements are produced only if there is a subscribed observer.        |
+| Sequence computation resources are usually shared between all of the subscribed observers.              | Sequence computation resources are usually allocated per subscribed observer. |
+| Usually stateful                                                                                        | Usually stateless
+
+### Examples
+
+####  Hot Observables / Signals
+
+If we think about data sources that we are used to work with daily the ones shown below can be modeled as a `Signal`/`Hot Observable`:
 
 - **GPS positions**: When the GPS tracking is enabled, that returns a signal that we'll observe. Every new position is an event sent through the signal. When we are not interested in these events anymore or the GPS tracking gets disabled the signal will get completed.
-- **Text introduced in a field text**: The life time of the signal would be the life time of the view where the the textfield view is. If during that period the user introduces text in the textfield we'll receive that text through a signal and we'll be able to manipulate and process that information.
+- **Text introduced in a field text**: The life time of the signal would be the life time of the view where the the textfield view is. If during that period the user introduces text in the textfield we will receive that text through a signal and we will be able to manipulate and process that information.
 - **Push notifications reception**: We can in this case model a signal that is active during the app life cycle and whose events are push notifications that have been received and notified to the AppDelegate of your application.
 
-Sounds interesting, right? Three examples above use the delegate pattern to propagate information about what happened to the delegate entity of these components. Later on we'll learn how to turn these patterns into Reactive, and you'll learn how to create a signal of push notifications, or a signal for GPS positions that you can use wherever you want in your app.
+Sounds interesting, right? Three examples above use the delegate pattern to propagate information about what happened to the delegate entity of these components. Later on we will learn how to turn these patterns into Reactive.
 
-In the example project you'll find the example `intro_signal.swift` where the GPS data source is modeled with Reactive. Don't worry if you don't know any of the concepts used there. What we do is create a `LocationManager` which is subclass of `CLLocationManager` and its delegate is itself. Internally we have two attributes, an *Observer* and a *Signal*. Signal allows us to observe events, and it's `internal` in order to have visibility in the target where this component is being used. We also have an observer that is like a sink where we can send the events through. Events sent to this observer are forwarded to the signal observers:
+#### Examples of Cold Observables / SignalProducers
+
+A `SignalProducer`/`Cold Observable` represents an operation whose execution is controlled. They generally return a value before completing. Some examples of these could be:
+
+- **HTTP Request**: An observable could model an HTTP Request. When it gets executed instead of returning the values using completion closures as we are used to in the Imperative Programming, request response is forwarded through the stream. Observers automatically recevie the response.
+- **Database Fetch Operation**: Our designed observable can execute a fetch into the database and return the results through the stream to notify all the interested observers.
+- **View Presentation**: And not only data, we can also encapsulate UI-related operations. For example, a presentation of an `UIViewController` could be encapsulated in an operation. Once subscribed, the view will be presented.
+
+### Event types
+
+Apart from sending data event, signal also support sending events that mean the signal was completed due to any reason.
+
+**ReactiveCocoa**
+
+`Signal`s and `SignalProducer`s in Reactive Cocoa are generic types. You ca specify the data and the error type of these objects.
 
 ~~~~~~~~
-import Foundation
-import ReactiveCocoa
-import CoreLocation
-
-class LocationManager: CLLocationManager, CLLocationManagerDelegate {
-
-    enum GPSError: ErrorType { }
-
-    // MARK: - Attributes
-
-    private let gpsObserver: Observer<CLLocation, GPSError>
-    let gpsSignal: Signal<CLLocation, GPSError>
-
-
-    // MARK: - Init
-
-    override init() {
-        let gps = Signal<CLLocation, GPSError>.pipe()
-        gpsObserver = gps.1
-        gpsSignal = gps.0
-        super.init()
-        self.delegate = self
-    }
-
-
-    // MARK: - Deinit
-
-    deinit {
-        gpsObserver.sendCompleted()
-    }
-
-
-    // MARK: - CLLocationManagerDelegate
-
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
-        gpsObserver.sendNext(location)
-    }
-}
+Signal<CLLocation, NSError>
+SignalProducer<Account, ApiError>
 ~~~~~~~~
 
-#### Event types
+Thanks to *generics* we can now at every point the kind of data we're expecting.
 
-Apart from sending data event, signal also support sending events that mean the signal was completed due to any reason. Supposing we have a signal `Signal<Value, CustomError>` the events that can be delivered by this signal are:
+**RxSwift**
 
-- **Next(Value):** This event mean that there's a new value. Signals can send multiple events of this type before completion. Al subscribers receive same events.
-- **Failed(CustomError):** If the operation fails for any reason, the signal sends a `Failed` event including the error that caused the operation failing. After this one, no more `Next` events will be sent.
-- **Interrupted:** As signals can be *disposed*, they notify when they're disposed sending an `Interrupted` event. No more `Next` events are received after this one.
-- **Completed:** When this event is received it means that the signal operation was completed, after this event we won't receive more `Next` events from that signal.
+RxSWfit also provide their `Observable`s as generic types but in this ase you can only specify the value.
 
-#### Creating a Signal
+~~~~~~~~
+Observable<CLLocation>
+~~~~~~~~
+
+In Reactive Programming the list of events that can be delivered are:
+
+- **Next(Value):** This event means that there is a new value. Multiple events of this type can be sent before the completion. All subscribers receive same events.
+- **Failed(CustomError):** If the operation fails for any reason, a `Failed` event  is sent  including the error that caused the operation failing. After this one, no more `Next` events will be sent since the stream completed.
+- **Completed:** When this event is received it means that the operation was completed successsfuly, after this event we won't receive more `Next` events through the stream.
+
+There is an extra event that ReactiveCocoa implements and that is not available in RxSwift:
+
+- **Interrupted:** As signals can be disposed *(cancelled)*, they notify when they're disposed sending an `Interrupted` event. No more `Next` events are received after this one.
+
+
+### Creating Signals (ReactiveCocoa)
 
 **Defining its operation in a closure**: You can create a signal that executes an specific operation that you can define using a closure as shown in the following example:
 
@@ -94,15 +108,11 @@ Apart from sending data event, signal also support sending events that mean the 
 
   The closure returns a class object that conforms the **Disposable** protocol. A disposable is a reference object that allows the operation disposing whenever we need it. For example if we want to cancel an import operation because something unexpected happened.
 
-**Using a pipe**: If our *operation* cannot be encapsulated so that we can define it when the signal is initialized we can use `pipe()`. With pipe we create an an *Observer* and a *Signal*. As in the previous example the observer behaves as a sink that forwards the events to the signal. Observers are typically kept as private in terms of visibility and only the signals are exposed. That way you create a private scope where you can control the signal from. The example presented in `intro_signal.swift` conforms that pattern.
+**Using a pipe**: If our *operation* cannot be encapsulated so that we can not define it when the signal is initialized we can use `pipe()`. With pipe we create an an *Observer* and a *Signal*. As in the previous example the observer behaves as a sink that forwards the events to the signal. Observers are typically kept as private in terms of visibility and only the signals are exposed. That way you create a private scope where you can control the signal from.
 
-## Signal Producer
+//TODO
 
-As we can imagine from its name, these components "produce signals". The easiest way to understand a signal producer is thinking on it as a signal that gets executed when we specify it. Signal producers encapsulate operations that are executed when we call a method in the producer, `start()`.
-
-From now I'll refer to **Signals** when I talk about producers or signals in general. Explained concepts and operators are valid for both of them.
-
-#### Creating a Signal Producer
+### Creating SignalProducers (ReactiveCocoa)
 
 Producers can be initialized on several ways depending on your requirements. The available options are listed below:
 
@@ -158,32 +168,10 @@ Producers can be initialized on several ways depending on your requirements. The
   private let neverProducer: SignalProducer<String, NoError> = SignalProducer.never
   ~~~~~~~~
 
+### Creating Observables (RxSwift)
 
-### Signal or Signal Producers?
+// TODO
 
-After this quick introduction of these two concepts you might be wondering when you should use one or another. They seem similar, they encapsulate an operation that sends events of its status and we've a set of observers listening to these events. There's a a small difference though that make signals useful for some scenarios and signal producers for anothers. Remember:
-
-- **Signal:** It's started when it's created.
-- **Signal producer:** It's started when you call its `start()` method.
-
-With that in mind the use of `signals` makes more sense in a context where we have continuous delivering of events and we can observe them at any time. Some example of continuous events that could be modeled with `signals` could be:
-
-- Changes in the device connectivity: `Signal<Connectiviy, NoError>`
-- New GPS locations: `Signal<CLLocation, NoError>`
-- User taps in a button: `Signal<Void, NoError>`
-- Text introduced in a text field: `Signal<String, NoError>`
-- App lifecycle events: `Signal<LifeEvent, NoError>`
-
-These lifetime of these signals depend of the lifetime of the component that is controlling the signal *(e.g. text introduced in a text field would be controlled by the textview delegate. When that delegate gets deallocated from memory, the signal will be completed and released)*.
-
-On the other side `signal producers` are more useful in discrete operations whose execution we want to have control over. They are like commands but in this case observers are notified in a Reactive way with an stream of events. Some examples of operations that could be modeled with `signal producers` could be:
-
-- HTTP web request: `SignalProducer<AnyObject, HTTPError>`
-- Database fetching: `SignalProducer<Person, StoreError>`
-- Data saving using NSFileManager: `SignalProducer<Void, FileError>`
-- Applying filters to an image: `SignalProducer<UIImage, FilterError>`
-
-> Whenever you have doubts about using a Signal or a SignalProducer think if the events will be delivered continuously for a long period of time. In that case you'll need a Signal. If the events have a more discrete behaviour in time, then you'll need a SignalProducer.
 
 ## Observers
 
